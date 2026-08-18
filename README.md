@@ -1,47 +1,65 @@
 # Enterprise Intelligence & Decision Platform
 
-> An end-to-end, enterprise-grade ML & Multi-Agent Autonomous Intelligence Platform spanning synthetic data engineering, PostgreSQL/dbt dimensional warehousing, 4 production ML models, MLflow model registry, drift-triggered automated retraining, champion/challenger evaluation gating, FastAPI REST scoring, multi-agent business decisioning, AWS production deployment architecture (IaC), and a React Control Tower Web Application.
+> An end-to-end, enterprise-grade ML & Multi-Agent Autonomous Intelligence Platform spanning synthetic data engineering, PostgreSQL/dbt dimensional warehousing, 4 production ML models, MLflow model registry, drift-triggered automated retraining, champion/challenger evaluation gating, FastAPI REST scoring, multi-agent business decisioning, AWS production deployment architecture (IaC), and a 7-Page Power BI-Style Control Tower Web Application.
 
 ---
 
-## 📸 Executive Control Tower UI Gallery (All 6 Screens)
+## 🎬 Live 2-to-3 Minute Application Demo & Interactive Walkthrough
 
-### 1. Executive Overview
-![Executive Overview View](docs/architecture/control_tower_overview.svg)
-*Executive KPIs (£77.2M revenue, 1,000 customers, 5,863 decisions), MLOps active model registry, and live pipeline status.*
+![Interactive Control Tower Demo](docs/videos/control_tower_walkthrough.webp)
 
-### 2. Customer Churn Intelligence
-![Customer Intelligence View](docs/architecture/customer_intelligence.svg)
-*High Churn Risk Customer Intervention Desk displaying predicted probabilities (70.45% recall), inactive days, revenue, and CSAT scores.*
-
-### 3. SKU Demand Forecasting
-![Demand Intelligence View](docs/architecture/demand_intelligence.svg)
-*Daily item-level sales forecasting featuring 95% confidence bounds (`lower_bound_95`, `upper_bound_95`) and 7-day rolling sales trends.*
-
-### 4. Inventory Stockout Risk & Automated Reorder Desk
-![Inventory Intelligence View](docs/architecture/inventory_intelligence.svg)
-*7-day predicted stockout risk alerts ($\text{PR-AUC} = 0.9425$) with EOQ reorder recommendations and stock levels.*
-
-### 5. Predictive Machine Telemetry & Maintenance Desk
-![Operations Intelligence View](docs/architecture/operations_intelligence.svg)
-*Isolation Forest anomaly scores and Random Forest 24h failure probabilities with guaranteed $\ge 6\text{h}$ lead-time warning alerts.*
-
-### 6. AI Decision Center (Stage 10 Multi-Agent Audit Trail)
-![AI Decision Center View](docs/architecture/ai_decision_center.svg)
-*Collaborative Multi-Agent Bus audit trail displaying Domain Proposals $\rightarrow$ Critic Challenges $\rightarrow$ Risk Exposure Audits $\rightarrow$ Final Decision Manager Verdicts.*
+*Interactive Power BI Control Tower walkthrough demonstrating dynamic global slicers, 7 analytical report pages, real-time Recharts visualizations, management action center, and transparent multi-agent reasoning chains.*
 
 ---
 
-## 🎬 2-to-3 Minute Application Demo Video & Walkthrough Script
+## 📸 Executive Power BI Control Tower Gallery (7 Analytical Report Pages)
 
-| Timecode | Screen / Focus Area | Narrative Audio Script |
-| :--- | :--- | :--- |
-| **00:00 - 00:30** | **Executive Overview** | *"Welcome to the Enterprise Intelligence Control Tower. This platform orchestrates £77.2M in revenue and 1,000 enterprise customers across a PostgreSQL and dbt Gold data warehouse."* |
-| **00:30 - 01:00** | **Customer Churn** | *"In Customer Intelligence, our XGBoost model predicts churn at 70.45% recall ($t=0.11$), flagging high-risk customers for priority retention interventions."* |
-| **01:00 - 01:30** | **Demand & Inventory** | *"Our Ridge SKU demand forecaster computes daily predictions with 95% confidence bands, feeding directly into our 7-day stockout risk engine ($\text{PR-AUC} = 0.9425$)."* |
-| **01:30 - 02:00** | **Machine Telemetry** | *"In Operations, predictive maintenance models achieve 100% event recall with a $\ge 6\text{h}$ lead-time failure warning, preventing unplanned factory downtime."* |
-| **02:00 - 02:30** | **AI Decision Center** | *"The AI Decision Center exposes our Stage 10 Multi-Agent Bus: Domain Agents propose actions, the Critic checks sanity, Risk calculates financial exposure, and Decision Manager issues transparent verdicts."* |
-| **02:30 - 03:00** | **MLOps & AWS Cloud** | *"Underneath, MLflow tracks models, Kolmogorov-Smirnov drift triggers targeted retraining, and GitHub Actions deploys Docker images to AWS ECS Fargate via Terraform IaC."* |
+### 1. ⭐ Executive Overview Report Page
+![1. Executive Overview](docs/images/01_executive_overview.png)
+- **Business Purpose**: High-level cross-domain summary for C-suite executives answering enterprise revenue growth, order volume, churn exposure, machine health, and high-priority action items within 10–15 seconds.
+- **Visual Features**: 8 Executive KPI Cards (`£77.24M Revenue`, `10,000 Orders`, `1,000 Customers`, `28,450 Units`, `£7,723 AOV`, `5,863 AI Decisions`, `6.5% Escalated Risk Rate`, `4 Active Models`), Monthly Revenue Run-Rate AreaChart, Category Revenue BarChart, Orders/Units Volume ComposedChart, AOV LineChart, Cross-Domain Risk Exposure BarChart, 🚨 Management Action Center, and Collapsible `⚙ Diagnostics` Drawer.
+
+---
+
+### 2. 📈 Sales & Demand Analytical Report Page
+![2. Sales & Demand](docs/images/02_sales_and_demand.png)
+- **Business Purpose**: In-depth commercial sales performance and SKU-level demand forecasting for sales directors and demand planners.
+- **Visual Features**: Top 10 Product SKUs by Revenue BarChart, Monthly Revenue & Orders Trend AreaChart, Product Category Mix BarChart, and Ridge Machine Learning SKU Demand Forecasts with 95% Confidence Bounds (`lower_bound_95`, `upper_bound_95`) + Item-Level SKU Audit Table.
+
+---
+
+### 3. 👥 Customer Intelligence Report Page
+![3. Customer Intelligence](docs/images/03_customer_intelligence.png)
+- **Business Purpose**: Predict customer churn risk, RFM account segmentation, and customer lifetime value (LTV) spend patterns for marketing and customer success teams.
+- **Visual Features**: XGBoost Churn Risk Tier DonutChart (`Low Risk`, `Medium Risk`, `High Risk`), Customer Tiers Spend BarChart, RFM Matrix Breakdown, Customer Spend vs. Churn Risk Probability ScatterPlot, and High-Risk Customer Intervention Desk.
+
+---
+
+### 4. 📦 Inventory Risk Report Page
+![4. Inventory Risk](docs/images/04_inventory_risk.png)
+- **Business Purpose**: 7-day stockout risk mitigation, warehouse inventory valuation, and automated Economic Order Quantity (EOQ) reordering for supply chain management.
+- **Visual Features**: Inventory Valuation (`£4.8M`), 7-Day Stockout Risk DonutChart ($\text{PR-AUC} = 0.9425$), Warehouse Risk Comparison BarChart, and 7-Day Stockout Alert & Automated EOQ Reorder Table.
+
+---
+
+### 5. ⚙️ Machine Operations Report Page
+![5. Machine Operations](docs/images/05_machine_operations.png)
+- **Business Purpose**: Factory telemetry monitoring, anomaly detection, and predictive maintenance scheduling to eliminate unplanned manufacturing downtime.
+- **Visual Features**: Fleet Machine Health Status DonutChart (`Healthy`, `Warning`, `Critical`), Telemetry Sensor Time-Series Trend LineChart (Temperature & Vibration), and Predictive Maintenance Audit Desk ($\ge 6\text{h}$ lead-time warning alerts).
+
+---
+
+### 6. 🤖 MLOps Health Report Page
+![6. MLOps Health](docs/images/06_mlops_health.png)
+- **Business Purpose**: Production ML model governance, Population Stability Index (PSI) drift tracking, automated retraining status, and model registry evaluation.
+- **Visual Features**: Active Champion Model Cards, Production Model PSI Drift Score BarChart, and MLflow Model Registry Audit Desk tracking model versions (`v1.0.0_XGBoost`, `v1.0.0_Ridge`, `v1.0.0_XGBoost_7d`, `v1.0.0_RF_IsolationForest`).
+
+---
+
+### 7. 🧠 AI Decision Center Report Page
+![7. AI Decision Center](docs/images/07_ai_decision_center.png)
+- **Business Purpose**: Stage 10 Multi-Agent Bus audit trail and explainable AI reasoning inspection for senior operations managers and compliance auditors.
+- **Visual Features**: Decision Verdict Distribution PieChart (`Clean Approved`, `Approved w/ Conditions`, `Escalated`), 5-Stage Agent Bus Execution Funnel (`Domain Proposal` $\rightarrow$ `Critic Challenge` $\rightarrow$ `Risk Exposure` $\rightarrow$ `Decision Manager`), Decision Audit Desk, and Interactive JSON Reasoning Chain Inspection Modal.
 
 ---
 
@@ -70,7 +88,7 @@ Multi-Agent Decisioning (Stage 10 AgentBus)
       ↓
 FastAPI Scoring REST API (:8000)
       ↓
-React Executive Control Tower (:3000)
+React Control Tower (:3000)
       ↓
 Automated Business Decisions (5,863 Persisted)
 ```
@@ -94,7 +112,7 @@ Automated Business Decisions (5,863 Persisted)
 - **Total Registered Customers**: **1,000 Customers**
 - **Total Persisted Agent Decisions**: **5,863 Decisions**
 - **Escalated Decisions**: **380 Escalations** (6.4% escalation rate for senior human approval)
-- **Automated Integration Test Pass Rate**: **45/45 Tests Passing (100% Pass Rate)**
+- **Automated Integration Test Pass Rate**: **48/48 Tests Passing (100% Pass Rate)**
 
 ---
 
@@ -119,8 +137,12 @@ docker-compose up --build -d
 
 ## 📌 Portfolio Resume Positioning
 
-> **Enterprise Intelligence & Decision Platform (Lead Engineer)**
-> - Built an end-to-end Enterprise ML & Multi-Agent Autonomous Intelligence System spanning PostgreSQL/dbt star-schema warehousing (£77.2M revenue, 1k customers), 4 production ML models, MLflow registry, FastAPI REST scoring, multi-agent decision hierarchy, AWS cloud architecture (IaC), and a React Control Tower Web Application.
-> - Developed dual predictive maintenance models (Isolation Forest + Random Forest) leveraging 6-hour rolling feature windows to achieve 100% event recall with $\ge 6\text{h}$ failure lead-time warning across machine fleet.
-> - Architected a domain-targeted MLOps retraining engine that triggers targeted retraining under feature drift, enforcing strict champion vs. challenger holdout evaluation gates before MLflow promotion.
-> - Implemented a multi-agent decision bus (Domain Agents $\rightarrow$ Critic Agent $\rightarrow$ Risk Agent $\rightarrow$ Decision Manager) executing financial risk calculations and storing structured reasoning chains for over 5,800 business decisions.
+```text
+Lead Data & ML Engineer | Enterprise Intelligence & Autonomous Decisioning Platform
+• Architected 13-stage autonomous enterprise intelligence platform processing £77.2M revenue & 1k enterprise accounts.
+• Engineered PostgreSQL 3NF OLTP & dbt star-schema Gold warehouse with automated incremental loading.
+• Developed 4 production ML models (XGBoost, Ridge, Random Forest, Isolation Forest) achieving 70.45% churn recall and 100% 6h lead-time predictive maintenance recall.
+• Built MLflow model registry with automated Population Stability Index (PSI) drift detection and champion/challenger gating.
+• Designed 5-stage collaborative multi-agent decision bus persisting 5,863 structured agent decisions with financial risk exposure auditing.
+• Created 7-page Power BI-style React analytical control tower backed by FastAPI microservices, Terraform IaC, and Docker containers on AWS ECS Fargate.
+```
