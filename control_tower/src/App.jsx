@@ -20,7 +20,7 @@ import {
   ComposedChart
 } from 'recharts';
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const CONTROL_TOWER_BUILD = "STAGE13_ALL_PAGES_V1";
 
 const COLORS = ['#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];

@@ -1,0 +1,40 @@
+services:
+  # 1. FastAPI Serving API & Control Tower Backend Service
+  - type: web
+    name: nexacore-intelligence-api
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python scripts/ci_init_database.py"
+    startCommand: "python -m uvicorn data_science.mlops.serving_api:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: BYPASS_AUTH
+        value: "true"
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: nexacore-dw-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: nexacore-dw-db
+          property: port
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: nexacore-dw-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: nexacore-dw-db
+          property: password
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: nexacore-dw-db
+          property: database
+
+databases:
+  # 2. Managed PostgreSQL 15 Data Warehouse Instance
+  - name: nexacore-dw-db
+    databaseName: nexacore_dw
+    user: nexacore_admin
+    region: singapore
+    plan: free
