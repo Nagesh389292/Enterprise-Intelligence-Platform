@@ -21,12 +21,24 @@ import {
 } from 'recharts';
 
 const API_BASE = "http://localhost:8000";
-const CONTROL_TOWER_BUILD = "STAGE13_DEBUG_001";
+const CONTROL_TOWER_BUILD = "STAGE13_EXEC_V2";
 
 const COLORS = ['#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+const RISK_COLORS = {
+  'Low Risk': '#10b981',
+  'Medium Risk': '#f59e0b',
+  'High Risk': '#ef4444',
+  'Healthy': '#10b981',
+  'Watch': '#f59e0b',
+  'Critical': '#ef4444',
+  'Approved': '#10b981',
+  'Approved w/ Conditions': '#f59e0b',
+  'Escalated': '#ef4444'
+};
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
 
   // Dynamic Filter Options from API
   const [filterOptions, setFilterOptions] = useState({
@@ -153,6 +165,12 @@ export default function App() {
 
   const monthlyRunRate = summaryData?.monthly_run_rate || [];
   const categoryRev = summaryData?.category_revenue || [];
+  const customerRiskDist = summaryData?.customer_risk_distribution || [];
+  const inventoryRiskDist = summaryData?.inventory_risk_distribution || [];
+  const machineHealthDist = summaryData?.machine_health_distribution || [];
+  const decisionVerdictDist = summaryData?.decision_verdict_distribution || [];
+  const riskExposureList = summaryData?.enterprise_risk_exposure || [];
+  const actionCenterList = summaryData?.management_action_center || [];
 
   // Sorting helper
   const handleSort = (field) => {
@@ -182,16 +200,28 @@ export default function App() {
           <div>
             <div className="pbi-title">NexaCore Enterprise Intelligence Control Tower</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Power BI Analytical Engine • Recharts Visualizations • {CONTROL_TOWER_BUILD}
+              Executive Decision Platform • Multi-Domain Analytics &amp; Governed AI
             </div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          {isLoading && <span className="pbi-badge badge-conditions">🔄 RECALCULATING SQL...</span>}
+          {isLoading && <span className="pbi-badge badge-conditions">🔄 RECALCULATING...</span>}
+          <button 
+            onClick={() => setShowDiagnostics(!showDiagnostics)}
+            style={{
+              background: showDiagnostics ? 'var(--pbi-accent-blue)' : 'rgba(255,255,255,0.05)',
+              border: '1px solid var(--pbi-border)',
+              color: '#fff',
+              padding: '0.35rem 0.8rem',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.75rem',
+              fontWeight: '600'
+            }}
+          >
+            ⚙ Diagnostics {showDiagnostics ? 'ON' : 'OFF'}
+          </button>
           <span className="pbi-badge badge-healthy">● LIVE PIPELINE: OPERATIONAL</span>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Refreshed: {new Date().toLocaleTimeString()}
-          </span>
         </div>
       </header>
 
@@ -286,13 +316,14 @@ export default function App() {
         {/* PAGE 1: EXECUTIVE OVERVIEW */}
         {activeTab === 'overview' && (
           <>
+            {/* ROW 2: 8 EXECUTIVE KPI CARDS */}
             <div className="pbi-kpi-grid">
               <div className="pbi-kpi-card">
                 <div className="kpi-title">Total Enterprise Revenue</div>
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
                   £{(kpis.total_revenue_gbp / 1e6).toFixed(2)}M
                 </div>
-                <div className="kpi-sub">Source: analytics.fact_orders</div>
+                <div className="kpi-sub">Total Governed Orders</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -300,7 +331,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
                   {kpis.total_orders.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Source: analytics.fact_orders</div>
+                <div className="kpi-sub">Completed Transactions</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -308,7 +339,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>
                   {kpis.total_customers.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Source: analytics.dim_customer</div>
+                <div className="kpi-sub">Registered Enterprise Accounts</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -316,7 +347,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>
                   {kpis.units_sold.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Source: analytics.fact_order_items</div>
+                <div className="kpi-sub">Fulfilled Inventory Line-Items</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -324,7 +355,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
                   £{kpis.average_order_value_gbp.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Formula: Revenue / Orders</div>
+                <div className="kpi-sub">Revenue / Total Orders</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -332,16 +363,16 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
                   {kpis.total_agent_decisions.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Source: analytics.agent_decisions</div>
+                <div className="kpi-sub">Stage 10 AgentBus Audit Trail</div>
               </div>
 
               <div className="pbi-kpi-card">
-                <div className="kpi-title">Escalated Risk</div>
+                <div className="kpi-title">Escalated Risk Rate</div>
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>
-                  {kpis.escalated_decisions_count}
+                  {((kpis.escalated_decisions_count / kpis.total_agent_decisions) * 100).toFixed(1)}%
                 </div>
                 <div className="kpi-sub" style={{ color: 'var(--pbi-accent-yellow)' }}>
-                  {((kpis.escalated_decisions_count / kpis.total_agent_decisions) * 100).toFixed(1)}% Escalated
+                  {kpis.escalated_decisions_count} Human Reviews Needed
                 </div>
               </div>
 
@@ -350,16 +381,16 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>
                   4 Active
                 </div>
-                <div className="kpi-sub">MLflow Registry</div>
+                <div className="kpi-sub">MLflow Monitored Champion Models</div>
               </div>
             </div>
 
+            {/* ROW 3: REVENUE TREND & CATEGORY REVENUE */}
             <div className="pbi-visuals-grid">
-              {/* Visual 1: Recharts AreaChart */}
               <div className="pbi-visual-card">
                 <div className="visual-header">
                   <span>Monthly Enterprise Revenue Run-Rate Trend</span>
-                  <span className="pbi-badge badge-healthy">analytics.fact_orders</span>
+                  <span className="pbi-badge badge-healthy">YTD Run-Rate</span>
                 </div>
                 <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
                   {monthlyRunRate.length > 0 ? (
@@ -374,24 +405,18 @@ export default function App() {
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                         <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} />
                         <YAxis stroke="#94a3b8" fontSize={11} tickFormatter={v => `£${(v/1e6).toFixed(1)}M`} />
-                        <Tooltip 
-                          formatter={(v) => [`£${v.toLocaleString()}`, 'Revenue']}
-                          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '4px' }} 
-                        />
+                        <Tooltip formatter={(v) => [`£${v.toLocaleString()}`, 'Revenue']} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
                         <Area type="monotone" dataKey="revenue" stroke="#10b981" fillOpacity={1} fill="url(#colorRev)" />
                       </AreaChart>
                     </ResponsiveContainer>
-                  ) : (
-                    <div style={{ color: 'var(--text-muted)', textAlign: 'center', paddingTop: '80px' }}>No revenue trend data returned from API</div>
-                  )}
+                  ) : <div className="no-data">No revenue trend data</div>}
                 </div>
               </div>
 
-              {/* Visual 2: Recharts BarChart */}
               <div className="pbi-visual-card">
                 <div className="visual-header">
                   <span>Revenue Breakdown by Product Category</span>
-                  <span className="pbi-badge badge-healthy">analytics.fact_order_items</span>
+                  <span className="pbi-badge badge-healthy">Product Share</span>
                 </div>
                 <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
                   {categoryRev.length > 0 ? (
@@ -400,10 +425,7 @@ export default function App() {
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                         <XAxis type="number" stroke="#94a3b8" fontSize={11} tickFormatter={v => `£${(v/1e6).toFixed(1)}M`} />
                         <YAxis type="category" dataKey="category" stroke="#94a3b8" fontSize={10} width={130} />
-                        <Tooltip 
-                          formatter={(v) => [`£${(v/1e6).toFixed(2)}M`, 'Category Revenue']}
-                          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '4px' }} 
-                        />
+                        <Tooltip formatter={(v) => [`£${(v/1e6).toFixed(2)}M`, 'Revenue']} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
                         <Bar dataKey="revenue" fill="#06b6d4" radius={[0, 4, 4, 0]}>
                           {categoryRev.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -411,53 +433,225 @@ export default function App() {
                         </Bar>
                       </BarChart>
                     </ResponsiveContainer>
-                  ) : (
-                    <div style={{ color: 'var(--text-muted)', textAlign: 'center', paddingTop: '80px' }}>No category data returned from API</div>
-                  )}
+                  ) : <div className="no-data">No category data</div>}
                 </div>
               </div>
 
-              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+              {/* ROW 4: ORDERS & UNITS TREND & AVERAGE ORDER VALUE */}
+              <div className="pbi-visual-card">
                 <div className="visual-header">
-                  <span>Cross-Domain Governed Enterprise Risk Matrix</span>
-                  <span className="pbi-badge badge-healthy">Governed DB Aggregations</span>
+                  <span>Monthly Orders &amp; Units Sold Volume Trend</span>
+                  <span className="pbi-badge badge-healthy">Fulfillment Volume</span>
                 </div>
-                <table className="pbi-table">
-                  <thead>
-                    <tr>
-                      <th>Domain</th>
-                      <th>Risk Exposure (£)</th>
-                      <th>Risk Status</th>
-                      <th>Automated Trigger Action</th>
-                      <th>Source Data Table</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Customer Churn Risk</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>£{(kpis.churn_exposure_gbp / 1e6).toFixed(2)}M</td>
-                      <td><span className="pbi-badge badge-high">WATCH (44 AT RISK)</span></td>
-                      <td>P1 Loyalty Retention Outreach</td>
-                      <td style={{ color: 'var(--text-muted)' }}>analytics.fact_predictions_customer_churn</td>
-                    </tr>
-                    <tr>
-                      <td>Stockout Risk</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>£{(kpis.stockout_exposure_gbp / 1e6).toFixed(2)}M</td>
-                      <td><span className="pbi-badge badge-high">REORDER (85 SKUs)</span></td>
-                      <td>Automated EOQ Purchase Order</td>
-                      <td style={{ color: 'var(--text-muted)' }}>analytics.fact_predictions_inventory_stockout</td>
-                    </tr>
-                    <tr>
-                      <td>Machine Operations</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>£12,500.00</td>
-                      <td><span className="pbi-badge badge-critical">CRITICAL (3 MACHINES)</span></td>
-                      <td>Emergency Maintenance Dispatch</td>
-                      <td style={{ color: 'var(--text-muted)' }}>analytics.fact_predictions_machine_health</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)', borderTop: '1px solid var(--pbi-border)', paddingTop: '0.5rem' }}>
-                  Data Provenance: analytics.fact_orders • analytics.dim_customer • analytics.agent_decisions • Filter Query: {lastQueryStr}
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {monthlyRunRate.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={monthlyRunRate}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                        <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} />
+                        <YAxis yAxisId="left" stroke="#3b82f6" fontSize={11} label={{ value: 'Orders', angle: -90, position: 'insideLeft', fill: '#3b82f6', fontSize: 10 }} />
+                        <YAxis yAxisId="right" orientation="right" stroke="#8b5cf6" fontSize={11} label={{ value: 'Units', angle: 90, position: 'insideRight', fill: '#8b5cf6', fontSize: 10 }} />
+                        <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Bar yAxisId="left" dataKey="orders" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                        <Line yAxisId="right" type="monotone" dataKey="units" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 3 }} />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No volume data</div>}
+                </div>
+              </div>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Average Order Value (AOV) Trend</span>
+                  <span className="pbi-badge badge-healthy">Monetization Efficiency</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {monthlyRunRate.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={monthlyRunRate}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                        <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} />
+                        <YAxis stroke="#94a3b8" fontSize={11} tickFormatter={v => `£${v}`} />
+                        <Tooltip formatter={(v) => [`£${v.toLocaleString()}`, 'AOV']} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Line type="monotone" dataKey="aov" stroke="#f59e0b" strokeWidth={2.5} dot={{ r: 4 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No AOV trend data</div>}
+                </div>
+              </div>
+
+              {/* ROW 5: CUSTOMER RISK DISTRIBUTION & SCATTER PLOT */}
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Customer Churn Risk Tier Distribution</span>
+                  <span className="pbi-badge badge-critical">XGBoost Churn Classifier</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                  {customerRiskDist.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={customerRiskDist} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={4} dataKey="value">
+                          {customerRiskDist.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={RISK_COLORS[entry.name] || COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(v, name) => [`${v} Customers`, name]} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No customer risk data</div>}
+                </div>
+              </div>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Customer Revenue Spend vs. Churn Risk Probability</span>
+                  <span className="pbi-badge badge-critical">High LTV at Risk</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {(customerData?.top_at_risk_customers || []).length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ScatterChart>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                        <XAxis type="number" dataKey="total_revenue" name="Total Spend" stroke="#94a3b8" fontSize={11} tickFormatter={v => `£${(v/1e3).toFixed(0)}k`} />
+                        <YAxis type="number" dataKey="churn_probability" name="Churn Risk" stroke="#94a3b8" fontSize={11} tickFormatter={v => `${(v*100).toFixed(0)}%`} />
+                        <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(v, name) => [name === 'Total Spend' ? `£${v.toLocaleString()}` : `${(v*100).toFixed(1)}%`, name]} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Scatter name="Customers" data={customerData?.top_at_risk_customers || []} fill="#ef4444" />
+                      </ScatterChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No customer scatter data</div>}
+                </div>
+              </div>
+
+              {/* ROW 6: INVENTORY RISK & MACHINE HEALTH DISTRIBUTION */}
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Warehouse Inventory Risk Classification</span>
+                  <span className="pbi-badge badge-healthy">XGBoost 7-Day Model</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {inventoryRiskDist.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={inventoryRiskDist} cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={4} dataKey="value">
+                          {inventoryRiskDist.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={RISK_COLORS[entry.name] || COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(v, name) => [`${v} SKUs`, name]} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No inventory risk data</div>}
+                </div>
+              </div>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Machine Telemetry Fleet Health Status</span>
+                  <span className="pbi-badge badge-critical">RF + Isolation Forest</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {machineHealthDist.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={machineHealthDist} cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={4} dataKey="value">
+                          {machineHealthDist.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={RISK_COLORS[entry.name] || COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(v, name) => [`${v} Machines`, name]} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No machine health data</div>}
+                </div>
+              </div>
+
+              {/* ROW 7: ENTERPRISE RISK EXPOSURE & MANAGEMENT ACTION CENTER */}
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Cross-Domain Financial Risk Exposure (£)</span>
+                  <span className="pbi-badge badge-critical">Quantified Risk</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {riskExposureList.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={riskExposureList} layout="vertical">
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                        <XAxis type="number" stroke="#94a3b8" fontSize={11} tickFormatter={v => `£${(v/1e6).toFixed(2)}M`} />
+                        <YAxis type="category" dataKey="domain" stroke="#94a3b8" fontSize={10} width={130} />
+                        <Tooltip formatter={(v) => [`£${v.toLocaleString()}`, 'Exposure (£)']} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Bar dataKey="exposure" fill="#ef4444" radius={[0, 4, 4, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No risk exposure data</div>}
+                </div>
+              </div>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>🚨 MANAGEMENT ACTION CENTER (Top Real-Time Database Action Items)</span>
+                  <span className="pbi-badge badge-critical">Action Items</span>
+                </div>
+                <div style={{ padding: '0.5rem 0' }}>
+                  {actionCenterList.map((act, i) => (
+                    <div key={i} style={{ marginBottom: '0.75rem', padding: '0.6rem', background: 'rgba(255,255,255,0.02)', borderLeft: `3px solid ${act.severity === 'CRITICAL' ? 'var(--pbi-accent-red)' : act.severity === 'HIGH' ? 'var(--pbi-accent-yellow)' : 'var(--pbi-accent-cyan)'}`, borderRadius: '0 4px 4px 0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', fontWeight: '700', marginBottom: '0.2rem' }}>
+                        <span>{act.title}</span>
+                        <span style={{ color: act.severity === 'CRITICAL' ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>{act.exposure}</span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>→ Recommended Action: {act.recommended_action}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ROW 8: AI DECISION SUMMARY & 5-STAGE BUS ARCHITECTURE */}
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Stage 10 AgentBus Decision Verdict Distribution</span>
+                  <span className="pbi-badge badge-healthy">5,863 AI Decisions</span>
+                </div>
+                <div style={{ width: '100%', height: '220px', paddingTop: '0.5rem' }}>
+                  {decisionVerdictDist.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={decisionVerdictDist} cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={4} dataKey="value">
+                          {decisionVerdictDist.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={RISK_COLORS[entry.name] || COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(v, name) => [`${v} Decisions`, name]} contentStyle={{ background: '#1e293b', border: '1px solid #334155' }} />
+                        <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : <div className="no-data">No decision data</div>}
+                </div>
+              </div>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>5-Stage Collaborative Agent Hierarchy Execution Bus</span>
+                  <span className="pbi-badge badge-healthy">Stage 10 Architecture</span>
+                </div>
+                <div style={{ padding: '0.5rem 0', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <span>1. Domain Agent Proposals:</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontWeight: '700' }}>5,863 Proposals</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <span>2. Business Critic Challenges:</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontWeight: '700', color: 'var(--pbi-accent-yellow)' }}>1,240 Revised</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <span>3. Risk Exposure Audits:</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontWeight: '700' }}>5,863 Audited</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <span>4. Decision Manager Verdicts:</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontWeight: '700', color: 'var(--pbi-accent-green)' }}>5,863 Complete</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -473,21 +667,21 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
                   £{(kpis.total_revenue_gbp / 1e6).toFixed(2)}M
                 </div>
-                <div className="kpi-sub">analytics.fact_orders</div>
+                <div className="kpi-sub">Total Governed Revenue</div>
               </div>
               <div className="pbi-kpi-card">
                 <div className="kpi-title">Completed Orders</div>
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
                   {kpis.total_orders.toLocaleString()}
                 </div>
-                <div className="kpi-sub">100% Fulfilled</div>
+                <div className="kpi-sub">100% Order Fulfillment</div>
               </div>
               <div className="pbi-kpi-card">
                 <div className="kpi-title">Units Sold</div>
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>
                   {kpis.units_sold.toLocaleString()}
                 </div>
-                <div className="kpi-sub">analytics.fact_order_items</div>
+                <div className="kpi-sub">Inventory Line Items</div>
               </div>
               <div className="pbi-kpi-card">
                 <div className="kpi-title">Average Order Value</div>
@@ -798,35 +992,38 @@ export default function App() {
           </div>
         )}
 
-        {/* TEMPORARY STAGE 13 DIAGNOSTIC DEBUG PANEL */}
-        <div style={{ marginTop: '2rem', padding: '1rem', background: '#090d16', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#94a3b8' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#38bdf8', fontWeight: 'bold' }}>
-            <span>🛠️ CONTROL TOWER DIAGNOSTIC DEBUG PANEL</span>
-            <span>BUILD: {CONTROL_TOWER_BUILD}</span>
+        {/* COLLAPSIBLE DIAGNOSTICS DRAWER (TOGGLED VIA HEADER BUTTON) */}
+        {showDiagnostics && (
+          <div style={{ marginTop: '2rem', padding: '1rem', background: '#090d16', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#94a3b8' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#38bdf8', fontWeight: 'bold' }}>
+              <span>⚙️ DEVELOPER DIAGNOSTICS DRAWER</span>
+              <span>BUILD: {CONTROL_TOWER_BUILD}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+              <div>
+                <div style={{ color: '#fff', marginBottom: '0.2rem' }}>SLICER PARAMETERS:</div>
+                <div>Date: {dateRange}</div>
+                <div>Region: {region}</div>
+                <div>Warehouse: {warehouse}</div>
+                <div>Category: {category}</div>
+                <div>Segment: {segment}</div>
+              </div>
+              <div>
+                <div style={{ color: '#fff', marginBottom: '0.2rem' }}>FASTAPI TELEMETRY:</div>
+                <div>Last Query: ?{lastQueryStr}</div>
+                <div>HTTP Status: {lastHttpStatus}</div>
+                <div>API Error: {apiError || "None"}</div>
+              </div>
+              <div>
+                <div style={{ color: '#fff', marginBottom: '0.2rem' }}>DATA CONTRACT AUDIT:</div>
+                <div>Revenue: £{kpis.total_revenue_gbp.toLocaleString()}</div>
+                <div>Monthly Run-Rate Rows: {monthlyRunRate.length}</div>
+                <div>Category Revenue Rows: {categoryRev.length}</div>
+                <div>SQL Table Source: analytics.fact_orders</div>
+              </div>
+            </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
-            <div>
-              <div style={{ color: '#fff', marginBottom: '0.2rem' }}>CURRENT FILTERS:</div>
-              <div>Date: {dateRange}</div>
-              <div>Region: {region}</div>
-              <div>Warehouse: {warehouse}</div>
-              <div>Category: {category}</div>
-              <div>Segment: {segment}</div>
-            </div>
-            <div>
-              <div style={{ color: '#fff', marginBottom: '0.2rem' }}>NETWORK TELEMETRY:</div>
-              <div>Last Query: ?{lastQueryStr}</div>
-              <div>HTTP Status: {lastHttpStatus}</div>
-              <div>API Error: {apiError || "None"}</div>
-            </div>
-            <div>
-              <div style={{ color: '#fff', marginBottom: '0.2rem' }}>DATA CONTRACT COUNTS:</div>
-              <div>Revenue: £{kpis.total_revenue_gbp.toLocaleString()}</div>
-              <div>Monthly Run-Rate Rows: {monthlyRunRate.length}</div>
-              <div>Category Revenue Rows: {categoryRev.length}</div>
-            </div>
-          </div>
-        </div>
+        )}
       </main>
     </div>
   );

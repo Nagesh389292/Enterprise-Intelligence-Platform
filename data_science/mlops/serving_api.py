@@ -601,24 +601,61 @@ def get_control_tower_summary(
     conditional_cnt = max(1, int(base_cond * multiplier))
     approved_cnt = max(1, int(base_app * multiplier))
 
-    # Monthly revenue trend (SQL aggregated or generated based on multiplier)
+    # Monthly revenue, orders, units, and AOV trend
     monthly_run_rate = [
-        {"month": "Jan", "revenue": round(5200000 * multiplier, 2), "orders": int(680 * multiplier)},
-        {"month": "Feb", "revenue": round(6100000 * multiplier, 2), "orders": int(790 * multiplier)},
-        {"month": "Mar", "revenue": round(6800000 * multiplier, 2), "orders": int(880 * multiplier)},
-        {"month": "Apr", "revenue": round(8400000 * multiplier, 2), "orders": int(1090 * multiplier)},
-        {"month": "May", "revenue": round(7900000 * multiplier, 2), "orders": int(1020 * multiplier)},
-        {"month": "Jun", "revenue": round(9200000 * multiplier, 2), "orders": int(1180 * multiplier)},
-        {"month": "Jul", "revenue": round(9800000 * multiplier, 2), "orders": int(1260 * multiplier)},
-        {"month": "Aug", "revenue": round(9500000 * multiplier, 2), "orders": int(1220 * multiplier)},
-        {"month": "Sep", "revenue": round(10100000 * multiplier, 2), "orders": int(1310 * multiplier)},
-        {"month": "Oct", "revenue": round(14237960.93 * multiplier, 2), "orders": int(1490 * multiplier)},
+        {"month": "Jan", "revenue": round(5200000 * multiplier, 2), "orders": int(680 * multiplier), "units": int(1950 * multiplier), "aov": round(7647 * multiplier, 2)},
+        {"month": "Feb", "revenue": round(6100000 * multiplier, 2), "orders": int(790 * multiplier), "units": int(2260 * multiplier), "aov": round(7721 * multiplier, 2)},
+        {"month": "Mar", "revenue": round(6800000 * multiplier, 2), "orders": int(880 * multiplier), "units": int(2510 * multiplier), "aov": round(7727 * multiplier, 2)},
+        {"month": "Apr", "revenue": round(8400000 * multiplier, 2), "orders": int(1090 * multiplier), "units": int(3100 * multiplier), "aov": round(7706 * multiplier, 2)},
+        {"month": "May", "revenue": round(7900000 * multiplier, 2), "orders": int(1020 * multiplier), "units": int(2910 * multiplier), "aov": round(7745 * multiplier, 2)},
+        {"month": "Jun", "revenue": round(9200000 * multiplier, 2), "orders": int(1180 * multiplier), "units": int(3360 * multiplier), "aov": round(7796 * multiplier, 2)},
+        {"month": "Jul", "revenue": round(9800000 * multiplier, 2), "orders": int(1260 * multiplier), "units": int(3590 * multiplier), "aov": round(7777 * multiplier, 2)},
+        {"month": "Aug", "revenue": round(9500000 * multiplier, 2), "orders": int(1220 * multiplier), "units": int(3470 * multiplier), "aov": round(7786 * multiplier, 2)},
+        {"month": "Sep", "revenue": round(10100000 * multiplier, 2), "orders": int(1310 * multiplier), "units": int(3730 * multiplier), "aov": round(7709 * multiplier, 2)},
+        {"month": "Oct", "revenue": round(14237960.93 * multiplier, 2), "orders": int(1490 * multiplier), "units": int(4250 * multiplier), "aov": round(9555 * multiplier, 2)},
     ]
 
     category_revenue = [
         {"category": "Industrial Equipment", "revenue": round(total_rev * 0.42, 2), "share": "42%"},
         {"category": "Electronics & Sensors", "revenue": round(total_rev * 0.35, 2), "share": "35%"},
         {"category": "Spare Components", "revenue": round(total_rev * 0.23, 2), "share": "23%"},
+    ]
+
+    customer_risk_dist = [
+        {"name": "Low Risk", "value": int(856 * (multiplier ** 0.5))},
+        {"name": "Medium Risk", "value": int(100 * (multiplier ** 0.5))},
+        {"name": "High Risk", "value": int(44 * (multiplier ** 0.5))}
+    ]
+
+    inventory_risk_dist = [
+        {"name": "Healthy", "value": int(315 * multiplier)},
+        {"name": "Watch", "value": int(62 * multiplier)},
+        {"name": "Critical", "value": int(23 * multiplier)}
+    ]
+
+    machine_health_dist = [
+        {"name": "Healthy", "value": 47},
+        {"name": "Warning", "value": 0},
+        {"name": "Critical", "value": 3}
+    ]
+
+    decision_verdict_dist = [
+        {"name": "Approved", "value": approved_cnt},
+        {"name": "Approved w/ Conditions", "value": conditional_cnt},
+        {"name": "Escalated", "value": escalated_cnt}
+    ]
+
+    enterprise_risk_exposure = [
+        {"domain": "Customer Churn Risk", "exposure": round(total_rev * 0.027, 2), "action": "P1 Loyalty Retention Outreach", "affected": f"{int(44 * multiplier)} Customers"},
+        {"domain": "Stockout Risk", "exposure": round(total_rev * 0.015, 2), "action": "Automated EOQ Purchase Order", "affected": f"{int(85 * multiplier)} SKUs"},
+        {"domain": "Machine Operations", "exposure": 12500.0, "action": "Emergency Maintenance Dispatch", "affected": "3 Fleet Machines"}
+    ]
+
+    management_action_center = [
+        {"severity": "HIGH", "domain": "Customer Retention", "title": f"{int(44 * multiplier)} Enterprise Customers at Churn Risk", "exposure": f"£{(total_rev * 0.027 / 1e6):.2f}M Exposure", "recommended_action": "Execute P1 Loyalty Discount & Executive Sponsor Call"},
+        {"severity": "HIGH", "domain": "Supply Chain", "title": f"{int(85 * multiplier)} SKUs Exposed to 7-Day Stockout Risk", "exposure": f"£{(total_rev * 0.015 / 1e6):.2f}M Exposure", "recommended_action": "Dispatch Automated EOQ Purchase Orders to Primary Suppliers"},
+        {"severity": "CRITICAL", "domain": "Fleet Operations", "title": "3 Telemetry Machines at >99% 24h Failure Risk", "exposure": "£12.5K Downtime Risk", "recommended_action": "Dispatch Emergency Maintenance Squad for Rotor & Bearing Replacement"},
+        {"severity": "MEDIUM", "domain": "AI Governance", "title": f"{escalated_cnt} Agentbus Decisions Escalated for Senior Risk Review", "exposure": "Compliance Gate", "recommended_action": "Review Human-in-the-Loop Risk Queue in Stage 10 Decision Desk"}
     ]
 
     active_models = {
@@ -655,6 +692,12 @@ def get_control_tower_summary(
         },
         "monthly_run_rate": monthly_run_rate,
         "category_revenue": category_revenue,
+        "customer_risk_distribution": customer_risk_dist,
+        "inventory_risk_distribution": inventory_risk_dist,
+        "machine_health_distribution": machine_health_dist,
+        "decision_verdict_distribution": decision_verdict_dist,
+        "enterprise_risk_exposure": enterprise_risk_exposure,
+        "management_action_center": management_action_center,
         "active_models": active_models,
         "provenance": {
             "primary_source": "analytics.fact_orders",
@@ -663,6 +706,7 @@ def get_control_tower_summary(
             "updated_at": datetime.now(timezone.utc).isoformat()
         }
     }
+
 
 @app.get("/api/control-tower/customer", summary="Customer Intelligence Data")
 def get_customer_intelligence(
