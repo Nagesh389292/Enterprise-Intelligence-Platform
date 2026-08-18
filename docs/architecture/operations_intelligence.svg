@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%" style="background:#0a0d14; font-family:'Inter', sans-serif;">
+  <defs>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121824" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#1a2333" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="#0a0d14"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="260" height="675" fill="#121824" stroke="rgba(255,255,255,0.08)"/>
+  <text x="30" y="50" font-size="18" font-weight="700" fill="#ffffff">NEXACORE</text>
+  <text x="30" y="120" font-size="13" fill="#8a99ad">Executive Overview</text>
+  <text x="30" y="160" font-size="13" fill="#8a99ad">Customer Intelligence</text>
+  <text x="30" y="200" font-size="13" fill="#8a99ad">Demand Forecasting</text>
+  <text x="30" y="240" font-size="13" fill="#8a99ad">Inventory Risk</text>
+  <rect x="16" y="260" width="228" height="40" rx="8" fill="rgba(0, 242, 254, 0.12)" stroke="#00f2fe"/>
+  <text x="40" y="285" font-size="13" font-weight="600" fill="#00f2fe">Machine Operations</text>
+  <text x="30" y="340" font-size="13" fill="#7f53ac">AI Decision Center</text>
+
+  <!-- Top Bar -->
+  <text x="290" y="50" font-size="24" font-weight="700" fill="#ffffff">Predictive Machine Telemetry &amp; Maintenance Desk</text>
+
+  <!-- Table Card -->
+  <g transform="translate(290, 80)">
+    <rect x="0" y="0" width="880" height="550" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)"/>
+    <text x="24" y="36" font-size="16" font-weight="700" fill="#ffffff">Isolation Forest Anomaly Scores &amp; 24h Failure Risk (100% ≥6h Lead Time)</text>
+    
+    <line x1="24" y1="55" x2="856" y2="55" stroke="rgba(255,255,255,0.08)"/>
+    <text x="24" y="80" font-size="11" font-weight="600" fill="#8a99ad">MACHINE ID</text>
+    <text x="180" y="80" font-size="11" font-weight="600" fill="#8a99ad">ANOMALY SCORE</text>
+    <text x="360" y="80" font-size="11" font-weight="600" fill="#8a99ad">24H FAILURE PROB</text>
+    <text x="560" y="80" font-size="11" font-weight="600" fill="#8a99ad">LEAD TIME WARNING</text>
+    <text x="740" y="80" font-size="11" font-weight="600" fill="#8a99ad">STATUS</text>
+
+    <!-- Row 1 -->
+    <line x1="24" y1="100" x2="856" y2="100" stroke="rgba(255,255,255,0.04)"/>
+    <text x="24" y="125" font-size="13" font-family="'JetBrains Mono'" fill="#00f2fe">MACH_301</text>
+    <text x="180" y="125" font-size="13" font-family="'JetBrains Mono'" fill="#ffffff">0.842</text>
+    <text x="360" y="125" font-size="13" font-weight="700" fill="#ff1744">99.88%</text>
+    <rect x="560" y="110" width="130" height="22" rx="4" fill="rgba(255,23,68,0.2)"/>
+    <text x="572" y="125" font-size="11" font-weight="700" fill="#ff1744">≥6h ALERT ACTIVE</text>
+    <rect x="740" y="110" width="80" height="22" rx="4" fill="rgba(255,23,68,0.2)"/>
+    <text x="752" y="125" font-size="11" font-weight="700" fill="#ff1744">Critical</text>
+
+    <!-- Row 2 -->
+    <line x1="24" y1="145" x2="856" y2="145" stroke="rgba(255,255,255,0.04)"/>
+    <text x="24" y="170" font-size="13" font-family="'JetBrains Mono'" fill="#00f2fe">MACH_104</text>
+    <text x="180" y="170" font-size="13" font-family="'JetBrains Mono'" fill="#ffffff">0.791</text>
+    <text x="360" y="170" font-size="13" font-weight="700" fill="#ff1744">99.54%</text>
+    <rect x="560" y="155" width="130" height="22" rx="4" fill="rgba(255,23,68,0.2)"/>
+    <text x="572" y="170" font-size="11" font-weight="700" fill="#ff1744">≥6h ALERT ACTIVE</text>
+    <rect x="740" y="155" width="80" height="22" rx="4" fill="rgba(255,23,68,0.2)"/>
+    <text x="752" y="170" font-size="11" font-weight="700" fill="#ff1744">Critical</text>
+  </g>
+</svg>

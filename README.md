@@ -4,13 +4,48 @@
 
 ---
 
-## 📸 Executive Control Tower UI Preview
+## 📸 Executive Control Tower UI Gallery (All 6 Screens)
 
-![Control Tower Executive Overview](docs/architecture/control_tower_overview.svg)
+### 1. Executive Overview
+![Executive Overview View](docs/architecture/control_tower_overview.svg)
+*Executive KPIs (£77.2M revenue, 1,000 customers, 5,863 decisions), MLOps active model registry, and live pipeline status.*
+
+### 2. Customer Churn Intelligence
+![Customer Intelligence View](docs/architecture/customer_intelligence.svg)
+*High Churn Risk Customer Intervention Desk displaying predicted probabilities (70.45% recall), inactive days, revenue, and CSAT scores.*
+
+### 3. SKU Demand Forecasting
+![Demand Intelligence View](docs/architecture/demand_intelligence.svg)
+*Daily item-level sales forecasting featuring 95% confidence bounds (`lower_bound_95`, `upper_bound_95`) and 7-day rolling sales trends.*
+
+### 4. Inventory Stockout Risk & Automated Reorder Desk
+![Inventory Intelligence View](docs/architecture/inventory_intelligence.svg)
+*7-day predicted stockout risk alerts ($\text{PR-AUC} = 0.9425$) with EOQ reorder recommendations and stock levels.*
+
+### 5. Predictive Machine Telemetry & Maintenance Desk
+![Operations Intelligence View](docs/architecture/operations_intelligence.svg)
+*Isolation Forest anomaly scores and Random Forest 24h failure probabilities with guaranteed $\ge 6\text{h}$ lead-time warning alerts.*
+
+### 6. AI Decision Center (Stage 10 Multi-Agent Audit Trail)
+![AI Decision Center View](docs/architecture/ai_decision_center.svg)
+*Collaborative Multi-Agent Bus audit trail displaying Domain Proposals $\rightarrow$ Critic Challenges $\rightarrow$ Risk Exposure Audits $\rightarrow$ Final Decision Manager Verdicts.*
 
 ---
 
-## 🏗️ 13-Stage Architecture & End-to-End Pipeline
+## 🎬 2-to-3 Minute Application Demo Video & Walkthrough Script
+
+| Timecode | Screen / Focus Area | Narrative Audio Script |
+| :--- | :--- | :--- |
+| **00:00 - 00:30** | **Executive Overview** | *"Welcome to the Enterprise Intelligence Control Tower. This platform orchestrates £77.2M in revenue and 1,000 enterprise customers across a PostgreSQL and dbt Gold data warehouse."* |
+| **00:30 - 01:00** | **Customer Churn** | *"In Customer Intelligence, our XGBoost model predicts churn at 70.45% recall ($t=0.11$), flagging high-risk customers for priority retention interventions."* |
+| **01:00 - 01:30** | **Demand & Inventory** | *"Our Ridge SKU demand forecaster computes daily predictions with 95% confidence bands, feeding directly into our 7-day stockout risk engine ($\text{PR-AUC} = 0.9425$)."* |
+| **01:30 - 02:00** | **Machine Telemetry** | *"In Operations, predictive maintenance models achieve 100% event recall with a $\ge 6\text{h}$ lead-time failure warning, preventing unplanned factory downtime."* |
+| **02:00 - 02:30** | **AI Decision Center** | *"The AI Decision Center exposes our Stage 10 Multi-Agent Bus: Domain Agents propose actions, the Critic checks sanity, Risk calculates financial exposure, and Decision Manager issues transparent verdicts."* |
+| **02:30 - 03:00** | **MLOps & AWS Cloud** | *"Underneath, MLflow tracks models, Kolmogorov-Smirnov drift triggers targeted retraining, and GitHub Actions deploys Docker images to AWS ECS Fargate via Terraform IaC."* |
+
+---
+
+## 🏗️ 13-Stage System Architecture
 
 ```text
 Enterprise Data (£77.2M / 1k Cust)
@@ -19,7 +54,7 @@ Data Engineering (PostgreSQL 3NF)
       ↓
 dbt Gold Layer (Star-Schema)
       ↓
-ML Feature Engineering (6h Rolling Marts)
+ML Feature Marts (6h Rolling Windows)
       ↓
 4 Production ML Models
       ↓
@@ -60,19 +95,6 @@ Automated Business Decisions (5,863 Persisted)
 - **Total Persisted Agent Decisions**: **5,863 Decisions**
 - **Escalated Decisions**: **380 Escalations** (6.4% escalation rate for senior human approval)
 - **Automated Integration Test Pass Rate**: **45/45 Tests Passing (100% Pass Rate)**
-
----
-
-## 🎬 2-to-3 Minute Application Demo Script
-
-```text
-00:00 - Executive Overview: Real-time £77.2M enterprise revenue, 1k active customers, and MLflow model registry.
-00:30 - Customer Intelligence: 70.45% recall churn risk matrix and high-value customer intervention desk.
-01:00 - Demand Intelligence: Daily SKU demand forecasting with 95% confidence bounds (RMSE 8.81).
-01:30 - Inventory & Operations: 7-day stockout predictions (PR-AUC 0.9425) & telemetry failure risk (100% ≥6h lead time).
-02:00 - AI Decision Center: Live Stage 10 AgentBus flow (Domain Proposal → Critic Challenge → Risk Audit → Decision Manager).
-02:30 - MLOps Retraining & AWS Cloud: Automated drift retraining, champion/challenger gating, Prometheus observability, and Terraform IaC.
-```
 
 ---
 
