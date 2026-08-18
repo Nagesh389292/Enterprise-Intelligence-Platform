@@ -201,11 +201,14 @@ class DemandOutput(BaseModel):
 
 class StockoutInput(BaseModel):
     item_id: str = Field(..., json_schema_extra={"example": "ITEM_8801"})
-    current_stock_level: float = Field(..., ge=0, json_schema_extra={"example": 15.0})
-    reorder_point: float = Field(..., ge=0, json_schema_extra={"example": 25.0})
-    avg_daily_consumption: float = Field(..., gt=0, json_schema_extra={"example": 5.0})
-    lead_time_days: int = Field(..., gt=0, json_schema_extra={"example": 7})
+    current_stock_level: float = Field(50.0, ge=0, json_schema_extra={"example": 15.0})
+    reorder_point: float = Field(20.0, ge=0, json_schema_extra={"example": 25.0})
+    avg_daily_consumption: float = Field(5.0, gt=0, json_schema_extra={"example": 5.0})
+    lead_time_days: float = Field(7.0, gt=0, json_schema_extra={"example": 7})
     category: str = Field("Electronics", json_schema_extra={"example": "Electronics"})
+    warehouse_id: Optional[str] = Field("WH-1", json_schema_extra={"example": "WH-1"})
+    pending_reorder_units: Optional[float] = Field(0.0, ge=0)
+    supplier_reliability_score: Optional[float] = Field(0.95, ge=0)
 
 class StockoutOutput(BaseModel):
     item_id: str
@@ -213,6 +216,7 @@ class StockoutOutput(BaseModel):
     stockout_alert_flag_7d: int
     risk_severity: str
     model_version: str
+
 
 class MachineHealthInput(BaseModel):
     machine_id: str = Field(..., json_schema_extra={"example": "MACH_301"})
@@ -245,11 +249,17 @@ def healthz():
 @app.get("/health", summary="Health Manifest Endpoint")
 def health():
     """Health & Active Model Manifest Endpoint."""
+    active_manifest = dict(PROD_MODELS_PATH)
+    active_manifest["customer_churn"] = PROD_MODELS_PATH.get("churn", "")
+    active_manifest["sku_demand"] = PROD_MODELS_PATH.get("demand", "")
+    active_manifest["inventory_stockout"] = PROD_MODELS_PATH.get("stockout", "")
+    active_manifest["machine_health"] = PROD_MODELS_PATH.get("telemetry_fail", "")
     return {
         "status": "HEALTHY",
-        "active_models": PROD_MODELS_PATH,
+        "active_models": active_manifest,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
+
 
 
 @app.get("/ready", summary="Readiness Probe")
@@ -340,7 +350,8 @@ def predict_churn(payload: ChurnInput):
 
     prob = float(model.predict_proba(X)[0, 1])
     flag = int(prob >= threshold)
-    tier = "High Risk" if prob >= 0.50 else ("Medium Risk" if prob >= 0.15 else "Low Risk")
+    tier = "High" if prob >= 0.50 else ("Medium" if prob >= 0.15 else "Low")
+
 
     MODEL_PREDICTIONS_TOTAL.labels(domain="churn", model_version="v1.0.0_XGBoost").inc()
 

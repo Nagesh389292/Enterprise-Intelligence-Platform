@@ -32,6 +32,23 @@ jobs:
     name: MLOps Quality, Retraining & Gating Suite
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        volumes:
+          - ${{ github.workspace }}/docker/postgres/init:/docker-entrypoint-initdb.d
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -55,10 +72,34 @@ jobs:
           # exit-zero treats all errors as warnings
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+      - name: Initialize Test Database & Data Marts
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5433
+        run: |
+          python scripts/ci_init_database.py
+
       - name: Run Core Integration Test Suite
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5433
+          BYPASS_AUTH: "true"
         run: |
           python -m pytest tests/ -v --tb=short
 
       - name: Execute MLOps Pipeline Dry-Run / Evaluation
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5433
         run: |
           python scripts/run_mlops_pipeline.py --domain ${{ inputs.domain || 'all' }} --dry-run
+

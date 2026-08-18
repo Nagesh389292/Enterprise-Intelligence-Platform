@@ -11,6 +11,24 @@ jobs:
   test_and_lint:
     name: 1. Test & Code Quality Audit
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        volumes:
+          - ${{ github.workspace }}/docker/postgres/init:/docker-entrypoint-initdb.d
+
     steps:
       - uses: actions/checkout@v3
 
@@ -30,6 +48,15 @@ jobs:
         run: |
           flake8 data_science/ tests/ --count --max-line-length=120 --ignore=E501,W503,E127,E221,E226,E231,E241,E261,E272,E302,E306,E402,E701,F401,F841,W291,W293,W391,W504 --show-source --statistics
 
+      - name: Initialize Test Database & Data Marts
+        env:
+          POSTGRES_USER: nexacore_admin
+          POSTGRES_PASSWORD: nexacore_secret_pass
+          POSTGRES_DB: nexacore_dw
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5433
+        run: |
+          python scripts/ci_init_database.py
 
       - name: Execute Full Test Suite
         env:
@@ -41,6 +68,7 @@ jobs:
           BYPASS_AUTH: "true"
         run: |
           python -m pytest tests/ -v --tb=short
+
 
   build_and_scan:
     name: 2. Container Build & Security Scan
