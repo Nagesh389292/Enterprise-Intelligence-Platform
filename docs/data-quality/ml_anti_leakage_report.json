@@ -1,0 +1,154 @@
+{
+  "overall_status": "PASSED",
+  "executed_at": "2026-08-18T00:56:46.892010",
+  "marts_audited": 4,
+  "marts_passed": 4,
+  "marts_failed": 0,
+  "checks_total": 13,
+  "checks_passed": 13,
+  "checks_failed": 0,
+  "audit_results": {
+    "ml_customer_churn_features": {
+      "status": "PASSED",
+      "checks_total": 4,
+      "checks_passed": 4,
+      "checks_failed": 0,
+      "checks": [
+        {
+          "check_id": "churn_01_uniform_cutoff",
+          "check_type": "temporal_boundary",
+          "status": "PASSED",
+          "details": "Feature cutoff date is strictly uniform across all rows: 2026-05-01.",
+          "evidence": {
+            "cutoff_date": "2026-05-01"
+          }
+        },
+        {
+          "check_id": "churn_02_pre_cutoff_features",
+          "check_type": "anti_leakage",
+          "status": "PASSED",
+          "details": "0 orders post-cutoff were included in pre-cutoff feature aggregations.",
+          "evidence": {}
+        },
+        {
+          "check_id": "churn_03_target_window_isolation",
+          "check_type": "temporal_boundary",
+          "status": "PASSED",
+          "details": "Target observation window is strictly post-cutoff (2026-05-02 to 2026-06-30).",
+          "evidence": {
+            "min_target_date": "2026-05-02",
+            "max_target_date": "2026-06-30"
+          }
+        },
+        {
+          "check_id": "churn_04_zero_feature_target_overlap",
+          "check_type": "anti_leakage_proof",
+          "status": "PASSED",
+          "details": "PROVEN: 0 temporal overlap between feature aggregation window (<= 2026-05-01) and target window (> 2026-05-01).",
+          "evidence": {}
+        }
+      ]
+    },
+    "ml_demand_forecasting_daily": {
+      "status": "PASSED",
+      "checks_total": 4,
+      "checks_passed": 4,
+      "checks_failed": 0,
+      "checks": [
+        {
+          "check_id": "demand_01_lag_7_verification",
+          "check_type": "lag_feature_integrity",
+          "status": "PASSED",
+          "details": "lag_7_units_sold matches target on date T - 7 with 0 mismatches across all products.",
+          "evidence": {
+            "mismatches": 0
+          }
+        },
+        {
+          "check_id": "demand_02_lag_14_verification",
+          "check_type": "lag_feature_integrity",
+          "status": "PASSED",
+          "details": "lag_14_units_sold matches target on date T - 14 with 0 mismatches across all products.",
+          "evidence": {
+            "mismatches": 0
+          }
+        },
+        {
+          "check_id": "demand_03_rolling_avg_excludes_current_target",
+          "check_type": "anti_leakage",
+          "status": "PASSED",
+          "details": "rolling_7_day_avg_units excludes current date target (ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING) with 0 variances.",
+          "evidence": {
+            "variances": 0
+          }
+        },
+        {
+          "check_id": "demand_04_target_feature_isolation",
+          "check_type": "anti_leakage_proof",
+          "status": "PASSED",
+          "details": "PROVEN: units_sold_target is strictly excluded from all lag and rolling feature calculations for date T.",
+          "evidence": {}
+        }
+      ]
+    },
+    "ml_inventory_stockout_risk": {
+      "status": "PASSED",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "checks_failed": 0,
+      "checks": [
+        {
+          "check_id": "inventory_01_target_definition",
+          "check_type": "target_logic",
+          "status": "PASSED",
+          "details": "stockout_risk_flag_target 100% matches quantity_available < reorder_point (0 mismatches).",
+          "evidence": {
+            "mismatches": 0
+          }
+        },
+        {
+          "check_id": "inventory_02_feature_target_separation",
+          "check_type": "feature_governance",
+          "status": "PASSED",
+          "details": "Target class distribution verified (87 stockout risk items / 17.4%). Predictive features identified as [quantity_on_hand, quantity_allocated, reorder_quantity, days_of_supply, unit_cost, unit_price].",
+          "evidence": {}
+        }
+      ]
+    },
+    "ml_machine_telemetry_features": {
+      "status": "PASSED",
+      "checks_total": 3,
+      "checks_passed": 3,
+      "checks_failed": 0,
+      "checks": [
+        {
+          "check_id": "telemetry_01_rolling_window_backward_looking",
+          "check_type": "anti_leakage",
+          "status": "PASSED",
+          "details": "rolling_10min_avg_temp uses backward-looking window (ROWS BETWEEN 10 PRECEDING AND CURRENT ROW) with 0 future row leakage.",
+          "evidence": {
+            "variances": 0
+          }
+        },
+        {
+          "check_id": "telemetry_02_first_row_boundary_correctness",
+          "check_type": "window_boundary",
+          "status": "PASSED",
+          "details": "First row boundary condition verified: row 1 rolling temp equals initial avg temp (0 errors).",
+          "evidence": {
+            "boundary_errors": 0
+          }
+        },
+        {
+          "check_id": "telemetry_03_contemporaneous_anomaly_score",
+          "check_type": "target_logic",
+          "status": "PASSED",
+          "details": "anomaly_severity_score correctly represents real-time minute t health state with 0 future telemetry dependencies.",
+          "evidence": {
+            "mismatches": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "stage": "Stage 8C \u2014 Inventory Stockout Risk ML Engineering",
+  "timestamp": "2026-08-18 14:45:20",
+  "overall_status": "PASS",
+  "execution_time_seconds": 49.76,
+  "notebook": "notebooks/09_stage8c_inventory_stockout_ml.ipynb",
+  "error_message": null,
+  "artifacts_generated": [
+    "models/inventory/champion_stockout_model.pkl",
+    "models/inventory/champion_metadata.json",
+    "docs/data_science/inventory_stockout_model_card.md",
+    "docs/data_science/inventory_stockout_post_model_review.md",
+    "docs/data_science/inventory_leakage_audit_report.json",
+    "docs/data_science/figures/inventory_roc_pr_curves.png",
+    "docs/data_science/figures/inventory_shap_beeswarm.png"
+  ]
+}

@@ -1,0 +1,22 @@
+name: scale
+seed: 42
+start_date: "2024-01-01"
+end_date: "2026-06-30"
+
+counts:
+  customer_segments: 3
+  customers: 100000
+  addresses_per_customer: 1.5
+  product_categories: 50
+  products: 5000
+  suppliers: 500
+  warehouses: 12
+  orders: 2000000
+  items_per_order_mean: 3.5
+  machines: 500
+  telemetry_readings_per_machine: 40000
+  support_tickets: 400000
+
+corruption:
+  enabled: true
+  rate: 0.05

@@ -1,0 +1,242 @@
+{
+  "audit_timestamp": "2026-08-18T17:21:46.335433",
+  "domains": {
+    "customer_churn": {
+      "status": "COMPLETED",
+      "total_features_audited": 10,
+      "drifted_features_count": 0,
+      "prediction_psi_score": 0.039605661986332974,
+      "retraining_recommended": false,
+      "feature_details": [
+        {
+          "feature_name": "total_orders",
+          "ks_statistic": 0.07200000000000006,
+          "ks_pvalue": 0.14973189477810775,
+          "psi_score": 0.038425728530634425,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "total_revenue",
+          "ks_statistic": 0.07399999999999995,
+          "ks_pvalue": 0.12939616996710074,
+          "psi_score": 0.03709620414809839,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "avg_order_value",
+          "ks_statistic": 0.07400000000000001,
+          "ks_pvalue": 0.12939616996710074,
+          "psi_score": 0.03577096728888265,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "days_since_last_order",
+          "ks_statistic": 0.07200000000000001,
+          "ks_pvalue": 0.14973189477810775,
+          "psi_score": 0.036932230687640996,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "avg_csat_score",
+          "ks_statistic": 0.016000000000000014,
+          "ks_pvalue": 0.9999999628423824,
+          "psi_score": 0.0075173238451755105,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "total_support_tickets",
+          "ks_statistic": 0.01999999999999999,
+          "ks_pvalue": 0.9999669534921386,
+          "psi_score": 0.010013449839083756,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "days_as_customer",
+          "ks_statistic": 0.02600000000000001,
+          "ks_pvalue": 0.9959527565364388,
+          "psi_score": 0.014230529984942888,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "order_frequency_30d",
+          "ks_statistic": 0.043999999999999984,
+          "ks_pvalue": 0.7189191850204419,
+          "psi_score": 0.02832133688340474,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "order_frequency_90d",
+          "ks_statistic": 0.043999999999999984,
+          "ks_pvalue": 0.7189191850204419,
+          "psi_score": 0.02832133688340474,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "is_churned_target",
+          "ks_statistic": 0.027999999999999914,
+          "ks_pvalue": 0.989679599112712,
+          "psi_score": 0.0,
+          "drift_detected": false
+        }
+      ]
+    },
+    "sku_demand": {
+      "status": "COMPLETED",
+      "total_features_audited": 10,
+      "drifted_features_count": 7,
+      "prediction_psi_score": 0.0,
+      "retraining_recommended": true,
+      "feature_details": [
+        {
+          "feature_name": "date_key",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "month",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "is_weekend",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "units_sold_target",
+          "ks_statistic": 0.0896132596685083,
+          "ks_pvalue": 4.982652612284182e-32,
+          "psi_score": 0.04590201167565939,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "daily_revenue",
+          "ks_statistic": 0.13878453038674032,
+          "ks_pvalue": 2.2751199152750517e-76,
+          "psi_score": 0.1335893704111663,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "daily_orders_count",
+          "ks_statistic": 0.09502762430939227,
+          "ks_pvalue": 5.7175763295006855e-36,
+          "psi_score": 0.0537509709353409,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "units_sold_lag7",
+          "ks_statistic": 0.08629834254143642,
+          "ks_pvalue": 9.889996536272187e-30,
+          "psi_score": 0.044698176613918617,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "units_sold_lag14",
+          "ks_statistic": 0.08375690607734798,
+          "ks_pvalue": 4.987205197764866e-28,
+          "psi_score": 0.042885582292842374,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "rolling_avg_7d",
+          "ks_statistic": 0.13977900552486178,
+          "ks_pvalue": 1.8244595422676548e-77,
+          "psi_score": 0.12755403974293097,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "rolling_avg_30d",
+          "ks_statistic": 0.1739226519337017,
+          "ks_pvalue": 6.471128797470459e-120,
+          "psi_score": 0.23081577096370753,
+          "drift_detected": true
+        }
+      ]
+    },
+    "inventory_stockout": {
+      "status": "COMPLETED",
+      "total_features_audited": 12,
+      "drifted_features_count": 1,
+      "prediction_psi_score": 0.15004383631595108,
+      "retraining_recommended": true,
+      "feature_details": [
+        {
+          "feature_name": "inventory_id",
+          "ks_statistic": 1.0,
+          "ks_pvalue": 1.9426434495222354e-119,
+          "psi_score": 8.283089355027482,
+          "drift_detected": true
+        },
+        {
+          "feature_name": "quantity_on_hand",
+          "ks_statistic": 0.12000000000000005,
+          "ks_pvalue": 0.11228360286766195,
+          "psi_score": 0.0885871085097723,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "quantity_allocated",
+          "ks_statistic": 0.065,
+          "ks_pvalue": 0.7933622419382523,
+          "psi_score": 0.09605484207292367,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "quantity_available",
+          "ks_statistic": 0.135,
+          "ks_pvalue": 0.052139087188847716,
+          "psi_score": 0.1292064531099575,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "reorder_point",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "reorder_quantity",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "days_of_supply",
+          "ks_statistic": 0.08499999999999996,
+          "ks_pvalue": 0.46628639073563594,
+          "psi_score": 0.048420677085336025,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "unit_cost",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "unit_price",
+          "ks_statistic": 0.0,
+          "ks_pvalue": 1.0,
+          "psi_score": 0.0,
+          "drift_detected": false
+        },
+        {
+          "feature_name": "inventory_value_usd",
+          "ks_statistic": 0.16000000000000003,
+          "ks_pvalue": 0.011843449760085422,
+          "psi_score": 0.23646459119456098,
+          "drift_detected": false
+        }
+      ]
+    }
+  }
+}

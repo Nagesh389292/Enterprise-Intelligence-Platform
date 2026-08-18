@@ -1,0 +1,10 @@
+{
+  "champion_model_name": "Ridge_Linear_Regressor",
+  "n_samples": 15300,
+  "cv_mape": 204.01323231523435,
+  "cv_rmse": 8.812379670459432,
+  "cv_mae": 6.475453150045906,
+  "cv_r2": 0.47360568549913384,
+  "stage7_rolling_7d_mape": 195.28717071698307,
+  "stage7_naive_lag7_mape": 215.56297545140592
+}

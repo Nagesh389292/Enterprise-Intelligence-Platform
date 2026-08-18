@@ -1,0 +1,135 @@
+{
+  "overall_status": "PASSED",
+  "executed_at": "2026-08-18T01:52:19.741697",
+  "measures_validated": 14,
+  "measures_passed": 14,
+  "measures_failed": 0,
+  "validation_results": [
+    {
+      "measure_name": "Total Net Revenue",
+      "folder": "_Sales Measures",
+      "dax_formula": "SUM(FactOrderItems[net_revenue])",
+      "expected_target": 77237960.93,
+      "postgres_actual": 77237960.93,
+      "variance": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Gross Revenue",
+      "folder": "_Sales Measures",
+      "dax_formula": "SUM(FactOrderItems[gross_revenue])",
+      "expected_target": 83513938.52,
+      "postgres_actual": 83513938.52,
+      "variance": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Discount Amount",
+      "folder": "_Sales Measures",
+      "dax_formula": "SUM(FactOrderItems[discount_amount])",
+      "expected_target": 6275977.59,
+      "postgres_actual": 6275977.59,
+      "variance": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Units Sold",
+      "folder": "_Sales Measures",
+      "dax_formula": "SUM(FactOrderItems[quantity])",
+      "expected_target": 192575,
+      "postgres_actual": 192575,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Orders Count",
+      "folder": "_Sales Measures",
+      "dax_formula": "DISTINCTCOUNT(FactOrders[order_id])",
+      "expected_target": 10000,
+      "postgres_actual": 10000,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Average Order Value (AOV)",
+      "folder": "_Sales Measures",
+      "dax_formula": "DIVIDE([Total Net Revenue], [Total Orders Count], 0)",
+      "expected_target": 7723.8,
+      "postgres_actual": 7723.8,
+      "variance": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Customers",
+      "folder": "_Customer Measures",
+      "dax_formula": "DISTINCTCOUNT(DimCustomer[customer_id])",
+      "expected_target": 1000,
+      "postgres_actual": 1000,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Support Tickets",
+      "folder": "_Customer Measures",
+      "dax_formula": "COUNT(FactSupportTickets[ticket_id])",
+      "expected_target": 2500,
+      "postgres_actual": 2500,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Average CSAT Score",
+      "folder": "_Customer Measures",
+      "dax_formula": "AVERAGE(FactSupportTickets[csat_score])",
+      "expected_target": 3.38,
+      "postgres_actual": 3.38,
+      "variance": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Quantity On Hand",
+      "folder": "_Inventory Measures",
+      "dax_formula": "SUM(FactInventorySnapshot[quantity_on_hand])",
+      "expected_target": 210174,
+      "postgres_actual": 210174,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Items Below Reorder Point",
+      "folder": "_Inventory Measures",
+      "dax_formula": "CALCULATE(COUNT(FactInventorySnapshot[inventory_id]), FactInventorySnapshot[is_below_reorder_point] = TRUE)",
+      "expected_target": 85,
+      "postgres_actual": 85,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Machine Fleet Count",
+      "folder": "_Operations Measures",
+      "dax_formula": "DISTINCTCOUNT(DimMachine[machine_id])",
+      "expected_target": 50,
+      "postgres_actual": 50,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Total Telemetry Records",
+      "folder": "_Operations Measures",
+      "dax_formula": "COUNT(FactMachineTelemetry[telemetry_minute_key])",
+      "expected_target": 100000,
+      "postgres_actual": 100000,
+      "variance": 0,
+      "status": "PASSED"
+    },
+    {
+      "measure_name": "Average Fleet Temperature C",
+      "folder": "_Operations Measures",
+      "dax_formula": "AVERAGE(FactMachineTelemetry[avg_temperature_c])",
+      "expected_target": 65.37,
+      "postgres_actual": 65.37,
+      "variance": 0.0,
+      "status": "PASSED"
+    }
+  ]
+}

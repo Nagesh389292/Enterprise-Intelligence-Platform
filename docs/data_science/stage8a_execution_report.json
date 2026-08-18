@@ -1,0 +1,18 @@
+{
+  "stage": "Stage 8A \u2014 Customer Churn ML Engineering",
+  "timestamp": "2026-08-18 11:05:28",
+  "overall_status": "PASS",
+  "execution_time_seconds": 60.04,
+  "notebook": "notebooks/07_stage8a_customer_churn_ml.ipynb",
+  "error_message": null,
+  "artifacts_generated": [
+    "models/churn/champion_churn_model.pkl",
+    "models/churn/champion_metadata.json",
+    "docs/data_science/churn_model_card.md",
+    "docs/data_science/figures/churn_roc_curve_comparison.png",
+    "docs/data_science/figures/churn_pr_curve_comparison.png",
+    "docs/data_science/figures/churn_threshold_sensitivity.png",
+    "docs/data_science/figures/churn_confusion_matrix_optimal.png",
+    "docs/data_science/figures/churn_shap_beeswarm.png"
+  ]
+}

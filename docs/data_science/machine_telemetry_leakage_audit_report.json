@@ -1,0 +1,70 @@
+{
+  "dataset_size": 100000,
+  "n_machines": 50,
+  "target_col": "will_fail_next_24h",
+  "target_pos_count": 864,
+  "target_pos_rate": 0.00864,
+  "leakage_detected": true,
+  "feature_audits": {
+    "avg_temperature_c": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "max_temperature_c": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "temp_spread": {
+      "univariate_auc": 0.5,
+      "lineage": "CLEAN (Past Telemetry Window)",
+      "status": "CLEAN",
+      "is_leaked": false
+    },
+    "avg_vibration_rms": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "max_vibration_rms": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "avg_pressure_psi": {
+      "univariate_auc": 0.5113,
+      "lineage": "CLEAN (Past Telemetry Window)",
+      "status": "CLEAN",
+      "is_leaked": false
+    },
+    "avg_power_kw": {
+      "univariate_auc": 0.5018,
+      "lineage": "CLEAN (Past Telemetry Window)",
+      "status": "CLEAN",
+      "is_leaked": false
+    },
+    "rolling_10min_avg_temp": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "rolling_10min_avg_vib": {
+      "univariate_auc": 0.998,
+      "lineage": "REJECTED (Suspicious AUC = 0.9980)",
+      "status": "REJECTED (LEAK)",
+      "is_leaked": true
+    },
+    "anomaly_severity_score": {
+      "univariate_auc": 0.8708,
+      "lineage": "CLEAN (Past Telemetry Window)",
+      "status": "CLEAN",
+      "is_leaked": false
+    }
+  }
+}

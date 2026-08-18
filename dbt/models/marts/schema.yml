@@ -1,0 +1,504 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Calendar dimension table spanning 2025-01-01 to 2027-12-31"
+    columns:
+      - name: date_key
+        description: "Primary key integer formatted as YYYYMMDD"
+        data_tests:
+          - unique
+          - not_null
+      - name: full_date
+        description: "Standard calendar date"
+        data_tests:
+          - unique
+          - not_null
+      - name: day_of_week
+        description: "Day of week integer (1=Sunday, 7=Saturday)"
+      - name: day_of_week_name
+        description: "Full day of week name (Sunday, Monday, etc.)"
+      - name: day_of_month
+        description: "Day of month integer (1 to 31)"
+      - name: day_of_year
+        description: "Day of year integer (1 to 366)"
+      - name: week_of_year
+        description: "Week of year integer (1 to 53)"
+      - name: month_of_year
+        description: "Month of year integer (1 to 12)"
+      - name: month_name
+        description: "Full month name (January, February, etc.)"
+      - name: quarter_of_year
+        description: "Calendar quarter integer (1 to 4)"
+      - name: year
+        description: "Calendar year integer"
+      - name: is_weekend
+        description: "Boolean flag indicating weekend day"
+      - name: is_holiday
+        description: "Boolean flag indicating public holiday"
+
+  - name: dim_customer
+    description: "Customer dimension table with segment and address attributes"
+    columns:
+      - name: customer_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: "Company or customer legal business name"
+      - name: industry
+        description: "Industry vertical sector"
+      - name: segment_id
+        description: "Foreign key to customer_segments"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customer_segments')
+                field: segment_id
+      - name: segment_code
+        description: "Segment short code identifier"
+      - name: segment_name
+        description: "Human-readable segment classification name"
+      - name: account_status
+        description: "Account status (ACTIVE, SUSPENDED, PENDING)"
+      - name: contact_email
+        description: "Primary contact email address"
+      - name: contact_phone
+        description: "Primary contact phone number"
+      - name: credit_limit
+        description: "Approved credit limit USD"
+      - name: primary_street_address
+        description: "Primary facility street address"
+      - name: primary_city
+        description: "Primary facility city name"
+      - name: primary_state_province
+        description: "Primary facility state or province"
+      - name: primary_postal_code
+        description: "Primary facility postal code"
+      - name: primary_country_code
+        description: "Primary facility ISO 2-letter country code"
+      - name: valid_from
+        description: "SCD Type 2 record effective start timestamp"
+      - name: valid_to
+        description: "SCD Type 2 record effective end timestamp (null for current)"
+      - name: is_current
+        description: "SCD Type 2 current record indicator flag"
+      - name: record_version
+        description: "SCD Type 2 version counter integer"
+      - name: _ingested_at
+        description: "Ingestion pipeline load timestamp"
+
+  - name: snp_customers
+    description: "SCD Type 2 Customer Snapshot model establishing structural support for point-in-time attribute tracking (Version 1 snapshot per customer)"
+    columns:
+      - name: customer_sk
+        description: "Surrogate key MD5(customer_id + '_v1')"
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Business key UUID"
+        data_tests:
+          - not_null
+      - name: company_name
+        description: "Company or customer legal business name"
+      - name: industry
+        description: "Industry vertical sector"
+      - name: segment_id
+        description: "Foreign key to customer_segments"
+      - name: segment_code
+        description: "Segment short code identifier"
+      - name: segment_name
+        description: "Human-readable segment classification name"
+      - name: account_status
+        description: "Account status"
+      - name: contact_email
+        description: "Primary contact email"
+      - name: contact_phone
+        description: "Primary contact phone"
+      - name: credit_limit
+        description: "Approved credit limit USD"
+      - name: primary_street_address
+        description: "Primary street address"
+      - name: primary_city
+        description: "Primary city"
+      - name: primary_state_province
+        description: "Primary state or province"
+      - name: primary_postal_code
+        description: "Primary postal code"
+      - name: primary_country_code
+        description: "Primary country code"
+      - name: valid_from
+        description: "SCD Type 2 record effective start timestamp"
+      - name: valid_to
+        description: "SCD Type 2 record effective end timestamp"
+      - name: is_current
+        description: "Flag indicating current active record"
+        data_tests:
+          - not_null
+      - name: record_version
+        description: "Record version counter integer"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: dim_product
+    description: "Product catalog dimension table with category hierarchy"
+    columns:
+      - name: product_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Product catalog item name"
+      - name: sku
+        description: "Stock Keeping Unit string"
+      - name: category_id
+        description: "Foreign key to product_categories"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_product_categories')
+                field: category_id
+      - name: category_name
+        description: "Product category taxonomy name"
+      - name: parent_category_id
+        description: "Parent category ID"
+      - name: supplier_id
+        description: "Primary component supplier ID"
+      - name: supplier_name
+        description: "Primary component supplier company name"
+      - name: unit_cost
+        description: "Unit cost USD"
+      - name: unit_price
+        description: "Unit retail price USD"
+      - name: is_active
+        description: "Active catalog status flag"
+      - name: created_at
+        description: "Product creation timestamp"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: dim_supplier
+    description: "Standalone supplier dimension table"
+    columns:
+      - name: supplier_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: supplier_name
+        description: "Supplier legal company name"
+      - name: contact_name
+        description: "Point of contact name"
+      - name: contact_email
+        description: "Contact email address"
+      - name: contact_phone
+        description: "Contact phone number"
+      - name: country_code
+        description: "ISO 2-letter country code"
+      - name: reliability_score
+        description: "Historical supplier reliability rating"
+      - name: created_at
+        description: "Supplier creation timestamp"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: dim_warehouse
+    description: "Regional warehouse distribution center dimension"
+    columns:
+      - name: warehouse_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: warehouse_code
+        description: "Facility short code identifier"
+      - name: warehouse_name
+        description: "Fulfillment center name"
+      - name: location
+        description: "Geographic facility location"
+      - name: capacity_sqft
+        description: "Facility square footage capacity"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: dim_machine
+    description: "Manufacturing plant machinery equipment fleet dimension (exactly 50 machines)"
+    columns:
+      - name: machine_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: serial_number
+        description: "Manufacturer equipment serial number"
+      - name: machine_type_id
+        description: "Foreign key to machine_types"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_machine_types')
+                field: machine_type_id
+      - name: machine_type_name
+        description: "Machine model equipment type name"
+      - name: manufacturer
+        description: "Equipment manufacturer company name"
+      - name: model_number
+        description: "Manufacturer model number"
+      - name: warehouse_id
+        description: "Foreign key to warehouses"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_warehouses')
+                field: warehouse_id
+      - name: warehouse_name
+        description: "Plant warehouse facility name"
+      - name: installation_date
+        description: "Commissioning date"
+      - name: status
+        description: "Operational status"
+      - name: expected_lifespan_years
+        description: "Design lifespan years"
+      - name: max_temp_c
+        description: "Max safe temperature Celsius"
+      - name: max_vibration_rms
+        description: "Max safe vibration RMS"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_orders
+    description: "Purchase orders fact table (grain: 1 row per order)"
+    columns:
+      - name: order_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: order_number
+        description: "Human-readable order sequence string"
+      - name: customer_id
+        description: "Foreign key to dim_customer"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+      - name: shipping_address_id
+        description: "Foreign key to customer_addresses"
+      - name: channel_id
+        description: "Sales channel identifier"
+      - name: order_status
+        description: "Order status (DELIVERED, SHIPPED, PROCESSING, CANCELLED)"
+      - name: order_timestamp
+        description: "Purchase order placement timestamp"
+      - name: date_key
+        description: "Foreign key to dim_date"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: promised_delivery_date
+        description: "Contractual promised delivery date"
+      - name: derived_actual_delivery_date
+        description: "Synthetic delivery date (order_timestamp + 3 days)"
+      - name: derived_delivery_delay_days
+        description: "Derived delivery delay days relative to promised date"
+      - name: total_amount
+        description: "Total order gross amount USD"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_order_items
+    description: "Purchase order line items fact table (grain: 1 row per line item)"
+    columns:
+      - name: order_item_id
+        description: "Primary key bigint"
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key to fact_orders"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_orders')
+                field: order_id
+      - name: product_id
+        description: "Foreign key to dim_product"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_id
+      - name: quantity
+        description: "Purchased quantity"
+      - name: unit_price
+        description: "Unit price USD"
+      - name: discount_amount
+        description: "Discount amount USD"
+      - name: net_revenue
+        description: "Net line item revenue USD"
+      - name: gross_revenue
+        description: "Gross revenue USD (quantity * unit_price)"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_inventory_snapshot
+    description: "Inventory stock level snapshot fact table (grain: 1 row per product x warehouse snapshot)"
+    columns:
+      - name: inventory_id
+        description: "Primary key bigint"
+        data_tests:
+          - unique
+          - not_null
+      - name: warehouse_id
+        description: "Foreign key to dim_warehouse"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_warehouse')
+                field: warehouse_id
+      - name: product_id
+        description: "Foreign key to dim_product"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_id
+      - name: quantity_on_hand
+        description: "Physical stock quantity on hand"
+      - name: quantity_allocated
+        description: "Quantity allocated to open orders"
+      - name: quantity_available
+        description: "Net stock available"
+      - name: reorder_point
+        description: "Minimum inventory threshold level"
+      - name: reorder_quantity
+        description: "Standard reorder quantity batch size"
+      - name: snapshot_date
+        description: "Snapshot observation date"
+      - name: is_below_reorder_point
+        description: "Flag indicating inventory is below reorder threshold"
+      - name: days_of_supply
+        description: "Estimated days of supply based on run rate"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_machine_telemetry
+    description: "IoT operational telemetry 1-minute rollup fact table (grain: 1 row per machine x 1-minute interval)"
+    columns:
+      - name: telemetry_minute_key
+        description: "Primary surrogate key MD5(machine_id + minute_timestamp)"
+        data_tests:
+          - unique
+          - not_null
+      - name: machine_id
+        description: "Foreign key to dim_machine"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_machine')
+                field: machine_id
+      - name: minute_timestamp
+        description: "1-minute interval start timestamp"
+      - name: raw_event_count
+        description: "Number of raw sensor pings in 1-minute window"
+      - name: avg_temperature_c
+        description: "Average temperature Celsius"
+      - name: max_temperature_c
+        description: "Peak temperature Celsius"
+      - name: avg_vibration_rms
+        description: "Average vibration RMS"
+      - name: max_vibration_rms
+        description: "Peak vibration RMS"
+      - name: avg_pressure_psi
+        description: "Average operating pressure PSI"
+      - name: avg_power_kw
+        description: "Average power consumption kW"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_maintenance_events
+    description: "Preventive and corrective maintenance events fact table (grain: 1 row per maintenance event)"
+    columns:
+      - name: maintenance_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: machine_id
+        description: "Foreign key to dim_machine"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_machine')
+                field: machine_id
+      - name: maintenance_type
+        description: "Maintenance type classification"
+      - name: start_time
+        description: "Maintenance start timestamp"
+      - name: end_time
+        description: "Maintenance completion timestamp"
+      - name: duration_hours
+        description: "Duration of maintenance activity in hours"
+      - name: cost
+        description: "Maintenance cost USD"
+      - name: technician_notes
+        description: "Technician notes"
+      - name: _ingested_at
+        description: "Ingestion timestamp"
+
+  - name: fact_support_tickets
+    description: "Customer service support tickets and CSAT rating fact table (grain: 1 row per support ticket)"
+    columns:
+      - name: ticket_id
+        description: "Primary key UUID"
+        data_tests:
+          - unique
+          - not_null
+      - name: ticket_number
+        description: "Human-readable ticket sequence string"
+      - name: customer_id
+        description: "Foreign key to dim_customer"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+      - name: category
+        description: "Issue category classification"
+      - name: priority
+        description: "Priority level"
+      - name: status
+        description: "Resolution status"
+      - name: created_at
+        description: "Ticket creation timestamp"
+      - name: resolved_at
+        description: "Ticket resolution timestamp"
+      - name: resolution_time_hours
+        description: "Resolution turnaround duration in hours"
+      - name: survey_id
+        description: "Linked survey ID"
+      - name: csat_score
+        description: "Customer satisfaction score (1 to 5)"
+      - name: feedback_comments
+        description: "Customer survey feedback text"
+      - name: _ingested_at
+        description: "Ingestion timestamp"

@@ -1,0 +1,51 @@
+{
+  "dataset_rows": 400,
+  "target_col": "stockout_risk_flag_target",
+  "class_prevalence": 0.2125,
+  "univariate_auc": {
+    "quantity_on_hand": 0.8928478057889823,
+    "quantity_allocated": 0.5448739495798319,
+    "quantity_available": 0.8954808590102707,
+    "reorder_point": 0.804388422035481,
+    "reorder_quantity": 0.804388422035481,
+    "days_of_supply": 1.0,
+    "unit_cost": 0.5439962651727357,
+    "unit_price": 0.5507189542483659,
+    "inventory_value_usd": 0.7601493930905695,
+    "is_below_reorder_point": 1.0
+  },
+  "rejected_leaked_features": {
+    "quantity_on_hand": {
+      "univariate_auc": 0.8928,
+      "is_target_formula_variable": true,
+      "reason": "Direct formula variable constructing target label label"
+    },
+    "quantity_allocated": {
+      "univariate_auc": 0.5449,
+      "is_target_formula_variable": true,
+      "reason": "Direct formula variable constructing target label label"
+    },
+    "quantity_available": {
+      "univariate_auc": 0.8955,
+      "is_target_formula_variable": true,
+      "reason": "Direct formula variable constructing target label label"
+    },
+    "reorder_point": {
+      "univariate_auc": 0.8044,
+      "is_target_formula_variable": true,
+      "reason": "Direct formula variable constructing target label label"
+    },
+    "days_of_supply": {
+      "univariate_auc": 1.0,
+      "is_target_formula_variable": true,
+      "reason": "Direct formula variable constructing target label label"
+    },
+    "is_below_reorder_point": {
+      "univariate_auc": 1.0,
+      "is_target_formula_variable": false,
+      "reason": "Suspiciously perfect predictive power (AUC >= 0.95)"
+    }
+  },
+  "violations_in_allowed_set": [],
+  "audit_passed": true
+}

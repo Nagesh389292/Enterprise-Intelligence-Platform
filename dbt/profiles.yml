@@ -1,0 +1,12 @@
+nexacore_dw:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', '127.0.0.1') }}"
+      port: 5433
+      user: "{{ env_var('POSTGRES_USER', 'nexacore_admin') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD', 'nexacore_secret_pass') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'nexacore_dw') }}"
+      schema: analytics
+      threads: 4

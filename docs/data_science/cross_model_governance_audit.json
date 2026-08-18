@@ -1,0 +1,130 @@
+{
+  "audit_timestamp": "2026-08-18T17:04:52.119786",
+  "overall_portfolio_status": "GOVERNANCE_APPROVED",
+  "stages_audited": [
+    "8A",
+    "8B",
+    "8C",
+    "8D"
+  ],
+  "mlflow_audit": {
+    "status": "ACTIVE",
+    "total_experiments": 5,
+    "total_runs": 46,
+    "experiments": [
+      {
+        "experiment_id": 1,
+        "experiment_name": "Customer_Churn_Prediction",
+        "run_count": 10
+      },
+      {
+        "experiment_id": 0,
+        "experiment_name": "Default",
+        "run_count": 0
+      },
+      {
+        "experiment_id": 2,
+        "experiment_name": "Demand_Forecasting_Prediction",
+        "run_count": 20
+      },
+      {
+        "experiment_id": 3,
+        "experiment_name": "Inventory_Stockout_Risk_Classification",
+        "run_count": 12
+      },
+      {
+        "experiment_id": 4,
+        "experiment_name": "Machine_Failure_Prediction",
+        "run_count": 4
+      }
+    ]
+  },
+  "stage_8d_event_level_audit": {
+    "n_breakdown_events": 3,
+    "failures_warned_ge_6h": 3,
+    "event_level_recall_6h": 1.0,
+    "false_alerts_per_machine_day": 0.86,
+    "event_details": [
+      {
+        "failure_id": "ff002d4d-9020-59e4-ff9a-b5c29f044aed",
+        "machine_id": "17fc695a-07a0-ca6e-0822-e8f36c031199",
+        "failure_code": "OVERHEAT_ERR_E4",
+        "occurred_at": "2026-01-07 17:30:00+00:00",
+        "telemetry_window_records": 217,
+        "predictive_alerts_6h_prior": 217,
+        "max_probability_6h_prior": 0.9979735035167446,
+        "received_valid_warning_ge_6h": true
+      },
+      {
+        "failure_id": "fad409e2-a319-dcb4-217d-65a0c56811cd",
+        "machine_id": "3838b326-8e94-4239-b02b-61c4a3d70628",
+        "failure_code": "OVERHEAT_ERR_E4",
+        "occurred_at": "2026-01-07 17:40:00+00:00",
+        "telemetry_window_records": 217,
+        "predictive_alerts_6h_prior": 217,
+        "max_probability_6h_prior": 0.9987750546658724,
+        "received_valid_warning_ge_6h": true
+      },
+      {
+        "failure_id": "6160a6b4-9360-715f-c3fe-0183e172b725",
+        "machine_id": "dd59ba71-36b8-2481-7b3a-4e3e7c52fa17",
+        "failure_code": "OVERHEAT_ERR_E4",
+        "occurred_at": "2026-01-07 21:15:00+00:00",
+        "telemetry_window_records": 217,
+        "predictive_alerts_6h_prior": 217,
+        "max_probability_6h_prior": 0.9977009149859023,
+        "received_valid_warning_ge_6h": true
+      }
+    ]
+  },
+  "portfolio_scorecard": [
+    {
+      "stage": "8A",
+      "domain": "Customer Churn",
+      "approach": "Supervised Binary Classification",
+      "cv_method": "5-Fold Stratified CV",
+      "leakage_status": "PASSED (Cutoff date enforced)",
+      "champion": "XGBoost_ScalePosWeight",
+      "primary_metric": "ROC-AUC: 0.5622 | PR-AUC: 0.0570 | Recall @ T*=0.11: 70.45%",
+      "brier_score": 0.0512,
+      "governance_status": "APPROVED (Weak behavioral signal documented)",
+      "simulated_scenario_labeled": true
+    },
+    {
+      "stage": "8B",
+      "domain": "SKU Demand Forecasting",
+      "approach": "Time-Series Regression",
+      "cv_method": "5-Fold Expanding Window TimeSeriesSplit",
+      "leakage_status": "PASSED (Strict past lag features .shift(1))",
+      "champion": "Ridge_Linear_Regressor",
+      "primary_metric": "RMSE: 8.81 units | MAE: 6.48 units | WAPE: 61.08% | R2: 0.4750",
+      "brier_score": null,
+      "governance_status": "APPROVED (Corrected from LightGBM to Ridge based on WAPE/RMSE)",
+      "simulated_scenario_labeled": true
+    },
+    {
+      "stage": "8C",
+      "domain": "Inventory Stockout Risk",
+      "approach": "Rare-Event Classification & Temporal Forecasting",
+      "cv_method": "5-Fold Stratified CV",
+      "leakage_status": "PASSED (6 formula variables purged; AUC=1.0000 rejected)",
+      "champion": "XGBoost_Stockout_Classifier (Model B: 7-Day Forecast)",
+      "primary_metric": "PR-AUC: 0.9425 | ROC-AUC: 0.9802 | F1: 0.8362",
+      "brier_score": 0.0491,
+      "governance_status": "APPROVED (Target reconstructed: Model A State vs Model B 7d Forecast)",
+      "simulated_scenario_labeled": true
+    },
+    {
+      "stage": "8D",
+      "domain": "Machine Telemetry Anomaly & Failure",
+      "approach": "Dual-Model: Isolation Forest + Walk-Forward Failure Classifier",
+      "cv_method": "5-Fold Walk-Forward TimeSeriesSplit",
+      "leakage_status": "PASSED (Raw spike features purged; past rolling windows used)",
+      "champion": "Random_Forest_Classifier (24h Failure)",
+      "primary_metric": "PR-AUC: 0.6899 | ROC-AUC: 0.9974 | Event-Level Recall (>=6h): 100.00%",
+      "brier_score": 0.0039,
+      "governance_status": "APPROVED (Event-level validation confirmed 100% warning lead time >=6h)",
+      "simulated_scenario_labeled": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "model_name": "Isolation_Forest_Detector",
+  "contamination": 0.03,
+  "n_samples": 100000,
+  "n_machines": 50,
+  "sensor_cols": [
+    "avg_temperature_c",
+    "avg_vibration_rms",
+    "avg_pressure_psi",
+    "avg_power_kw"
+  ],
+  "detected_anomalies": 3000,
+  "detection_rate": 0.03,
+  "alerts_per_machine_day": 8.571428571428571,
+  "precision": 0.301,
+  "recall": 1.0,
+  "f1": 0.46272098385857036
+}

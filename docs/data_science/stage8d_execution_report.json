@@ -1,0 +1,11 @@
+{
+  "stage": "Stage 8D \u2014 Machine Telemetry Anomaly & Predictive Maintenance ML",
+  "notebook_path": "notebooks/10_stage8d_machine_anomaly.ipynb",
+  "overall_status": "PASS",
+  "execution_time_seconds": 108.55,
+  "error_message": null,
+  "checks": {
+    "notebook_converted": true,
+    "execution_exit_code_zero": true
+  }
+}

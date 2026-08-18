@@ -1,0 +1,22 @@
+name: development
+seed: 42
+start_date: "2026-01-01"
+end_date: "2026-06-30"
+
+counts:
+  customer_segments: 3
+  customers: 1000
+  addresses_per_customer: 1.5
+  product_categories: 10
+  products: 100
+  suppliers: 20
+  warehouses: 4
+  orders: 10000
+  items_per_order_mean: 3.5
+  machines: 50
+  telemetry_readings_per_machine: 2000
+  support_tickets: 2500
+
+corruption:
+  enabled: false
+  rate: 0.05

@@ -1,0 +1,2069 @@
+{
+  "run_id": "f390e8ed-f337-496e-8be6-7365839c6138",
+  "generated_at": "2026-08-18T10:15:09.912710+00:00",
+  "total_decisions": 50,
+  "summary": {
+    "by_domain": {
+      "operations": 50
+    },
+    "by_verdict": {
+      "ESCALATED": 50
+    },
+    "by_risk": {
+      "CRITICAL": 50
+    },
+    "requiring_human_approval": 50
+  },
+  "decisions": [
+    {
+      "decision_id": "b8f955e3-fa09-4115-bf28-ea136c5714ee",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "27cd8130-4722-9389-571a-a8766c307511",
+      "recommended_action": "PREVENTIVE maintenance for 27cd8130-4722-9389-571a-a8766c307511 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 27cd8130-4722-9389-571a-a8766c307511: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7512",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7512 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.898800+00:00"
+    },
+    {
+      "decision_id": "af644d9e-04f7-4d32-9bae-940bd490626e",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "4b22d308-1c8e-aee9-5715-bd6fa4161293",
+      "recommended_action": "PREVENTIVE maintenance for 4b22d308-1c8e-aee9-5715-bd6fa4161293 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 4b22d308-1c8e-aee9-5715-bd6fa4161293: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7446",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7446 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.898905+00:00"
+    },
+    {
+      "decision_id": "00056908-0a88-4d85-ac2a-c3246c60010a",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "8a0b3c33-36d8-393a-7c44-1fe7ab4220a7",
+      "recommended_action": "PREVENTIVE maintenance for 8a0b3c33-36d8-393a-7c44-1fe7ab4220a7 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 8a0b3c33-36d8-393a-7c44-1fe7ab4220a7: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7446",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7446 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.898942+00:00"
+    },
+    {
+      "decision_id": "918e09f4-c034-40e4-9db8-94bc18b17eda",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "5be6128e-18c2-6797-6142-ea7d17be3111",
+      "recommended_action": "PREVENTIVE maintenance for 5be6128e-18c2-6797-6142-ea7d17be3111 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 5be6128e-18c2-6797-6142-ea7d17be3111: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7446",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7446 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.898967+00:00"
+    },
+    {
+      "decision_id": "878e0cd6-4ebe-4fb9-82bd-00e718bcf7e7",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "913e4de2-e0c5-3cb8-3da9-c2a90ed42f1a",
+      "recommended_action": "PREVENTIVE maintenance for 913e4de2-e0c5-3cb8-3da9-c2a90ed42f1a within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 913e4de2-e0c5-3cb8-3da9-c2a90ed42f1a: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7432",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7432 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.898989+00:00"
+    },
+    {
+      "decision_id": "0b4db105-a148-49c6-a734-0d6bef3ff339",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "abf3ad39-fec2-1bbe-6624-5bfa4fcca39a",
+      "recommended_action": "PREVENTIVE maintenance for abf3ad39-fec2-1bbe-6624-5bfa4fcca39a within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine abf3ad39-fec2-1bbe-6624-5bfa4fcca39a: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7419",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7419 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899024+00:00"
+    },
+    {
+      "decision_id": "22b3b8d5-a4c7-4279-abef-ba917990bf86",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "02f06b90-f143-262f-dc5c-0eed8da0365b",
+      "recommended_action": "PREVENTIVE maintenance for 02f06b90-f143-262f-dc5c-0eed8da0365b within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 02f06b90-f143-262f-dc5c-0eed8da0365b: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899051+00:00"
+    },
+    {
+      "decision_id": "0b582bbc-bc0b-4efc-bbb3-cb3c8be7f71f",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "988c24c9-61b1-cd22-6280-1c4510435a10",
+      "recommended_action": "PREVENTIVE maintenance for 988c24c9-61b1-cd22-6280-1c4510435a10 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 988c24c9-61b1-cd22-6280-1c4510435a10: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899071+00:00"
+    },
+    {
+      "decision_id": "bb1f3d3e-452d-4af0-a2da-9a322a270586",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "bb026576-f512-c4c3-b253-d2186c4a37ea",
+      "recommended_action": "PREVENTIVE maintenance for bb026576-f512-c4c3-b253-d2186c4a37ea within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine bb026576-f512-c4c3-b253-d2186c4a37ea: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899095+00:00"
+    },
+    {
+      "decision_id": "f43ab759-1017-4898-b10a-1bbfbbf233d2",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "ad3c2d6d-1a3d-1fa7-bc89-60a923b8c1e9",
+      "recommended_action": "PREVENTIVE maintenance for ad3c2d6d-1a3d-1fa7-bc89-60a923b8c1e9 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine ad3c2d6d-1a3d-1fa7-bc89-60a923b8c1e9: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899116+00:00"
+    },
+    {
+      "decision_id": "209187bf-74ad-4d70-962c-39d39a7e25eb",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "3838b326-8e94-4239-b02b-61c4a3d70628",
+      "recommended_action": "PREVENTIVE maintenance for 3838b326-8e94-4239-b02b-61c4a3d70628 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 3838b326-8e94-4239-b02b-61c4a3d70628: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899135+00:00"
+    },
+    {
+      "decision_id": "947072fe-a524-4a14-adf8-8b2bf1e4c26a",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "ec5b227c-dfde-4fbf-3ff3-50bf766ecb15",
+      "recommended_action": "PREVENTIVE maintenance for ec5b227c-dfde-4fbf-3ff3-50bf766ecb15 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine ec5b227c-dfde-4fbf-3ff3-50bf766ecb15: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899709+00:00"
+    },
+    {
+      "decision_id": "d8cd85b6-605f-4cb5-ba76-80e377a0bbc9",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "cf36d58b-4737-8190-96da-1dac72ff5d2a",
+      "recommended_action": "PREVENTIVE maintenance for cf36d58b-4737-8190-96da-1dac72ff5d2a within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine cf36d58b-4737-8190-96da-1dac72ff5d2a: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7416",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7416 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899732+00:00"
+    },
+    {
+      "decision_id": "a4d1b380-639d-4a7d-b200-666f133d7249",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "f6e07cc0-6c52-c49f-9b49-bd26df57c59a",
+      "recommended_action": "PREVENTIVE maintenance for f6e07cc0-6c52-c49f-9b49-bd26df57c59a within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine f6e07cc0-6c52-c49f-9b49-bd26df57c59a: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7413",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7413 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899744+00:00"
+    },
+    {
+      "decision_id": "802d35a8-dd78-480d-8946-f79b97458e57",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "956269f0-e5d7-b875-6dad-d6c795a76d79",
+      "recommended_action": "PREVENTIVE maintenance for 956269f0-e5d7-b875-6dad-d6c795a76d79 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 956269f0-e5d7-b875-6dad-d6c795a76d79: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7413",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7413 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899754+00:00"
+    },
+    {
+      "decision_id": "d5a44fe6-d3d3-4f0a-9f42-4f9f5b3363e5",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "3ae8cc93-8dcd-cd03-969b-666205628059",
+      "recommended_action": "PREVENTIVE maintenance for 3ae8cc93-8dcd-cd03-969b-666205628059 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 3ae8cc93-8dcd-cd03-969b-666205628059: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7413",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7413 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899763+00:00"
+    },
+    {
+      "decision_id": "9fdedcfb-3575-4ed5-9ec7-2aaa972d2185",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "19db3ad0-ddd1-dfb2-3b98-2ef8daf61a26",
+      "recommended_action": "PREVENTIVE maintenance for 19db3ad0-ddd1-dfb2-3b98-2ef8daf61a26 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 19db3ad0-ddd1-dfb2-3b98-2ef8daf61a26: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7382",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7382 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899771+00:00"
+    },
+    {
+      "decision_id": "b6ff3b0e-7b4f-4e6d-bf76-8574cd2ad195",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "8a14be62-295b-4715-c333-e8615fb8d16c",
+      "recommended_action": "PREVENTIVE maintenance for 8a14be62-295b-4715-c333-e8615fb8d16c within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 8a14be62-295b-4715-c333-e8615fb8d16c: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7382",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7382 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899780+00:00"
+    },
+    {
+      "decision_id": "2c4cd0a2-b231-4c53-ad75-a378b6c25aad",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "a013ac6e-deda-4e16-1b3d-bd5ce9a1fa6f",
+      "recommended_action": "PREVENTIVE maintenance for a013ac6e-deda-4e16-1b3d-bd5ce9a1fa6f within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine a013ac6e-deda-4e16-1b3d-bd5ce9a1fa6f: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7382",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7382 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899789+00:00"
+    },
+    {
+      "decision_id": "fa168bd5-df3c-4c01-82ec-736110c569ad",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "ea1fca65-e27a-984d-6548-21d07fcd9eb1",
+      "recommended_action": "PREVENTIVE maintenance for ea1fca65-e27a-984d-6548-21d07fcd9eb1 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine ea1fca65-e27a-984d-6548-21d07fcd9eb1: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7382",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7382 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899798+00:00"
+    },
+    {
+      "decision_id": "53dcf805-029c-47fe-9053-1572891fedba",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "50c187fc-ce17-7b4e-0837-b8a3d261a7ab",
+      "recommended_action": "PREVENTIVE maintenance for 50c187fc-ce17-7b4e-0837-b8a3d261a7ab within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 50c187fc-ce17-7b4e-0837-b8a3d261a7ab: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899806+00:00"
+    },
+    {
+      "decision_id": "8870ebe8-e630-4de7-8548-d2f292d8028d",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "0f1259e0-a18f-f6b6-b535-106e122c9a56",
+      "recommended_action": "PREVENTIVE maintenance for 0f1259e0-a18f-f6b6-b535-106e122c9a56 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 0f1259e0-a18f-f6b6-b535-106e122c9a56: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899815+00:00"
+    },
+    {
+      "decision_id": "20502f59-7865-461d-b6fd-c86e501201e1",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "19108be5-8ce2-1ea3-db20-a56edc815fe7",
+      "recommended_action": "PREVENTIVE maintenance for 19108be5-8ce2-1ea3-db20-a56edc815fe7 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 19108be5-8ce2-1ea3-db20-a56edc815fe7: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899823+00:00"
+    },
+    {
+      "decision_id": "618c51bb-77e3-4ae2-a0fb-1212e2d682a2",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "27209bdf-1c11-f735-dc71-3d960c0fd195",
+      "recommended_action": "PREVENTIVE maintenance for 27209bdf-1c11-f735-dc71-3d960c0fd195 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 27209bdf-1c11-f735-dc71-3d960c0fd195: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899831+00:00"
+    },
+    {
+      "decision_id": "f8a6283e-84d8-4952-b5dc-caf9a0ab1a56",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "6c6fa611-5ab3-3edf-6e59-5ed3a8b317fa",
+      "recommended_action": "PREVENTIVE maintenance for 6c6fa611-5ab3-3edf-6e59-5ed3a8b317fa within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 6c6fa611-5ab3-3edf-6e59-5ed3a8b317fa: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899840+00:00"
+    },
+    {
+      "decision_id": "2b09a11c-71b1-4ff6-99ba-5b833b5976a4",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "fa5d3100-11b7-e948-d0e6-e6607c69dee1",
+      "recommended_action": "PREVENTIVE maintenance for fa5d3100-11b7-e948-d0e6-e6607c69dee1 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine fa5d3100-11b7-e948-d0e6-e6607c69dee1: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899850+00:00"
+    },
+    {
+      "decision_id": "81aa8a64-9b37-4a8c-a7db-6530f463500c",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "1ca35cfb-04fc-6d82-7d15-438552fbe43b",
+      "recommended_action": "PREVENTIVE maintenance for 1ca35cfb-04fc-6d82-7d15-438552fbe43b within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 1ca35cfb-04fc-6d82-7d15-438552fbe43b: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899859+00:00"
+    },
+    {
+      "decision_id": "a54cb1fb-3f93-4006-a7cd-9a23aae8efbd",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "bdd640fb-0667-1ad1-1c80-317fa3b1799d",
+      "recommended_action": "PREVENTIVE maintenance for bdd640fb-0667-1ad1-1c80-317fa3b1799d within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine bdd640fb-0667-1ad1-1c80-317fa3b1799d: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7376",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7376 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899868+00:00"
+    },
+    {
+      "decision_id": "776a2ecf-d797-4694-9321-69af84fe9564",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "3f76be1d-1efa-2197-7394-988f847fd9b4",
+      "recommended_action": "PREVENTIVE maintenance for 3f76be1d-1efa-2197-7394-988f847fd9b4 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 3f76be1d-1efa-2197-7394-988f847fd9b4: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899883+00:00"
+    },
+    {
+      "decision_id": "da796ec9-2fcd-45af-b449-4e7556f93075",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "32e70629-8fad-c1a6-06cb-0fb39a1de644",
+      "recommended_action": "PREVENTIVE maintenance for 32e70629-8fad-c1a6-06cb-0fb39a1de644 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 32e70629-8fad-c1a6-06cb-0fb39a1de644: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899891+00:00"
+    },
+    {
+      "decision_id": "ed78f17a-1d87-4bd5-a4c0-9e485498bf23",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "efc89849-b3aa-7efe-4458-a885ab9099a4",
+      "recommended_action": "PREVENTIVE maintenance for efc89849-b3aa-7efe-4458-a885ab9099a4 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine efc89849-b3aa-7efe-4458-a885ab9099a4: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899900+00:00"
+    },
+    {
+      "decision_id": "3d310907-fdad-4b37-82ec-94677287b467",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "e037e5ed-b8db-0672-f42d-47cc00d4af59",
+      "recommended_action": "PREVENTIVE maintenance for e037e5ed-b8db-0672-f42d-47cc00d4af59 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine e037e5ed-b8db-0672-f42d-47cc00d4af59: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899908+00:00"
+    },
+    {
+      "decision_id": "2ca4c1a9-550e-46c2-be77-bd977be4526a",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "8cbfedb0-f264-accc-79ac-1b1ea8e56e0c",
+      "recommended_action": "PREVENTIVE maintenance for 8cbfedb0-f264-accc-79ac-1b1ea8e56e0c within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 8cbfedb0-f264-accc-79ac-1b1ea8e56e0c: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899917+00:00"
+    },
+    {
+      "decision_id": "2ae5a12d-45d7-412f-8065-b6412f643bf1",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "7656af72-29d4-beef-3eab-edcbbaa80dd4",
+      "recommended_action": "PREVENTIVE maintenance for 7656af72-29d4-beef-3eab-edcbbaa80dd4 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 7656af72-29d4-beef-3eab-edcbbaa80dd4: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899926+00:00"
+    },
+    {
+      "decision_id": "2d0a064d-cce0-44d9-92d5-62fce86ccdad",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "a748dbcf-ac61-9e63-0dde-29a6baa4b71a",
+      "recommended_action": "PREVENTIVE maintenance for a748dbcf-ac61-9e63-0dde-29a6baa4b71a within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine a748dbcf-ac61-9e63-0dde-29a6baa4b71a: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7352",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7352 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899934+00:00"
+    },
+    {
+      "decision_id": "d385c1c3-b85a-4da3-99b7-f8506fcf3f0f",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "63f2ae24-fc3d-3348-008d-4127610461e3",
+      "recommended_action": "PREVENTIVE maintenance for 63f2ae24-fc3d-3348-008d-4127610461e3 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 63f2ae24-fc3d-3348-008d-4127610461e3: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899943+00:00"
+    },
+    {
+      "decision_id": "cbab540d-11d4-49c6-88c5-9f9061a0717c",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "827050a8-2369-b584-ff5e-9ff0ff50bde4",
+      "recommended_action": "PREVENTIVE maintenance for 827050a8-2369-b584-ff5e-9ff0ff50bde4 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 827050a8-2369-b584-ff5e-9ff0ff50bde4: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899950+00:00"
+    },
+    {
+      "decision_id": "2d816985-87be-4664-8288-1ad5a1c4518a",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "29a3b2e9-5d65-a441-d588-42dea2bc372f",
+      "recommended_action": "PREVENTIVE maintenance for 29a3b2e9-5d65-a441-d588-42dea2bc372f within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 29a3b2e9-5d65-a441-d588-42dea2bc372f: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899959+00:00"
+    },
+    {
+      "decision_id": "55e4304a-42a9-4cfb-8959-da08827d12bc",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "23e2fcb4-72d8-567d-894a-05e430b187ef",
+      "recommended_action": "PREVENTIVE maintenance for 23e2fcb4-72d8-567d-894a-05e430b187ef within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 23e2fcb4-72d8-567d-894a-05e430b187ef: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899971+00:00"
+    },
+    {
+      "decision_id": "4b8e7578-3ad7-416a-8c32-328bd8eb8a18",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "a0ee89ae-d453-dd32-4b0d-bb418d5288f1",
+      "recommended_action": "PREVENTIVE maintenance for a0ee89ae-d453-dd32-4b0d-bb418d5288f1 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine a0ee89ae-d453-dd32-4b0d-bb418d5288f1: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899980+00:00"
+    },
+    {
+      "decision_id": "2bbdc0fa-695b-46b4-a86b-d8b3eaaf5d1e",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "17fc695a-07a0-ca6e-0822-e8f36c031199",
+      "recommended_action": "PREVENTIVE maintenance for 17fc695a-07a0-ca6e-0822-e8f36c031199 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 17fc695a-07a0-ca6e-0822-e8f36c031199: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899990+00:00"
+    },
+    {
+      "decision_id": "9af93328-a971-48f7-a9ee-eee468b9627b",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "1223b513-5496-f63c-dc11-10c1080aadfb",
+      "recommended_action": "PREVENTIVE maintenance for 1223b513-5496-f63c-dc11-10c1080aadfb within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 1223b513-5496-f63c-dc11-10c1080aadfb: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.899998+00:00"
+    },
+    {
+      "decision_id": "a24f8154-2af6-4f25-aa0b-461a296e87c2",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "dc96925e-ccf3-a171-56dc-8907ba6c34ab",
+      "recommended_action": "PREVENTIVE maintenance for dc96925e-ccf3-a171-56dc-8907ba6c34ab within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine dc96925e-ccf3-a171-56dc-8907ba6c34ab: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900007+00:00"
+    },
+    {
+      "decision_id": "5c5ef347-6ea3-4519-b461-7d546bfa5ee2",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "683514f2-ceb8-1f9d-7914-c120c8dcd19f",
+      "recommended_action": "PREVENTIVE maintenance for 683514f2-ceb8-1f9d-7914-c120c8dcd19f within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 683514f2-ceb8-1f9d-7914-c120c8dcd19f: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7342",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7342 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900015+00:00"
+    },
+    {
+      "decision_id": "9c788a64-7823-4b6e-9a1d-b01a1e71f24c",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "8fb5d27b-beb7-9919-3f22-faf823bed01d",
+      "recommended_action": "PREVENTIVE maintenance for 8fb5d27b-beb7-9919-3f22-faf823bed01d within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 8fb5d27b-beb7-9919-3f22-faf823bed01d: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7326",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7326 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900024+00:00"
+    },
+    {
+      "decision_id": "d34af2f0-151d-4a79-9a12-d3d368429e31",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "d9441fa5-c0e9-ab30-ed26-62e917e011b7",
+      "recommended_action": "PREVENTIVE maintenance for d9441fa5-c0e9-ab30-ed26-62e917e011b7 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine d9441fa5-c0e9-ab30-ed26-62e917e011b7: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7323",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7323 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900033+00:00"
+    },
+    {
+      "decision_id": "47873a5e-ddb8-4e94-8f03-0e3eed9e59d8",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "0bbb2599-11ce-5dd2-b45e-d1f03139d32c",
+      "recommended_action": "PREVENTIVE maintenance for 0bbb2599-11ce-5dd2-b45e-d1f03139d32c within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 0bbb2599-11ce-5dd2-b45e-d1f03139d32c: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7323",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7323 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900042+00:00"
+    },
+    {
+      "decision_id": "c47a0f75-a6f1-4b07-99e0-afd2784e4fba",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "dd59ba71-36b8-2481-7b3a-4e3e7c52fa17",
+      "recommended_action": "PREVENTIVE maintenance for dd59ba71-36b8-2481-7b3a-4e3e7c52fa17 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine dd59ba71-36b8-2481-7b3a-4e3e7c52fa17: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7321",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7321 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900050+00:00"
+    },
+    {
+      "decision_id": "afa23c18-7d98-44c3-b6e9-8bdd77315ecc",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "89463e85-759c-de66-bacf-b3d00b1f9163",
+      "recommended_action": "PREVENTIVE maintenance for 89463e85-759c-de66-bacf-b3d00b1f9163 within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 89463e85-759c-de66-bacf-b3d00b1f9163: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7318",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7318 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900060+00:00"
+    },
+    {
+      "decision_id": "33b704f8-79d8-4344-9f0d-933add6b68b2",
+      "domain": "operations",
+      "decision_type": "SCHEDULE_MAINTENANCE",
+      "entity_id": "9132b63e-f162-87e4-e9c3-49e03602f8ac",
+      "recommended_action": "PREVENTIVE maintenance for 9132b63e-f162-87e4-e9c3-49e03602f8ac within 24 hours [CRITIC REVISED: IMMEDIATE\u2192PREVENTIVE, failure_prob=0.0%].",
+      "quantity": null,
+      "urgency_hours": 4.0,
+      "confidence_score": 0.0,
+      "risk_level": "CRITICAL",
+      "requires_human_approval": true,
+      "final_verdict": "ESCALATED",
+      "source_models": [
+        "machine_isolation_forest",
+        "machine_failure_random_forest"
+      ],
+      "critic_challenge": "Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+      "reasoning_chain": [
+        "Machine 9132b63e-f162-87e4-e9c3-49e03602f8ac: health_status=Critical, failure_prob_24h=0.0%, anomaly_score=0.7311",
+        "Last telemetry reading: 2026-01-01 00:05:00+00:00",
+        "IMMEDIATE trigger: failure_prob_24h 0.0% \u2265 80% OR health_status=Critical. 4-hour window.",
+        "Elevated anomaly score (0.7311 > 0.5) \u2014 likely deviation from normal operating envelope.",
+        "[CriticAgent] Anomaly flag is set but 24h failure probability is only 0.0% (below 30%). IMMEDIATE dispatch is disproportionate. Recommend downgrading to PREVENTIVE maintenance (24-hour window) with enhanced monitoring.",
+        "[RiskAgent] Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+        "[RiskAgent] CriticAgent raised a challenge: LOW severity.",
+        "[RiskAgent] IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+      ],
+      "risk_assessment": {
+        "financial_exposure_usd": 8000.0,
+        "model_confidence": 0.0,
+        "model_uncertainty_penalty": 0.075,
+        "adjusted_confidence": 0.0,
+        "requires_human_approval": true,
+        "risk_factors": [
+          "Adjusted confidence 0.0% is below approval gate (65%). Human review recommended.",
+          "CriticAgent raised a challenge: LOW severity.",
+          "IMMEDIATE urgency: unplanned downtime within 4 hours possible."
+        ]
+      },
+      "created_at": "2026-08-18T10:15:09.900068+00:00"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+name: Enterprise MLOps & CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, stage11-mlops ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Run weekly drift audit & retraining check every Sunday at midnight
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: 'Specific ML Domain to retrain/evaluate (or all)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - churn
+          - demand
+          - stockout
+          - machine_health
+      force_retrain:
+        description: 'Force retraining even if no drift is detected'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  mlops-ci-cd:
+    name: MLOps Quality, Retraining & Gating Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest flake8
+
+      - name: Code Quality & Lint Check
+        run: |
+          # Stop build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run Core Integration Test Suite
+        run: |
+          python -m pytest tests/ -v --tb=short
+
+      - name: Execute MLOps Pipeline Dry-Run / Evaluation
+        run: |
+          python scripts/run_mlops_pipeline.py --domain ${{ inputs.domain || 'all' }} --dry-run

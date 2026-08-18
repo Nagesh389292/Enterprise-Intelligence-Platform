@@ -1,0 +1,397 @@
+version: 2
+
+sources:
+  - name: source
+    schema: source
+    description: "Silver conformed transactional layer in PostgreSQL nexacore_dw"
+    tables:
+      - name: customer_segments
+        description: "Customer classification segments and target revenue brackets"
+        columns:
+          - name: segment_id
+            description: "Surrogate segment key"
+            tests:
+              - unique
+              - not_null
+          - name: segment_code
+            description: "Segment code identifier"
+          - name: segment_name
+            description: "Human-readable segment classification name"
+          - name: min_annual_revenue
+            description: "Minimum annual revenue threshold USD"
+          - name: max_annual_revenue
+            description: "Maximum annual revenue threshold USD"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: customers
+        description: "Enterprise customer profile records"
+        columns:
+          - name: customer_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: company_name
+            description: "Company or customer legal business name"
+          - name: industry
+            description: "Industry vertical sector"
+          - name: segment_id
+            description: "Foreign key to customer_segments"
+          - name: account_status
+            description: "Account status (ACTIVE, SUSPENDED, PENDING)"
+          - name: contact_email
+            description: "Primary contact email address"
+          - name: contact_phone
+            description: "Primary contact phone number"
+          - name: credit_limit
+            description: "Approved credit limit USD"
+          - name: created_at
+            description: "Customer record creation timestamp"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: customer_addresses
+        description: "Customer shipping and billing physical addresses"
+        columns:
+          - name: address_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: "Foreign key to customers"
+          - name: address_type
+            description: "Address classification (SHIPPING, BILLING)"
+          - name: street_address
+            description: "Physical street address"
+          - name: city
+            description: "City name"
+          - name: state_province
+            description: "State or province"
+          - name: postal_code
+            description: "Postal / ZIP code"
+          - name: country_code
+            description: "ISO 2-letter country code"
+          - name: is_primary
+            description: "Flag indicating primary address for customer"
+          - name: created_at
+            description: "Address creation timestamp"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: product_categories
+        description: "Hierarchical taxonomy for products"
+        columns:
+          - name: category_id
+            description: "Primary key integer"
+            tests:
+              - unique
+              - not_null
+          - name: category_name
+            description: "Product category taxonomy name"
+          - name: parent_category_id
+            description: "Self-referencing parent category ID"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: products
+        description: "Product catalog items with unit cost and price"
+        columns:
+          - name: product_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: product_name
+            description: "Product catalog item name"
+          - name: sku
+            description: "Stock Keeping Unit string"
+          - name: category_id
+            description: "Foreign key to product_categories"
+          - name: supplier_id
+            description: "Primary component supplier ID"
+          - name: unit_cost
+            description: "Unit manufacturing/purchase cost USD"
+          - name: unit_price
+            description: "Unit retail list price USD"
+          - name: is_active
+            description: "Active catalog status flag"
+          - name: created_at
+            description: "Product creation timestamp"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: suppliers
+        description: "Raw material and component suppliers"
+        columns:
+          - name: supplier_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: supplier_name
+            description: "Supplier legal company name"
+          - name: contact_name
+            description: "Supplier point of contact name"
+          - name: contact_email
+            description: "Supplier contact email"
+          - name: contact_phone
+            description: "Supplier contact phone"
+          - name: country_code
+            description: "ISO 2-letter country code"
+          - name: reliability_score
+            description: "Historical supplier reliability rating"
+          - name: created_at
+            description: "Supplier record creation timestamp"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: warehouses
+        description: "Regional distribution centers and fulfillment hubs"
+        columns:
+          - name: warehouse_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: warehouse_code
+            description: "Warehouse short code identifier"
+          - name: warehouse_name
+            description: "Fulfillment center facility name"
+          - name: location
+            description: "City / geographic facility location"
+          - name: capacity_sqft
+            description: "Facility footprint capacity in square feet"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: inventory
+        description: "Product inventory counts per warehouse"
+        columns:
+          - name: inventory_id
+            description: "Primary key bigint"
+            tests:
+              - unique
+              - not_null
+          - name: warehouse_id
+            description: "Foreign key to warehouses"
+          - name: product_id
+            description: "Foreign key to products"
+          - name: quantity_on_hand
+            description: "Physical stock quantity on hand"
+          - name: quantity_allocated
+            description: "Quantity allocated to outstanding orders"
+          - name: reorder_point
+            description: "Reorder threshold trigger level"
+          - name: reorder_quantity
+            description: "Standard reorder quantity batch size"
+          - name: snapshot_date
+            description: "Snapshot observation date"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: machine_types
+        description: "Equipment manufacturer models and operational threshold specs"
+        columns:
+          - name: machine_type_id
+            description: "Primary key integer"
+            tests:
+              - unique
+              - not_null
+          - name: type_name
+            description: "Machine model category name"
+          - name: manufacturer
+            description: "Equipment manufacturer company name"
+          - name: model_number
+            description: "Manufacturer model number string"
+          - name: expected_lifespan_years
+            description: "Design lifespan in years"
+          - name: max_temp_c
+            description: "Maximum safe operating temperature Celsius"
+          - name: max_vibration_rms
+            description: "Maximum safe vibration RMS threshold"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: machines
+        description: "Manufacturing plant machinery equipment fleet"
+        columns:
+          - name: machine_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: serial_number
+            description: "Manufacturer equipment serial number"
+          - name: machine_type_id
+            description: "Foreign key to machine_types"
+          - name: warehouse_id
+            description: "Foreign key to warehouses"
+          - name: installation_date
+            description: "Equipment commissioning date"
+          - name: status
+            description: "Operational status"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: machine_telemetry
+        description: "1-minute raw Internet of Things (IoT) operational telemetry stream"
+        columns:
+          - name: telemetry_id
+            description: "Primary key bigint"
+            tests:
+              - unique
+              - not_null
+          - name: machine_id
+            description: "Foreign key to machines"
+          - name: timestamp
+            description: "Sensor reading event timestamp"
+          - name: temperature_c
+            description: "Operating temperature in Celsius"
+          - name: vibration_rms
+            description: "Vibration Root Mean Square"
+          - name: pressure_psi
+            description: "Operating pressure in PSI"
+          - name: power_kw
+            description: "Power consumption in kW"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: maintenance_events
+        description: "Equipment preventive and corrective maintenance logs"
+        columns:
+          - name: maintenance_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: machine_id
+            description: "Foreign key to machines"
+          - name: maintenance_type
+            description: "Maintenance classification"
+          - name: start_time
+            description: "Maintenance activity start timestamp"
+          - name: end_time
+            description: "Maintenance activity completion timestamp"
+          - name: cost
+            description: "Total maintenance cost USD"
+          - name: technician_notes
+            description: "Technician service notes"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: failure_events
+        description: "Unplanned machinery failure incident logs"
+        columns:
+          - name: failure_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: machine_id
+            description: "Foreign key to machines"
+          - name: failure_type
+            description: "Categorical failure code"
+          - name: failure_timestamp
+            description: "Timestamp when failure occurred"
+          - name: downtime_hours
+            description: "Duration of unplanned equipment downtime in hours"
+          - name: repair_cost
+            description: "Direct repair cost USD"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: support_tickets
+        description: "Customer service support tickets and issue categories"
+        columns:
+          - name: ticket_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: ticket_number
+            description: "Human-readable support ticket sequence string"
+          - name: customer_id
+            description: "Foreign key to customers"
+          - name: category
+            description: "Support ticket issue classification"
+          - name: priority
+            description: "Ticket priority"
+          - name: status
+            description: "Ticket resolution status"
+          - name: created_at
+            description: "Ticket submission timestamp"
+          - name: resolved_at
+            description: "Ticket resolution timestamp"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: customer_satisfaction
+        description: "Customer satisfaction (CSAT) post-ticket surveys"
+        columns:
+          - name: survey_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: ticket_id
+            description: "Foreign key to support_tickets"
+          - name: csat_score
+            description: "Customer satisfaction score (1 to 5)"
+          - name: survey_date
+            description: "Date survey was completed"
+          - name: feedback_comments
+            description: "Optional customer feedback text"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: orders
+        description: "Customer B2B product sales purchase orders"
+        columns:
+          - name: order_id
+            description: "Primary key UUID"
+            tests:
+              - unique
+              - not_null
+          - name: order_number
+            description: "Human-readable order sequence string"
+          - name: customer_id
+            description: "Foreign key to customers"
+          - name: shipping_address_id
+            description: "Foreign key to customer_addresses"
+          - name: channel_id
+            description: "Sales channel identifier"
+          - name: order_status
+            description: "Order status"
+          - name: order_timestamp
+            description: "Purchase order placement timestamp"
+          - name: promised_delivery_date
+            description: "Contractual promised delivery date"
+          - name: total_amount
+            description: "Total gross order amount USD"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"
+
+      - name: order_items
+        description: "Individual line item products in purchase orders"
+        columns:
+          - name: order_item_id
+            description: "Primary key bigint"
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+            description: "Foreign key to orders"
+          - name: product_id
+            description: "Foreign key to products"
+          - name: quantity
+            description: "Quantity of items purchased"
+          - name: unit_price
+            description: "Unit price USD at purchase time"
+          - name: discount_amount
+            description: "Discount amount USD applied"
+          - name: net_revenue
+            description: "Net revenue USD"
+          - name: _ingested_at
+            description: "Ingestion pipeline load timestamp"

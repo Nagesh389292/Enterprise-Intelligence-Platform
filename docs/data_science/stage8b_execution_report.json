@@ -1,0 +1,16 @@
+{
+  "stage": "Stage 8B \u2014 Demand Forecasting ML Engineering",
+  "timestamp": "2026-08-18 14:33:14",
+  "overall_status": "PASS",
+  "execution_time_seconds": 83.87,
+  "notebook": "notebooks/08_stage8b_demand_forecasting_ml.ipynb",
+  "error_message": null,
+  "artifacts_generated": [
+    "models/demand/champion_demand_model.pkl",
+    "models/demand/champion_metadata.json",
+    "docs/data_science/demand_model_card.md",
+    "docs/data_science/figures/demand_mape_model_comparison.png",
+    "docs/data_science/figures/demand_actual_vs_predicted.png",
+    "docs/data_science/figures/demand_shap_beeswarm.png"
+  ]
+}

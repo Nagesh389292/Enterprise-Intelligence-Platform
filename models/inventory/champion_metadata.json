@@ -1,0 +1,28 @@
+{
+  "champion_model_name": "XGBoost_Stockout_Classifier",
+  "target_model": "Model B \u2014 True 7-Day Future Stockout Forecast",
+  "target_col": "will_stockout_next_7d",
+  "n_samples": 400,
+  "leakage_audit_passed": true,
+  "allowed_features": [
+    "reorder_quantity",
+    "unit_cost",
+    "unit_price",
+    "inventory_value_usd",
+    "category_name",
+    "warehouse_location"
+  ],
+  "rejected_leaked_features": [
+    "quantity_available",
+    "reorder_point",
+    "days_of_supply",
+    "quantity_on_hand",
+    "quantity_allocated"
+  ],
+  "cv_roc_auc": 0.9802427637721755,
+  "cv_pr_auc": 0.9425376268567136,
+  "cv_precision": 0.8043478260869565,
+  "cv_recall": 0.8705882352941177,
+  "cv_f1": 0.8361581920903954,
+  "cv_brier_score": 0.04914530567368531
+}

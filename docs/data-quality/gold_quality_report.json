@@ -1,0 +1,535 @@
+{
+  "overall_status": "FAILED",
+  "tests_total": 55,
+  "tests_passed": 43,
+  "tests_failed": 12,
+  "warnings": 0,
+  "null_violations": 0,
+  "referential_violations": 0,
+  "business_rule_violations": 0,
+  "temporal_violations": 1,
+  "reconciliation_variances": 0,
+  "orphan_records": 0,
+  "freshness_status": "IN_PROGRESS",
+  "generated_at": "2026-08-18T01:07:11.070601",
+  "reconciliation_control_totals": {
+    "orders_count": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "orders_revenue": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "order_items_count": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "order_items_quantity": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "order_items_net_revenue": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "order_items_discount": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "inventory_on_hand": {
+      "silver": 210174.0,
+      "gold": 210174.0,
+      "variance": 0.0
+    },
+    "inventory_allocated": {
+      "silver": 20065.0,
+      "gold": 20065.0,
+      "variance": 0.0
+    },
+    "csat_survey_count": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    },
+    "csat_avg_score": {
+      "silver": 0.0,
+      "gold": 0.0,
+      "variance": 0.0
+    }
+  },
+  "null_profile": {
+    "fact_orders.order_id": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_orders.customer_id": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_orders.total_amount": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_orders.promised_delivery_date": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "OPTIONAL"
+    },
+    "fact_order_items.order_item_id": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_order_items.gross_revenue": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_order_items.net_revenue": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_support_tickets.ticket_id": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "REQUIRED"
+    },
+    "fact_support_tickets.resolved_at": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "CONDITIONAL"
+    },
+    "fact_support_tickets.csat_score": {
+      "total_rows": 0,
+      "null_rows": 0,
+      "null_percentage": 0.0,
+      "classification": "CONDITIONAL"
+    }
+  },
+  "domain_profile": {
+    "fact_orders.total_amount": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    },
+    "fact_order_items.quantity": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    },
+    "fact_order_items.net_revenue": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    },
+    "fact_order_items.discount_amount": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    },
+    "fact_inventory_snapshot.quantity_available": {
+      "min": 1.0,
+      "max": 990.0,
+      "avg": 475.27,
+      "zero_count": 0,
+      "negative_count": 0,
+      "null_count": 0
+    },
+    "fact_machine_telemetry.avg_temperature_c": {
+      "min": 56.49,
+      "max": 105.77,
+      "avg": 65.37,
+      "zero_count": 0,
+      "negative_count": 0,
+      "null_count": 0
+    },
+    "fact_machine_telemetry.avg_vibration_rms": {
+      "min": 0.24,
+      "max": 4.96,
+      "avg": 1.24,
+      "zero_count": 0,
+      "negative_count": 0,
+      "null_count": 0
+    },
+    "fact_support_tickets.resolution_time_hours": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    },
+    "fact_support_tickets.csat_score": {
+      "min": null,
+      "max": null,
+      "avg": null,
+      "zero_count": null,
+      "negative_count": null,
+      "null_count": null
+    }
+  },
+  "test_results": [
+    {
+      "test_name": "table_existence",
+      "category": "structural",
+      "status": "PASS",
+      "detail": "Expected 13 tables, missing: []"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_date",
+      "category": "structural",
+      "status": "PASS",
+      "detail": "Table analytics.dim_date: total=1095, distinct_date_key=1095, expected=1095"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_customer",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.dim_customer: total=0, distinct_customer_id=0, expected=1000"
+    },
+    {
+      "test_name": "grain_uniqueness_snp_customers",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.snp_customers: total=0, distinct_customer_sk=0, expected=1000"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_product",
+      "category": "structural",
+      "status": "PASS",
+      "detail": "Table analytics.dim_product: total=100, distinct_product_id=100, expected=100"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_supplier",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.dim_supplier: total=20, distinct_supplier_id=20, expected=25"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_warehouse",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.dim_warehouse: total=4, distinct_warehouse_id=4, expected=5"
+    },
+    {
+      "test_name": "grain_uniqueness_dim_machine",
+      "category": "structural",
+      "status": "PASS",
+      "detail": "Table analytics.dim_machine: total=50, distinct_machine_id=50, expected=50"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_orders",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_orders: total=0, distinct_order_id=0, expected=10000"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_order_items",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_order_items: total=0, distinct_order_item_id=0, expected=35193"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_inventory_snapshot",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_inventory_snapshot: total=400, distinct_inventory_id=400, expected=500"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_machine_telemetry",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_machine_telemetry: total=100000, distinct_telemetry_minute_key=100000, expected=29800"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_maintenance_events",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_maintenance_events: total=3, distinct_maintenance_id=3, expected=10"
+    },
+    {
+      "test_name": "grain_uniqueness_fact_support_tickets",
+      "category": "structural",
+      "status": "FAIL",
+      "detail": "Table analytics.fact_support_tickets: total=0, distinct_ticket_id=0, expected=2500"
+    },
+    {
+      "test_name": "referential_integrity_fact_orders_customer_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_orders.customer_id -> analytics.dim_customer.customer_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_orders_date_key",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_orders.date_key -> analytics.dim_date.date_key: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_order_items_order_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_order_items.order_id -> analytics.fact_orders.order_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_order_items_product_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_order_items.product_id -> analytics.dim_product.product_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_inventory_snapshot_warehouse_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_inventory_snapshot.warehouse_id -> analytics.dim_warehouse.warehouse_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_inventory_snapshot_product_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_inventory_snapshot.product_id -> analytics.dim_product.product_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_machine_telemetry_machine_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_machine_telemetry.machine_id -> analytics.dim_machine.machine_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_maintenance_events_machine_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_maintenance_events.machine_id -> analytics.dim_machine.machine_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_support_tickets_customer_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_support_tickets.customer_id -> analytics.dim_customer.customer_id: 0 orphans found"
+    },
+    {
+      "test_name": "referential_integrity_fact_support_tickets_customer_id",
+      "category": "referential",
+      "status": "PASS",
+      "detail": "FK analytics.fact_support_tickets.customer_id -> analytics.snp_customers.customer_id: 0 orphans found"
+    },
+    {
+      "test_name": "business_rule_orders_non_negative_total",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Negative order total_amount rows: 0"
+    },
+    {
+      "test_name": "business_rule_orders_valid_delivery_delay",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Out-of-range delivery delay days rows: 0"
+    },
+    {
+      "test_name": "business_rule_order_items_math_consistency",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Order items math violations (net_revenue != gross - discount): 0"
+    },
+    {
+      "test_name": "business_rule_inventory_reconciliation",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Inventory quantity & stockout flag mismatches: 0"
+    },
+    {
+      "test_name": "business_rule_telemetry_domain_ranges",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Telemetry out-of-range rows: 0"
+    },
+    {
+      "test_name": "business_rule_maintenance_non_negative_cost",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Maintenance negative cost/downtime rows: 0"
+    },
+    {
+      "test_name": "business_rule_support_tickets_csat_range",
+      "category": "business_rule",
+      "status": "PASS",
+      "detail": "Support ticket resolution hours or CSAT range (1-5) violations: 0"
+    },
+    {
+      "test_name": "scd2_exactly_one_current_record_per_customer",
+      "category": "temporal",
+      "status": "FAIL",
+      "detail": "SCD2 Customer Snapshot: total=0, distinct=0, active=None"
+    },
+    {
+      "test_name": "scd2_zero_overlapping_periods",
+      "category": "temporal",
+      "status": "PASS",
+      "detail": "SCD2 Overlapping validity periods: 0"
+    },
+    {
+      "test_name": "reconciliation_orders_count",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric orders_count: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_orders_revenue",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric orders_revenue: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_order_items_count",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric order_items_count: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_order_items_quantity",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric order_items_quantity: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_order_items_net_revenue",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric order_items_net_revenue: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_order_items_discount",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric order_items_discount: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_inventory_on_hand",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric inventory_on_hand: Silver=210174.0, Gold=210174.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_inventory_allocated",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric inventory_allocated: Silver=20065.0, Gold=20065.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_csat_survey_count",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric csat_survey_count: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "reconciliation_csat_avg_score",
+      "category": "reconciliation",
+      "status": "PASS",
+      "detail": "Metric csat_avg_score: Silver=0.0, Gold=0.0, Variance=0.0"
+    },
+    {
+      "test_name": "telemetry_aggregation_and_preservation",
+      "category": "telemetry",
+      "status": "FAIL",
+      "detail": "Telemetry Quality: Raw=100000, Gold_1min=100000, Machines=50, AggregationRatio=1.0:1"
+    },
+    {
+      "test_name": "null_completeness_fact_orders_order_id",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_orders.order_id: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_orders_customer_id",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_orders.customer_id: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_orders_total_amount",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_orders.total_amount: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_orders_promised_delivery_date",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_orders.promised_delivery_date: 0.0% nulls (OPTIONAL)"
+    },
+    {
+      "test_name": "null_completeness_fact_order_items_order_item_id",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_order_items.order_item_id: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_order_items_gross_revenue",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_order_items.gross_revenue: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_order_items_net_revenue",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_order_items.net_revenue: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_support_tickets_ticket_id",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_support_tickets.ticket_id: 0.0% nulls (REQUIRED)"
+    },
+    {
+      "test_name": "null_completeness_fact_support_tickets_resolved_at",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_support_tickets.resolved_at: 0.0% nulls (CONDITIONAL)"
+    },
+    {
+      "test_name": "null_completeness_fact_support_tickets_csat_score",
+      "category": "null",
+      "status": "PASS",
+      "detail": "Column fact_support_tickets.csat_score: 0.0% nulls (CONDITIONAL)"
+    },
+    {
+      "test_name": "pipeline_freshness_and_quarantine",
+      "category": "freshness",
+      "status": "PASS",
+      "detail": "Latest batch: batch_20260818_010709_f1d245, Quarantined records: 0"
+    }
+  ]
+}

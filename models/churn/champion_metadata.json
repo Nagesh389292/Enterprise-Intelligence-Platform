@@ -1,0 +1,13 @@
+{
+  "champion_model_name": "XGBoost_ScalePosWeight",
+  "n_samples": 1000,
+  "churn_rate": 0.044,
+  "cv_roc_auc": 0.5621870909685864,
+  "cv_pr_auc": 0.05696794243837659,
+  "default_threshold": 0.5,
+  "optimal_threshold_f2": 0.10999999999999999,
+  "precision_at_optimal": 0.0570902394106814,
+  "recall_at_optimal": 0.7045454545454546,
+  "f1_at_optimal": 0.10562180579216354,
+  "logistic_baseline_cv_auc": 0.5254378908522397
+}

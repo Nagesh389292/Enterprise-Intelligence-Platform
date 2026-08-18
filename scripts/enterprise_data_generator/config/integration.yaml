@@ -1,0 +1,22 @@
+name: integration
+seed: 42
+start_date: "2025-01-01"
+end_date: "2026-06-30"
+
+counts:
+  customer_segments: 3
+  customers: 10000
+  addresses_per_customer: 1.5
+  product_categories: 25
+  products: 1000
+  suppliers: 100
+  warehouses: 8
+  orders: 250000
+  items_per_order_mean: 3.5
+  machines: 100
+  telemetry_readings_per_machine: 10000
+  support_tickets: 50000
+
+corruption:
+  enabled: true
+  rate: 0.05

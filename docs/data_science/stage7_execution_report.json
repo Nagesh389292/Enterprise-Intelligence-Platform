@@ -1,0 +1,54 @@
+{
+  "notebooks_total": 6,
+  "notebooks_passed": 6,
+  "notebooks_failed": 0,
+  "control_total_checks": 23,
+  "control_total_failures": 0,
+  "statistical_tests_executed": 58,
+  "execution_timestamp": "2026-08-18T05:24:59.444027+00:00",
+  "overall_status": "PASS",
+  "notebook_details": {
+    "01_eda_executive_overview": {
+      "status": "PASS",
+      "duration_seconds": 16.0,
+      "control_total_checks": 9,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 3
+    },
+    "02_eda_customer_churn": {
+      "status": "PASS",
+      "duration_seconds": 14.15,
+      "control_total_checks": 3,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 11
+    },
+    "03_eda_demand_forecasting": {
+      "status": "PASS",
+      "duration_seconds": 10.52,
+      "control_total_checks": 3,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 23
+    },
+    "04_eda_inventory_stockout": {
+      "status": "PASS",
+      "duration_seconds": 8.7,
+      "control_total_checks": 3,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 8
+    },
+    "05_eda_machine_anomaly": {
+      "status": "PASS",
+      "duration_seconds": 25.91,
+      "control_total_checks": 3,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 7
+    },
+    "06_statistical_testing": {
+      "status": "PASS",
+      "duration_seconds": 7.76,
+      "control_total_checks": 2,
+      "control_total_failures": 0,
+      "statistical_tests_executed": 6
+    }
+  }
+}

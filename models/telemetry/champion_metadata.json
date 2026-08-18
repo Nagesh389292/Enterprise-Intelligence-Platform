@@ -1,0 +1,29 @@
+{
+  "champion_model_name": "Random_Forest_Classifier",
+  "target_model": "Problem B \u2014 24-Hour Machine Failure Prediction",
+  "target_col": "will_fail_next_24h",
+  "n_samples": 100000,
+  "leakage_audit_passed": true,
+  "allowed_features": [
+    "rolling_6h_avg_temp",
+    "rolling_6h_std_temp",
+    "temp_slope_6h",
+    "rolling_6h_avg_vib",
+    "rolling_6h_std_vib",
+    "vib_slope_6h",
+    "rolling_6h_avg_press",
+    "rolling_6h_std_press",
+    "temp_baseline_diff",
+    "vib_baseline_diff",
+    "recent_anomaly_count_6h",
+    "machine_type",
+    "warehouse_name"
+  ],
+  "cv_type": "TimeSeriesSplit_5Fold",
+  "cv_roc_auc": 0.9974046131204131,
+  "cv_pr_auc": 0.6899182767951698,
+  "cv_precision": 0.5877551020408164,
+  "cv_recall": 1.0,
+  "cv_f1": 0.7403598971722365,
+  "cv_brier_score": 0.0039456216118128615
+}

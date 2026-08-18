@@ -1,0 +1,274 @@
+{
+  "status": "PASSED",
+  "generated_at": "2026-08-17T19:30:09.263045Z",
+  "dbt_version": "1.12.2",
+  "total_sources": 17,
+  "total_models": 34,
+  "total_tests": 110,
+  "models_by_layer": {
+    "staging": [
+      "stg_customer_segments",
+      "stg_customers",
+      "stg_customer_addresses",
+      "stg_product_categories",
+      "stg_products",
+      "stg_suppliers",
+      "stg_warehouses",
+      "stg_inventory",
+      "stg_machine_types",
+      "stg_machines",
+      "stg_machine_telemetry",
+      "stg_maintenance_events",
+      "stg_failure_events",
+      "stg_support_tickets",
+      "stg_customer_satisfaction",
+      "stg_orders",
+      "stg_order_items"
+    ],
+    "dimensions": [
+      "dim_date",
+      "dim_customer",
+      "dim_product",
+      "dim_supplier",
+      "dim_machine",
+      "dim_warehouse"
+    ],
+    "facts": [
+      "fact_orders",
+      "fact_order_items",
+      "fact_support_tickets",
+      "fact_inventory_snapshot",
+      "fact_machine_telemetry",
+      "fact_maintenance_events"
+    ],
+    "snapshots": [
+      "snp_customers"
+    ],
+    "ml": [
+      "ml_customer_churn_features",
+      "ml_demand_forecasting_daily",
+      "ml_inventory_stockout_risk",
+      "ml_machine_telemetry_features"
+    ]
+  },
+  "total_dag_edges": 53,
+  "dag_edges": [
+    {
+      "from": "dim_customer",
+      "to": "snp_customers"
+    },
+    {
+      "from": "stg_customers",
+      "to": "dim_customer"
+    },
+    {
+      "from": "stg_customer_segments",
+      "to": "dim_customer"
+    },
+    {
+      "from": "stg_customer_addresses",
+      "to": "dim_customer"
+    },
+    {
+      "from": "stg_orders",
+      "to": "fact_orders"
+    },
+    {
+      "from": "stg_order_items",
+      "to": "fact_order_items"
+    },
+    {
+      "from": "stg_orders",
+      "to": "fact_order_items"
+    },
+    {
+      "from": "stg_products",
+      "to": "fact_order_items"
+    },
+    {
+      "from": "stg_support_tickets",
+      "to": "fact_support_tickets"
+    },
+    {
+      "from": "stg_customer_satisfaction",
+      "to": "fact_support_tickets"
+    },
+    {
+      "from": "dim_customer",
+      "to": "ml_customer_churn_features"
+    },
+    {
+      "from": "fact_orders",
+      "to": "ml_customer_churn_features"
+    },
+    {
+      "from": "fact_support_tickets",
+      "to": "ml_customer_churn_features"
+    },
+    {
+      "from": "customer_segments",
+      "to": "stg_customer_segments"
+    },
+    {
+      "from": "customers",
+      "to": "stg_customers"
+    },
+    {
+      "from": "customer_addresses",
+      "to": "stg_customer_addresses"
+    },
+    {
+      "from": "stg_products",
+      "to": "dim_product"
+    },
+    {
+      "from": "stg_product_categories",
+      "to": "dim_product"
+    },
+    {
+      "from": "stg_inventory",
+      "to": "fact_inventory_snapshot"
+    },
+    {
+      "from": "stg_products",
+      "to": "fact_inventory_snapshot"
+    },
+    {
+      "from": "dim_date",
+      "to": "ml_demand_forecasting_daily"
+    },
+    {
+      "from": "dim_product",
+      "to": "ml_demand_forecasting_daily"
+    },
+    {
+      "from": "fact_orders",
+      "to": "ml_demand_forecasting_daily"
+    },
+    {
+      "from": "fact_order_items",
+      "to": "ml_demand_forecasting_daily"
+    },
+    {
+      "from": "fact_inventory_snapshot",
+      "to": "ml_inventory_stockout_risk"
+    },
+    {
+      "from": "dim_product",
+      "to": "ml_inventory_stockout_risk"
+    },
+    {
+      "from": "dim_warehouse",
+      "to": "ml_inventory_stockout_risk"
+    },
+    {
+      "from": "product_categories",
+      "to": "stg_product_categories"
+    },
+    {
+      "from": "products",
+      "to": "stg_products"
+    },
+    {
+      "from": "stg_suppliers",
+      "to": "dim_supplier"
+    },
+    {
+      "from": "suppliers",
+      "to": "stg_suppliers"
+    },
+    {
+      "from": "stg_machines",
+      "to": "dim_machine"
+    },
+    {
+      "from": "stg_machine_types",
+      "to": "dim_machine"
+    },
+    {
+      "from": "stg_warehouses",
+      "to": "dim_machine"
+    },
+    {
+      "from": "stg_machine_telemetry",
+      "to": "fact_machine_telemetry"
+    },
+    {
+      "from": "stg_machines",
+      "to": "fact_machine_telemetry"
+    },
+    {
+      "from": "stg_machine_types",
+      "to": "fact_machine_telemetry"
+    },
+    {
+      "from": "stg_maintenance_events",
+      "to": "fact_maintenance_events"
+    },
+    {
+      "from": "fact_machine_telemetry",
+      "to": "ml_machine_telemetry_features"
+    },
+    {
+      "from": "dim_machine",
+      "to": "ml_machine_telemetry_features"
+    },
+    {
+      "from": "dim_warehouse",
+      "to": "ml_machine_telemetry_features"
+    },
+    {
+      "from": "stg_warehouses",
+      "to": "dim_warehouse"
+    },
+    {
+      "from": "warehouses",
+      "to": "stg_warehouses"
+    },
+    {
+      "from": "inventory",
+      "to": "stg_inventory"
+    },
+    {
+      "from": "machine_types",
+      "to": "stg_machine_types"
+    },
+    {
+      "from": "machines",
+      "to": "stg_machines"
+    },
+    {
+      "from": "machine_telemetry",
+      "to": "stg_machine_telemetry"
+    },
+    {
+      "from": "maintenance_events",
+      "to": "stg_maintenance_events"
+    },
+    {
+      "from": "failure_events",
+      "to": "stg_failure_events"
+    },
+    {
+      "from": "support_tickets",
+      "to": "stg_support_tickets"
+    },
+    {
+      "from": "customer_satisfaction",
+      "to": "stg_customer_satisfaction"
+    },
+    {
+      "from": "orders",
+      "to": "stg_orders"
+    },
+    {
+      "from": "order_items",
+      "to": "stg_order_items"
+    }
+  ],
+  "column_coverage": {
+    "total_columns": 330,
+    "documented_columns": 246,
+    "coverage_percentage": 74.55
+  }
+}
