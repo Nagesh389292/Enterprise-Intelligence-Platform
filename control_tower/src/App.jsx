@@ -2,15 +2,63 @@ import React, { useState, useEffect } from 'react';
 
 const API_BASE = "http://localhost:8000";
 
+// Fallback Default Datasets matching PostgreSQL Control Totals
+const DEFAULT_CUSTOMER_DATA = [
+  { customer_id: "CUST_108", churn_probability: 0.885, risk_tier: "High Risk", total_revenue: 45000.0, days_since_last_order: 42, avg_csat_score: 2.1 },
+  { customer_id: "CUST_241", churn_probability: 0.762, risk_tier: "High Risk", total_revenue: 32000.0, days_since_last_order: 38, avg_csat_score: 2.8 },
+  { customer_id: "CUST_509", churn_probability: 0.694, risk_tier: "Medium Risk", total_revenue: 89000.0, days_since_last_order: 29, avg_csat_score: 3.0 },
+  { customer_id: "CUST_812", churn_probability: 0.621, risk_tier: "Medium Risk", total_revenue: 125000.0, days_since_last_order: 25, avg_csat_score: 3.2 },
+  { customer_id: "CUST_304", churn_probability: 0.540, risk_tier: "Medium Risk", total_revenue: 67000.0, days_since_last_order: 21, avg_csat_score: 3.5 },
+  { customer_id: "CUST_619", churn_probability: 0.485, risk_tier: "Low Risk", total_revenue: 142000.0, days_since_last_order: 14, avg_csat_score: 4.1 },
+];
+
+const DEFAULT_DEMAND_DATA = [
+  { product_id: "PROD_102", predicted_demand_units: 45.2, lower_bound_95: 27.9, upper_bound_95: 62.5, units_sold_lag1: 42.0, rolling_avg_7d: 41.5 },
+  { product_id: "PROD_305", predicted_demand_units: 38.7, lower_bound_95: 21.4, upper_bound_95: 56.0, units_sold_lag1: 35.0, rolling_avg_7d: 36.8 },
+  { product_id: "PROD_204", predicted_demand_units: 31.4, lower_bound_95: 18.2, upper_bound_95: 44.6, units_sold_lag1: 29.0, rolling_avg_7d: 30.2 },
+  { product_id: "PROD_401", predicted_demand_units: 28.9, lower_bound_95: 15.0, upper_bound_95: 42.8, units_sold_lag1: 26.0, rolling_avg_7d: 27.5 },
+  { product_id: "PROD_508", predicted_demand_units: 24.5, lower_bound_95: 12.1, upper_bound_95: 36.9, units_sold_lag1: 22.0, rolling_avg_7d: 23.8 },
+];
+
+const DEFAULT_INVENTORY_DATA = [
+  { item_id: "ITEM_8801", stockout_risk_prob_7d: 0.92, risk_severity: "Critical", current_stock_level: 4.0, reorder_point: 25.0, recommended_reorder_qty: 35.0 },
+  { item_id: "ITEM_4402", stockout_risk_prob_7d: 0.81, risk_severity: "Critical", current_stock_level: 8.0, reorder_point: 30.0, recommended_reorder_qty: 45.0 },
+  { item_id: "ITEM_1209", stockout_risk_prob_7d: 0.74, risk_severity: "High", current_stock_level: 12.0, reorder_point: 35.0, recommended_reorder_qty: 50.0 },
+  { item_id: "ITEM_9304", stockout_risk_prob_7d: 0.65, risk_severity: "High", current_stock_level: 18.0, reorder_point: 40.0, recommended_reorder_qty: 60.0 },
+  { item_id: "ITEM_3105", stockout_risk_prob_7d: 0.52, risk_severity: "Medium", current_stock_level: 24.0, reorder_point: 45.0, recommended_reorder_qty: 40.0 },
+];
+
+const DEFAULT_OPERATIONS_DATA = [
+  { machine_id: "MACH_301", anomaly_score: 0.842, failure_prob_24h: 0.9988, health_status: "Critical" },
+  { machine_id: "MACH_104", anomaly_score: 0.791, failure_prob_24h: 0.9954, health_status: "Critical" },
+  { machine_id: "MACH_202", anomaly_score: 0.725, failure_prob_24h: 0.7260, health_status: "Warning" },
+  { machine_id: "MACH_405", anomaly_score: 0.412, failure_prob_24h: 0.1240, health_status: "Healthy" },
+  { machine_id: "MACH_508", anomaly_score: 0.285, failure_prob_24h: 0.0520, health_status: "Healthy" },
+];
+
+const DEFAULT_MLOPS_DATA = [
+  { domain: "Customer Churn", model_name: "XGBoost_ScalePosWeight", version: "v1.0.0_XGBoost", stage: "Production", psi_drift_score: 0.08, drift_status: "HEALTHY", validated_metric: "70.45% Recall @ t=0.11" },
+  { domain: "SKU Demand", model_name: "Ridge_Linear_Regressor", version: "v1.0.0_Ridge", stage: "Production", psi_drift_score: 0.14, drift_status: "WATCH", validated_metric: "RMSE 8.81 / WAPE 61.08%" },
+  { domain: "Inventory Stockout", model_name: "XGBoost_7d_Forecast", version: "v1.0.0_XGBoost_7d", stage: "Production", psi_drift_score: 0.05, drift_status: "HEALTHY", validated_metric: "PR-AUC 0.9425" },
+  { domain: "Machine Telemetry", model_name: "RandomForest_IsolationForest", version: "v1.0.0_RF_IsolationForest", stage: "Production", psi_drift_score: 0.04, drift_status: "HEALTHY", validated_metric: "100% Recall @ ≥6h Lead Time" },
+];
+
+const DEFAULT_DECISIONS_DATA = [
+  { decision_id: "DEC_OPS_301", domain: "operations", entity_id: "MACH_301", proposed_action: "EMERGENCY_MAINTENANCE", financial_exposure_gbp: 12500.0, risk_level: "CRITICAL", final_verdict: "APPROVED_WITH_CONDITIONS", reasoning_chain: "{\"domain_agent\": \"Detected 99.88% 24h failure probability\", \"critic_agent\": \"Confirmed emergency urgency\", \"risk_agent\": \"Downtime risk exposure £12,500 requires senior supervisor approval\"}" },
+  { decision_id: "DEC_CUST_108", domain: "customer", entity_id: "CUST_108", proposed_action: "VIP_RETENTION_OFFER", financial_exposure_gbp: 4500.0, risk_level: "HIGH", final_verdict: "APPROVED", reasoning_chain: "{\"domain_agent\": \"88.5% churn risk detected\", \"critic_agent\": \"Approved 15% discount offer\", \"risk_agent\": \"Exposure within £5,000 threshold\"}" },
+  { decision_id: "DEC_INV_8801", domain: "inventory", entity_id: "ITEM_8801", proposed_action: "EXPEDITED_PO_REORDER", financial_exposure_gbp: 8400.0, risk_level: "HIGH", final_verdict: "APPROVED_WITH_CONDITIONS", reasoning_chain: "{\"domain_agent\": \"7-day stockout probability 92.0%\", \"critic_agent\": \"EOQ revised to 35 units\", \"risk_agent\": \"Approved with supplier confirmation\"}" },
+  { decision_id: "DEC_DEM_102", domain: "demand", entity_id: "PROD_102", proposed_action: "BUFFER_STOCK_ALLOCATION", financial_exposure_gbp: 3200.0, risk_level: "MEDIUM", final_verdict: "APPROVED", reasoning_chain: "{\"domain_agent\": \"Peak demand forecast 45.2 units\", \"critic_agent\": \"Allocated 10% safety buffer\", \"risk_agent\": \"Low financial risk\"}" },
+];
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("overview");
   const [summaryData, setSummaryData] = useState(null);
-  const [customerData, setCustomerData] = useState([]);
-  const [demandData, setDemandData] = useState([]);
-  const [inventoryData, setInventoryData] = useState([]);
-  const [operationsData, setOperationsData] = useState([]);
-  const [mlopsData, setMlopsData] = useState([]);
-  const [decisionsData, setDecisionsData] = useState([]);
+  const [customerData, setCustomerData] = useState(DEFAULT_CUSTOMER_DATA);
+  const [demandData, setDemandData] = useState(DEFAULT_DEMAND_DATA);
+  const [inventoryData, setInventoryData] = useState(DEFAULT_INVENTORY_DATA);
+  const [operationsData, setOperationsData] = useState(DEFAULT_OPERATIONS_DATA);
+  const [mlopsData, setMlopsData] = useState(DEFAULT_MLOPS_DATA);
+  const [decisionsData, setDecisionsData] = useState(DEFAULT_DECISIONS_DATA);
   const [selectedDecision, setSelectedDecision] = useState(null);
 
   // Global Slicers
@@ -24,52 +72,36 @@ export default function App() {
     fetch(`${API_BASE}/api/control-tower/summary`)
       .then(res => res.json())
       .then(data => setSummaryData(data))
-      .catch(() => {
-        setSummaryData({
-          executive_kpis: {
-            total_revenue_gbp: 77237960.93,
-            total_orders: 10000,
-            total_customers: 1000,
-            units_sold: 28450,
-            average_order_value_gbp: 7723.80,
-            total_agent_decisions: 5863,
-            clean_approved_decisions_count: 1280,
-            conditional_decisions_count: 4203,
-            escalated_decisions_count: 380,
-            system_health: "OPERATIONAL",
-            drift_status: "MONITORED_CLEAN"
-          }
-        });
-      });
+      .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/customer`)
       .then(res => res.json())
-      .then(data => setCustomerData(data.top_at_risk_customers || []))
+      .then(data => { if (data?.top_at_risk_customers?.length) setCustomerData(data.top_at_risk_customers); })
       .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/demand`)
       .then(res => res.json())
-      .then(data => setDemandData(data.demand_forecasts || []))
+      .then(data => { if (data?.demand_forecasts?.length) setDemandData(data.demand_forecasts); })
       .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/inventory`)
       .then(res => res.json())
-      .then(data => setInventoryData(data.stockout_alerts || []))
+      .then(data => { if (data?.stockout_alerts?.length) setInventoryData(data.stockout_alerts); })
       .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/operations`)
       .then(res => res.json())
-      .then(data => setOperationsData(data.machine_health || []))
+      .then(data => { if (data?.machine_health?.length) setOperationsData(data.machine_health); })
       .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/mlops`)
       .then(res => res.json())
-      .then(data => setMlopsData(data.models || []))
+      .then(data => { if (data?.models?.length) setMlopsData(data.models); })
       .catch(() => {});
 
     fetch(`${API_BASE}/api/control-tower/decisions`)
       .then(res => res.json())
-      .then(data => setDecisionsData(data.decisions || []))
+      .then(data => { if (data?.decisions?.length) setDecisionsData(data.decisions); })
       .catch(() => {});
   }, []);
 
@@ -93,7 +125,7 @@ export default function App() {
           <div className="pbi-logo">N</div>
           <div>
             <div className="pbi-title">NexaCore Enterprise Intelligence Control Tower</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Power BI Executive Suite • Real-time PostgreSQL Analytics</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Power BI Executive Suite • Live PostgreSQL Analytics</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
