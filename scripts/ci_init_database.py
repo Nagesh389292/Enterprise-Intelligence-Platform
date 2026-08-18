@@ -61,14 +61,36 @@ def init_ci_database():
     from scripts.ingestion.cli import run_ingested_batch
     run_ingested_batch(force=True)
 
+    # 3. Transform Silver data into Gold feature marts via dbt
+    logger.info("Executing dbt build to create dimensions, facts, and ML feature marts...")
+    from dbt.cli.main import dbtRunner
+    dbt_res = dbtRunner().invoke(["build", "--project-dir", "dbt", "--profiles-dir", "dbt"])
+    logger.info(f"dbt build result: success={dbt_res.success}")
 
-
-    # 3. Populate Prediction Store Batch Inferences
-    logger.info("Executing batch inference engine to populate analytics predictions...")
+    # 4. Audit ML Feature Mart Row Counts
     engine = get_engine()
+    from data_science.db import read_sql
+    logger.info("==================================================")
+    logger.info("ML FEATURE MART STATUS AUDIT:")
+    logger.info("--------------------------------------------------")
+    feature_marts = [
+        "analytics.ml_customer_churn_features",
+        "analytics.ml_demand_forecasting_daily",
+        "analytics.ml_inventory_stockout_risk",
+        "analytics.ml_machine_telemetry_features"
+    ]
+    for mart in feature_marts:
+        df_cnt = read_sql(f"SELECT COUNT(*) as cnt FROM {mart};", engine)
+        cnt = df_cnt.iloc[0]["cnt"]
+        logger.info(f"  - {mart:<40}: EXISTS, {cnt} rows")
+    logger.info("==================================================")
+
+    # 5. Populate Prediction Store Batch Inferences
+    logger.info("Executing batch inference engine to populate analytics predictions...")
     batch_engine = BatchInferenceEngine(db_engine=engine)
     results = batch_engine.run_all_batch_inferences()
     logger.info(f"Batch inference completed: {results}")
+
 
     # 4. Seed Multi-Agent Decisions
     logger.info("Executing AgentBus orchestrator to seed agent_decisions audit table...")
