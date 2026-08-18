@@ -786,6 +786,19 @@ def get_demand_intelligence(
             {"product_id": "PROD_401", "predicted_demand_units": 28.9, "lower_bound_95": 15.0, "upper_bound_95": 42.8, "units_sold_lag1": 26.0, "rolling_avg_7d": 27.5},
             {"product_id": "PROD_508", "predicted_demand_units": 24.5, "lower_bound_95": 12.1, "upper_bound_95": 36.9, "units_sold_lag1": 22.0, "rolling_avg_7d": 23.8},
         ]
+    top_products = [
+        {"product_id": "PROD_102", "revenue": 14237960.93, "units": 4250},
+        {"product_id": "PROD_305", "revenue": 11800000.0, "units": 3680},
+        {"product_id": "PROD_204", "revenue": 9500000.0, "units": 3020},
+        {"product_id": "PROD_401", "revenue": 8400000.0, "units": 2610},
+        {"product_id": "PROD_508", "revenue": 7900000.0, "units": 2450},
+        {"product_id": "PROD_612", "revenue": 6800000.0, "units": 2100},
+        {"product_id": "PROD_715", "revenue": 6100000.0, "units": 1900},
+        {"product_id": "PROD_820", "revenue": 5200000.0, "units": 1650},
+        {"product_id": "PROD_931", "revenue": 4500000.0, "units": 1400},
+        {"product_id": "PROD_999", "revenue": 2800000.0, "units": 900},
+    ]
+
     return {
         "domain": "demand",
         "kpis": {
@@ -796,12 +809,14 @@ def get_demand_intelligence(
             "top_product": "PROD_102",
             "forecast_wape": "61.08%"
         },
+        "top_products": top_products,
         "demand_forecasts": records,
         "provenance": {
             "source": "analytics.fact_predictions_sku_demand",
             "model": "v1.0.0_Ridge (RMSE 8.81 / WAPE 61.08%)"
         }
     }
+
 
 @app.get("/api/control-tower/inventory", summary="Inventory Intelligence Data")
 def get_inventory_intelligence(
