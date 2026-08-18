@@ -64,3 +64,12 @@ class TestControlTowerEndpoints:
         first_dec = data["decisions"][0]
         assert "decision_id" in first_dec
         assert "final_verdict" in first_dec
+
+    def test_mlops_endpoint_returns_model_health(self):
+        response = client.get("/api/control-tower/mlops")
+        assert response.status_code == 200
+        data = response.json()
+        assert "total_models" in data
+        assert data["total_models"] == 4
+        assert len(data["models"]) == 4
+

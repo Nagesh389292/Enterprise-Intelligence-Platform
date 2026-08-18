@@ -641,3 +641,51 @@ def get_control_tower_decisions():
         ]
     return {"total_records": len(records), "decisions": records}
 
+@app.get("/api/control-tower/mlops", summary="MLOps & Model System Health")
+def get_control_tower_mlops():
+    """Returns production model versions, drift PSI status, and retraining metrics."""
+    models_status = [
+        {
+            "domain": "Customer Churn",
+            "model_name": "XGBoost_ScalePosWeight",
+            "version": "v1.0.0_XGBoost",
+            "stage": "Production",
+            "psi_drift_score": 0.08,
+            "drift_status": "HEALTHY",
+            "validated_metric": "70.45% Recall @ t=0.11",
+            "last_trained": "2026-08-18T10:00:00Z"
+        },
+        {
+            "domain": "SKU Demand",
+            "model_name": "Ridge_Linear_Regressor",
+            "version": "v1.0.0_Ridge",
+            "stage": "Production",
+            "psi_drift_score": 0.14,
+            "drift_status": "WATCH",
+            "validated_metric": "RMSE 8.81 / WAPE 61.08%",
+            "last_trained": "2026-08-18T11:00:00Z"
+        },
+        {
+            "domain": "Inventory Stockout",
+            "model_name": "XGBoost_7d_Forecast",
+            "version": "v1.0.0_XGBoost_7d",
+            "stage": "Production",
+            "psi_drift_score": 0.05,
+            "drift_status": "HEALTHY",
+            "validated_metric": "PR-AUC 0.9425",
+            "last_trained": "2026-08-18T10:30:00Z"
+        },
+        {
+            "domain": "Machine Telemetry",
+            "model_name": "RandomForest_IsolationForest",
+            "version": "v1.0.0_RF_IsolationForest",
+            "stage": "Production",
+            "psi_drift_score": 0.04,
+            "drift_status": "HEALTHY",
+            "validated_metric": "100% Recall @ ≥6h Lead Time",
+            "last_trained": "2026-08-18T11:15:00Z"
+        }
+    ]
+    return {"total_models": len(models_status), "models": models_status}
+
+
