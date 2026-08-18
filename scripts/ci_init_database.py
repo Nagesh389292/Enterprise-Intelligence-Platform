@@ -58,9 +58,9 @@ def init_ci_database():
     conn.close()
 
     logger.info("Executing bronze/silver ingestion...")
-    from scripts.ingestion.pipeline import MedallionIngestionPipeline
-    pipeline = MedallionIngestionPipeline(db_engine=engine)
-    pipeline.run_full_ingestion(force=True)
+    from scripts.ingestion.cli import run_ingested_batch
+    run_ingested_batch(force=True)
+
 
 
     # 3. Populate Prediction Store Batch Inferences
