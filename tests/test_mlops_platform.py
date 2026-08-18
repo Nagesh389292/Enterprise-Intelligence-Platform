@@ -79,7 +79,7 @@ def test_fastapi_predict_churn():
         "avg_csat_score": 4.2,
         "days_since_last_order": 18.0
     }
-    response = client.post("/predict/churn", json=payload)
+    response = client.post("/predict/churn", json=payload, headers={"X-API-Key": "nexacore_prod_secret_api_key_2026"})
     assert response.status_code == 200
     data = response.json()
     assert data["customer_id"] == "TEST_CUST_101"
@@ -98,7 +98,7 @@ def test_fastapi_predict_demand():
         "day_of_week": 3,
         "is_weekend": 0
     }
-    response = client.post("/predict/demand", json=payload)
+    response = client.post("/predict/demand", json=payload, headers={"X-API-Key": "nexacore_prod_secret_api_key_2026"})
     assert response.status_code == 200
     data = response.json()
     assert data["product_id"] == "TEST_PROD_202"
@@ -115,7 +115,7 @@ def test_fastapi_predict_stockout():
         "pending_reorder_units": 0.0,
         "supplier_reliability_score": 0.92
     }
-    response = client.post("/predict/stockout", json=payload)
+    response = client.post("/predict/stockout", json=payload, headers={"X-API-Key": "nexacore_prod_secret_api_key_2026"})
     assert response.status_code == 200
     data = response.json()
     assert data["item_id"] == "TEST_ITEM_303"
@@ -134,8 +134,9 @@ def test_fastapi_predict_machine_health():
         "temp_roll6_std": 2.1,
         "vib_roll6_std": 0.8
     }
-    response = client.post("/predict/machine-health", json=payload)
+    response = client.post("/predict/machine-health", json=payload, headers={"X-API-Key": "nexacore_prod_secret_api_key_2026"})
     assert response.status_code == 200
     data = response.json()
     assert data["machine_id"] == "TEST_MACH_404"
     assert data["health_status"] in ["Normal", "Warning", "Critical"]
+

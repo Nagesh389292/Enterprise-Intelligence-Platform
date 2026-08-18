@@ -242,6 +242,16 @@ def healthz():
     """Kubernetes / ECS Liveness Probe."""
     return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
+@app.get("/health", summary="Health Manifest Endpoint")
+def health():
+    """Health & Active Model Manifest Endpoint."""
+    return {
+        "status": "HEALTHY",
+        "active_models": PROD_MODELS_PATH,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
+
 @app.get("/ready", summary="Readiness Probe")
 def ready():
     """Kubernetes / ECS Readiness Probe verifying DB and Model Cache."""
