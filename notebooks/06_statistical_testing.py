@@ -22,6 +22,12 @@ Audience: Data Scientist + Business Analyst
 # > "Which findings from EDA are statistically defensible,
 # > and which are just patterns that could have occurred by chance?"
 
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
+
 # %% [markdown]
 # ## 0. Setup
 

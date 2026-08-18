@@ -21,7 +21,14 @@ Analyst role: Data Scientist
 #
 # **Dataset:** `analytics.ml_customer_churn_features` — 1,000 customers
 #
+
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
 # ---
+
 # ### Limitations
 # | Limitation | Implication |
 # |---|---|

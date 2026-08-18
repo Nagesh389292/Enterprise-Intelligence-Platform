@@ -23,6 +23,12 @@ Audience: Data Scientist
 # - 181 calendar days of history — adequate for lag features, limited for long seasonality
 # - Lag-7 and lag-14 features verified anti-leakage in Stage 4B
 
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
+
 # %% [markdown]
 # ## 0. Setup
 

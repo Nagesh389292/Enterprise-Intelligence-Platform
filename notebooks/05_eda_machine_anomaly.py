@@ -23,6 +23,12 @@ Audience: Data Scientist
 # Stage 8 will apply Isolation Forest + DBSCAN.
 #
 # **Dataset:** `analytics.ml_machine_telemetry_features` — 100,000 rows
+
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
 # **Signals:** temperature, vibration, pressure, power (per machine per event)
 
 # %% [markdown]

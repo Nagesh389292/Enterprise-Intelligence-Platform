@@ -18,6 +18,12 @@ Analyst role: Data Analyst
 # **Purpose:** End-to-end business health review using the Gold-layer data.
 # This notebook answers the question: *What does the business look like today,
 # and what are the patterns that a Data Scientist should investigate next?*
+
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
 #
 # ---
 # ### Dataset Limitations (acknowledged upfront)

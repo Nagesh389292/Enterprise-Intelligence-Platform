@@ -20,7 +20,14 @@ Audience: Data Analyst + Data Scientist
 # **Target:** `stockout_risk_flag_target` (1=at risk, 0=adequate)
 # **Grain:** One row per inventory item (product × warehouse snapshot)
 #
+
+try:
+    from IPython.display import display
+except ImportError:
+    pass
+
 # ---
+
 # ### Critical Limitation (must be referenced in conclusions)
 # > **n=400 point-in-time records.** This is a single snapshot on 2026-06-30.
 # > There is no time dimension — this analysis is entirely cross-sectional.

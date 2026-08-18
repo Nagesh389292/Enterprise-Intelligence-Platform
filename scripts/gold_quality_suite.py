@@ -40,7 +40,7 @@ def run_gold_quality_suite():
 
     def record_check(test_name, category, passed, detail, critical=True):
         nonlocal total_tests, passed_tests, failed_tests, warnings
-        nonlocal null_violations, referential_violations, business_rule_violations, temporal_violations, orphan_records
+        nonlocal null_violations, referential_violations, business_rule_violations, temporal_violations
         
         total_tests += 1
         if passed:

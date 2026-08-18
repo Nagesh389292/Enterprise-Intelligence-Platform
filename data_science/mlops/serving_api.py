@@ -33,7 +33,7 @@ from data_science.mlops.metrics import (
     MODEL_PREDICTIONS_TOTAL,
     get_metrics_response,
 )
-from data_science.db import get_engine
+from data_science.db import get_engine, read_sql
 
 logger = logging.getLogger("serving_api")
 
