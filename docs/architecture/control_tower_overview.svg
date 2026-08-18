@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%" style="background:#0a0d14; font-family:'Inter', sans-serif;">
+  <defs>
+    <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#7f53ac"/>
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121824" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1a2333" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Grid -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="260" height="675" fill="#121824" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  
+  <!-- Brand Header -->
+  <rect x="20" y="24" width="38" height="38" rx="8" fill="url(#brand-grad)"/>
+  <text x="32" y="50" font-size="22" font-weight="800" fill="#ffffff">N</text>
+  <text x="70" y="44" font-size="16" font-weight="700" fill="#ffffff">NEXACORE</text>
+  <text x="70" y="58" font-size="11" fill="#8a99ad">Control Tower v1.3</text>
+
+  <!-- Sidebar Nav Items -->
+  <g transform="translate(16, 100)">
+    <rect x="0" y="0" width="228" height="40" rx="8" fill="rgba(0, 242, 254, 0.12)" stroke="#00f2fe" stroke-width="1"/>
+    <text x="40" y="25" font-size="13" font-weight="600" fill="#00f2fe">Executive Overview</text>
+    <circle cx="22" cy="20" r="5" fill="#00f2fe"/>
+    
+    <text x="40" y="70" font-size="13" font-weight="500" fill="#8a99ad">Customer Intelligence</text>
+    <text x="40" y="115" font-size="13" font-weight="500" fill="#8a99ad">Demand Forecasting</text>
+    <text x="40" y="160" font-size="13" font-weight="500" fill="#8a99ad">Inventory Risk</text>
+    <text x="40" y="205" font-size="13" font-weight="500" fill="#8a99ad">Machine Operations</text>
+    <text x="40" y="250" font-size="13" font-weight="600" fill="#7f53ac">AI Decision Center</text>
+  </g>
+
+  <!-- Main Top Bar -->
+  <text x="290" y="50" font-size="24" font-weight="700" fill="#ffffff">Executive Overview</text>
+  <rect x="1010" y="26" width="160" height="34" rx="17" fill="rgba(0, 230, 118, 0.12)" stroke="#00e676" stroke-width="1"/>
+  <circle cx="1026" cy="43" r="4" fill="#00e676"/>
+  <text x="1038" y="47" font-size="12" font-weight="600" fill="#00e676">LIVE MLOps Pipeline</text>
+
+  <!-- Metric Cards Row -->
+  <g transform="translate(290, 80)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="205" height="100" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="16" y="30" font-size="12" fill="#8a99ad">Total Revenue</text>
+    <text x="16" y="65" font-size="22" font-weight="700" font-family="'JetBrains Mono'" fill="#00e676">£77,237,961</text>
+
+    <!-- Card 2 -->
+    <rect x="225" y="0" width="205" height="100" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="241" y="30" font-size="12" fill="#8a99ad">Active Customers</text>
+    <text x="241" y="65" font-size="22" font-weight="700" font-family="'JetBrains Mono'" fill="#4facfe">1,000</text>
+
+    <!-- Card 3 -->
+    <rect x="450" y="0" width="205" height="100" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="466" y="30" font-size="12" fill="#8a99ad">Agent Decisions</text>
+    <text x="466" y="65" font-size="22" font-weight="700" font-family="'JetBrains Mono'" fill="#00f2fe">5,863</text>
+
+    <!-- Card 4 -->
+    <rect x="675" y="0" width="205" height="100" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="691" y="30" font-size="12" fill="#8a99ad">Escalations</text>
+    <text x="691" y="65" font-size="22" font-weight="700" font-family="'JetBrains Mono'" fill="#ffab00">380</text>
+  </g>
+
+  <!-- Production Model Registry Table Preview -->
+  <g transform="translate(290, 210)">
+    <rect x="0" y="0" width="880" height="425" rx="14" fill="url(#card-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="24" y="36" font-size="16" font-weight="700" fill="#ffffff">Active Production Model Registry &amp; Multi-Agent Intelligence</text>
+    
+    <!-- Table Header Line -->
+    <line x1="24" y1="55" x2="856" y2="55" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="24" y="80" font-size="11" font-weight="600" fill="#8a99ad">DOMAIN</text>
+    <text x="180" y="80" font-size="11" font-weight="600" fill="#8a99ad">PRODUCTION MODEL</text>
+    <text x="420" y="80" font-size="11" font-weight="600" fill="#8a99ad">VALIDATED METRIC</text>
+    <text x="680" y="80" font-size="11" font-weight="600" fill="#8a99ad">STAGE / STATUS</text>
+
+    <!-- Row 1 -->
+    <line x1="24" y1="100" x2="856" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text x="24" y="125" font-size="13" font-weight="600" fill="#ffffff">Customer Churn</text>
+    <text x="180" y="125" font-size="12" font-family="'JetBrains Mono'" fill="#00f2fe">v1.0.0_XGBoost</text>
+    <text x="420" y="125" font-size="12" fill="#f0f4f8">70.45% Recall @ t=0.11 (PR-AUC 0.8425)</text>
+    <rect x="680" y="110" width="110" height="22" rx="4" fill="rgba(0,230,118,0.15)"/>
+    <text x="692" y="125" font-size="11" font-weight="700" fill="#00e676">PRODUCTION</text>
+
+    <!-- Row 2 -->
+    <line x1="24" y1="145" x2="856" y2="145" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text x="24" y="170" font-size="13" font-weight="600" fill="#ffffff">SKU Demand</text>
+    <text x="180" y="170" font-size="12" font-family="'JetBrains Mono'" fill="#00f2fe">v1.0.0_Ridge</text>
+    <text x="420" y="170" font-size="12" fill="#f0f4f8">RMSE 8.81 units / WAPE 61.08%</text>
+    <rect x="680" y="155" width="110" height="22" rx="4" fill="rgba(0,230,118,0.15)"/>
+    <text x="692" y="170" font-size="11" font-weight="700" fill="#00e676">PRODUCTION</text>
+
+    <!-- Row 3 -->
+    <line x1="24" y1="190" x2="856" y2="190" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text x="24" y="215" font-size="13" font-weight="600" fill="#ffffff">Inventory Stockout</text>
+    <text x="180" y="215" font-size="12" font-family="'JetBrains Mono'" fill="#00f2fe">v1.0.0_XGBoost_7d</text>
+    <text x="420" y="215" font-size="12" fill="#f0f4f8">PR-AUC 0.9425 (F1@0.35 = 0.865)</text>
+    <rect x="680" y="200" width="110" height="22" rx="4" fill="rgba(0,230,118,0.15)"/>
+    <text x="692" y="215" font-size="11" font-weight="700" fill="#00e676">PRODUCTION</text>
+
+    <!-- Row 4 -->
+    <line x1="24" y1="235" x2="856" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text x="24" y="260" font-size="13" font-weight="600" fill="#ffffff">Machine Telemetry</text>
+    <text x="180" y="260" font-size="12" font-family="'JetBrains Mono'" fill="#00f2fe">v1.0.0_RF_IsolationForest</text>
+    <text x="420" y="260" font-size="12" fill="#f0f4f8">100% Event Recall @ ≥6h Lead Time</text>
+    <rect x="680" y="245" width="110" height="22" rx="4" fill="rgba(0,230,118,0.15)"/>
+    <text x="692" y="260" font-size="11" font-weight="700" fill="#00e676">PRODUCTION</text>
+  </g>
+</svg>

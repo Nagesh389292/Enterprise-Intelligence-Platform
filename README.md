@@ -4,143 +4,101 @@
 
 ---
 
-## 🏗️ Platform Architecture
+## 📸 Executive Control Tower UI Preview
+
+![Control Tower Executive Overview](docs/architecture/control_tower_overview.svg)
+
+---
+
+## 🏗️ 13-Stage Architecture & End-to-End Pipeline
 
 ```text
-                               ENTERPRISE INTELLIGENCE PLATFORM
-                                               │
-                   ┌───────────────────────────┴───────────────────────────┐
-                   │                                                       │
-           DATA PLATFORM                                             ML PLATFORM
-                   │                                                       │
-        Generator → Ingestion                                   Feature Marts (6h Rolling)
-                   │                                                       │
-                dbt Gold                                                4 Production ML Models
-                   │                                                       │
-               PostgreSQL                                              MLflow Registry
-                   │                                                       │
-               Analytics                                               Drift Monitoring
-                   │                                                       │
-                   └───────────────────────────┬───────────────────────────┘
-                                               │
-                                          MLOps Layer
-                                               │
-                                 Retrain → Evaluate → Promote
-                                               │
-                                     ┌─────────┴─────────┐
-                                     │                   │
-                                 AgentBus             FastAPI
-                                     │                   │
-                                     └─────────┬─────────┘
-                                               │
-                                        Control Tower (UI)
-                                               │
-                                       Executive Decisioning
-                                               │
-                                          AWS / Docker
-                                               │
-                                      CI/CD + Observability
+Enterprise Data (£77.2M / 1k Cust)
+      ↓
+Data Engineering (PostgreSQL 3NF)
+      ↓
+dbt Gold Layer (Star-Schema)
+      ↓
+ML Feature Engineering (6h Rolling Marts)
+      ↓
+4 Production ML Models
+      ↓
+MLflow Registry (sqlite:///mlflow.db)
+      ↓
+Drift Detection (KS-Test / PSI > 0.25)
+      ↓
+Automated Retraining (Domain-Targeted)
+      ↓
+Champion / Challenger Gating (Holdout Test)
+      ↓
+Multi-Agent Decisioning (Stage 10 AgentBus)
+      ↓
+FastAPI Scoring REST API (:8000)
+      ↓
+React Executive Control Tower (:3000)
+      ↓
+Automated Business Decisions (5,863 Persisted)
 ```
 
 ---
 
-## 🚀 Key System Features
+## 📊 Validated Production ML Metrics
 
-### 1. Data Engineering & Warehousing (Stages 1–4)
-- **Synthetic Enterprise Generator**: Deterministic seed generator creating relational enterprise data (`customers`, `orders`, `inventory`, `telemetry`).
-- **PostgreSQL 3NF Source Data Warehouse**: Multi-schema architecture (`source`, `analytics`, `staging`, `audit`).
-- **dbt Dimensional Modeling**: Bronze/Silver/Gold star-schema transformation pipelines producing Gold Fact and Dimension tables (`fact_orders`, `dim_customer`, `dim_product`, `dim_machine`).
-
-### 2. Applied Machine Learning (Stage 8)
-- **8A Customer Churn Classifier**: XGBoost classifier predicting 30-day customer churn risk ($\text{PR-AUC} = 0.842$).
-- **8B SKU Demand Forecaster**: Ridge Linear Regressor predicting daily item-level sales volume ($\text{WAPE} = 14.2\%$).
-- **8C Inventory Stockout Predictor**: XGBoost classifier predicting 7-day stockout probabilities ($\text{PR-AUC} = 0.891$).
-- **8D Predictive Machine Telemetry**: Dual model architecture (Isolation Forest anomaly score + Random Forest 24h failure probability with 6-hour rolling feature windows, $\ge 6\text{h}$ lead-time event recall $= 100\%$).
-
-### 3. Production MLOps Engine (Stages 9 & 11)
-- **MLflow Tracking & Registry**: Local SQLite backend (`sqlite:///mlflow.db`) tracking parameters, metrics, artifacts, and version aliases.
-- **Drift Monitoring**: `DriftDetector` performing KS-tests on numerical features and Population Stability Index (PSI) on prediction distributions.
-- **Domain-Targeted Retraining**: `DomainRetrainer` retraining *only* affected domain models under drift.
-- **Champion/Challenger Gating**: `ModelEvaluator` holding strict domain-specific no-regression performance gates before promotion.
-
-### 4. Stage 10 Multi-Agent Decision Intelligence System
-- **Autonomous AgentBus**: Multi-agent collaborative decision hierarchy:
-  - **Domain Proposal Agents**: Customer Agent, Inventory Agent, Operations Agent.
-  - **Business Critic Agent**: Sanity checks reorder quantities and flags low-confidence proposals.
-  - **Risk & Compliance Agent**: Evaluates financial exposure (£) and applies uncertainty penalties.
-  - **Decision Manager**: Synthesizes inputs into final structured verdicts (`APPROVED`, `APPROVED_WITH_CONDITIONS`, `ESCALATED`) persisted in `analytics.agent_decisions`.
-
-### 5. AWS Cloud Architecture & Security (Stage 12)
-- **Containerization**: Multi-stage `Dockerfile.api` and `Dockerfile.mlops` orchestrated locally via `docker-compose.yml`.
-- **Infrastructure as Code (IaC)**: Terraform manifests (`deployment/aws/terraform/`) provisioning Amazon ECS Fargate, ECR repositories, RDS PostgreSQL Multi-AZ (`db.r6g.xlarge`), S3 artifact buckets, and ALB.
-- **Security & Observability**: API Key header authentication (`X-API-Key`), `/healthz` & `/ready` probes, Prometheus exporter (`metrics.py`), and pre-built Grafana operational dashboard.
-
-### 6. Stage 13 React Control Tower Web Application
-- Modern React + Vite Single Page Application featuring Executive Overview, Customer Churn, SKU Demand, Inventory Stockout, Machine Operations, and Multi-Agent Audit Trail visualizer.
+| Domain | Production Model | Validated Metric | Key Result & Threshold |
+| :--- | :--- | :--- | :--- |
+| **8A Customer Churn** | XGBoost Classifier (`scale_pos_weight`) | **Recall: 70.45%** | $\text{PR-AUC} = 0.8425$ at optimal decision threshold $t = 0.11$ |
+| **8B SKU Demand** | Ridge Linear Regressor ($L_2$ Regularized) | **RMSE: 8.81 units** | $\text{WAPE} = 61.08\%$ (Outperformed XGBoost on sparse time-series spikes) |
+| **8C Inventory Stockout** | XGBoost 7d Classifier | **PR-AUC: 0.9425** | $\text{F1}@0.35 = 0.865$ (7-day stockout risk prediction) |
+| **8D Predictive Maintenance** | Random Forest + Isolation Forest | **Event Recall: 100%** | $\ge 6\text{h}$ warning lead time (0/50 Operations decisions escalated) |
 
 ---
 
-## 🧪 Comprehensive Automated Test Evidence
+## 📈 Authoritative Control Totals Audit
 
-The platform includes an automated pytest suite covering all 13 pipeline stages (**45/45 tests passing with 100% pass rate**):
+- **Total Enterprise Revenue**: **£77,237,960.93** (~£77.2M)
+- **Total Registered Customers**: **1,000 Customers**
+- **Total Persisted Agent Decisions**: **5,863 Decisions**
+- **Escalated Decisions**: **380 Escalations** (6.4% escalation rate for senior human approval)
+- **Automated Integration Test Pass Rate**: **45/45 Tests Passing (100% Pass Rate)**
 
-```bash
-.\venv\Scripts\python.exe -m pytest tests/test_agent_system.py tests/test_mlops_pipeline.py tests/test_deployment_hardening.py tests/test_control_tower_backend.py -v
-```
+---
+
+## 🎬 2-to-3 Minute Application Demo Script
 
 ```text
-================= 45 passed, 0 failed in 98.26s (100% PASS) ==================
+00:00 - Executive Overview: Real-time £77.2M enterprise revenue, 1k active customers, and MLflow model registry.
+00:30 - Customer Intelligence: 70.45% recall churn risk matrix and high-value customer intervention desk.
+01:00 - Demand Intelligence: Daily SKU demand forecasting with 95% confidence bounds (RMSE 8.81).
+01:30 - Inventory & Operations: 7-day stockout predictions (PR-AUC 0.9425) & telemetry failure risk (100% ≥6h lead time).
+02:00 - AI Decision Center: Live Stage 10 AgentBus flow (Domain Proposal → Critic Challenge → Risk Audit → Decision Manager).
+02:30 - MLOps Retraining & AWS Cloud: Automated drift retraining, champion/challenger gating, Prometheus observability, and Terraform IaC.
 ```
 
 ---
 
-## 💻 Local Quickstart
+## 🚀 Local Quickstart & Verification
 
-### Prerequisites
-- Python 3.11+
-- PostgreSQL 15+
-- Docker & Docker Compose (optional for containerized run)
-
-### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/user/enterprise-intelligence-platform.git
-cd enterprise-intelligence-platform
+# 1. Clone Repository & Install Dependencies
+git clone https://github.com/Nagesh389292/Enterprise-Intelligence-Platform.git
+cd Enterprise-Intelligence-Platform
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+
+# 2. Execute Automated Integration Test Suite across Stages 10-13
+python -m pytest tests/test_agent_system.py tests/test_mlops_pipeline.py tests/test_deployment_hardening.py tests/test_control_tower_backend.py -v
+
+# 3. Launch Local Multi-Container Stack via Docker Compose
+docker-compose up --build -d
 ```
-
-### 2. Run Database & Seed Data
-```bash
-# Apply database DDL schemas
-python scripts/apply_ddl.py
-
-# Execute dbt transformation models
-dbt run
-```
-
-### 3. Run FastAPI Model Serving API & Control Tower
-```bash
-# Start FastAPI Scoring API
-python -m uvicorn data_science.mlops.serving_api:app --host 0.0.0.0 --port 8000
-
-# Open Control Tower Frontend (in another terminal)
-cd control_tower
-npm install
-npm run dev
-```
-
-Visit `http://localhost:3000` to interact with the live Enterprise Control Tower.
 
 ---
 
-## 📌 Portfolio Resume & Interview Positioning
-
-### Suggested Resume Bullets
+## 📌 Portfolio Resume Positioning
 
 > **Enterprise Intelligence & Decision Platform (Lead Engineer)**
-> - Designed and built an end-to-end Enterprise ML & Multi-Agent Autonomous Intelligence System spanning PostgreSQL/dbt star-schema warehousing, 4 production ML models, MLflow registry, FastAPI REST scoring, multi-agent decision hierarchy, AWS cloud deployment architecture (IaC), and a React Control Tower Web Application.
+> - Built an end-to-end Enterprise ML & Multi-Agent Autonomous Intelligence System spanning PostgreSQL/dbt star-schema warehousing (£77.2M revenue, 1k customers), 4 production ML models, MLflow registry, FastAPI REST scoring, multi-agent decision hierarchy, AWS cloud architecture (IaC), and a React Control Tower Web Application.
 > - Developed dual predictive maintenance models (Isolation Forest + Random Forest) leveraging 6-hour rolling feature windows to achieve 100% event recall with $\ge 6\text{h}$ failure lead-time warning across machine fleet.
 > - Architected a domain-targeted MLOps retraining engine that triggers targeted retraining under feature drift, enforcing strict champion vs. challenger holdout evaluation gates before MLflow promotion.
 > - Implemented a multi-agent decision bus (Domain Agents $\rightarrow$ Critic Agent $\rightarrow$ Risk Agent $\rightarrow$ Decision Manager) executing financial risk calculations and storing structured reasoning chains for over 5,800 business decisions.
-> - Provisioned AWS cloud architecture IaC via Terraform (ECS Fargate, ECR, RDS PostgreSQL Multi-AZ, S3, ALB) and hardened FastAPI endpoints with API key security, health/readiness probes, and Prometheus observability metrics.
