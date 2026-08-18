@@ -73,8 +73,9 @@ def init_ci_database():
     # 4. Seed Multi-Agent Decisions
     logger.info("Executing AgentBus orchestrator to seed agent_decisions audit table...")
     bus = AgentBus(db_engine=engine)
-    bus_results = bus.run_full_cycle()
-    logger.info(f"AgentBus execution completed: {len(bus_results.get('decisions', []))} decisions generated.")
+    bus_results = bus.run()
+    logger.info(f"AgentBus execution completed: {len(bus_results)} decisions generated.")
+
 
     logger.info("==================================================")
     logger.info("CI DATABASE INITIALIZATION COMPLETED SUCCESSFULLY")
