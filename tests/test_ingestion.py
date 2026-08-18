@@ -34,7 +34,15 @@ def db_engine():
         conn.execute(text("TRUNCATE TABLE audit.pipeline_execution_logs CASCADE;"))
         conn.execute(text("TRUNCATE TABLE audit.data_quality_audit_logs CASCADE;"))
         conn.execute(text("TRUNCATE TABLE audit.quarantine_records CASCADE;"))
+        conn.execute(text("""
+            INSERT INTO source.sales_channels (channel_id, channel_code, channel_name, commission_rate) VALUES
+            (1, 'DIRECT', 'Direct Enterprise Sales', 0.0500),
+            (2, 'PARTNER', 'Partner Channel Network', 0.1000),
+            (3, 'ONLINE', 'Digital Self-Service Portal', 0.0200)
+            ON CONFLICT (channel_id) DO NOTHING;
+        """))
     return engine
+
 
 def test_sha256_file_discovery():
     """Verifies that discovery engine scans files and computes 64-character SHA-256 hashes."""
