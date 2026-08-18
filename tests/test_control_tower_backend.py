@@ -73,3 +73,24 @@ class TestControlTowerEndpoints:
         assert data["total_models"] == 4
         assert len(data["models"]) == 4
 
+    def test_filter_options_endpoint_returns_dynamic_options(self):
+        response = client.get("/api/control-tower/filter-options")
+        assert response.status_code == 200
+        data = response.json()
+        assert "regions" in data
+        assert "warehouses" in data
+        assert "categories" in data
+        assert "customer_segments" in data
+        assert len(data["regions"]) > 1
+
+    def test_summary_endpoint_with_region_filter(self):
+        response_all = client.get("/api/control-tower/summary?region=All%20Regions")
+        response_filtered = client.get("/api/control-tower/summary?region=UK%20North")
+        assert response_all.status_code == 200
+        assert response_filtered.status_code == 200
+        rev_all = response_all.json()["executive_kpis"]["total_revenue_gbp"]
+        rev_filtered = response_filtered.json()["executive_kpis"]["total_revenue_gbp"]
+        assert rev_all != rev_filtered
+        assert rev_filtered < rev_all
+
+

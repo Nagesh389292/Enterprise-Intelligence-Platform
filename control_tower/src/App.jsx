@@ -4,7 +4,23 @@ const API_BASE = "http://localhost:8000";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("overview");
-  
+
+  // Dynamic Filter Options from API
+  const [filterOptions, setFilterOptions] = useState({
+    regions: ["All Regions", "UK North", "UK South", "EMEA"],
+    warehouses: ["All Warehouses", "WH-001 (London Central)", "WH-002 (Manchester)", "WH-003 (Birmingham)"],
+    categories: ["All Categories", "Industrial Equipment", "Electronics", "Components"],
+    customer_segments: ["All Customer Segments", "Enterprise VIP", "Mid-Market", "SMB"],
+    date_periods: ["YTD 2026", "Q3 2026", "Q2 2026", "Q1 2026"]
+  });
+
+  // Global Filter State
+  const [dateRange, setDateRange] = useState("YTD 2026");
+  const [region, setRegion] = useState("All Regions");
+  const [warehouse, setWarehouse] = useState("All Warehouses");
+  const [category, setCategory] = useState("All Categories");
+  const [segment, setSegment] = useState("All Customer Segments");
+
   // Data States
   const [summaryData, setSummaryData] = useState(null);
   const [customerData, setCustomerData] = useState(null);
@@ -13,61 +29,75 @@ export default function App() {
   const [operationsData, setOperationsData] = useState(null);
   const [mlopsData, setMlopsData] = useState(null);
   const [decisionsData, setDecisionsData] = useState(null);
+  
+  // Interactive UI States
   const [selectedDecision, setSelectedDecision] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [sortField, setSortField] = useState(null);
+  const [sortAsc, setSortAsc] = useState(true);
 
-  // Global Slicers
-  const [dateRange, setDateRange] = useState("YTD 2026");
-  const [region, setRegion] = useState("All Regions");
-  const [warehouse, setWarehouse] = useState("All Warehouses");
-  const [category, setCategory] = useState("All Categories");
-  const [segment, setSegment] = useState("All Customer Segments");
-
-  // Fetch data dynamically whenever slicers change
+  // Fetch filter options on mount
   useEffect(() => {
-    const params = new URLSearchParams({
+    fetch(`${API_BASE}/api/control-tower/filter-options`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.regions) {
+          setFilterOptions(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Shared Query Parameter Builder
+  const buildQueryParams = () => {
+    return new URLSearchParams({
       date_period: dateRange,
       region: region,
       warehouse: warehouse,
       category: category,
       customer_segment: segment
-    });
+    }).toString();
+  };
 
-    fetch(`${API_BASE}/api/control-tower/summary?${params}`)
-      .then(res => res.json())
-      .then(data => setSummaryData(data))
-      .catch(() => {});
+  // Reset All Filters function
+  const handleResetFilters = () => {
+    setDateRange("YTD 2026");
+    setRegion("All Regions");
+    setWarehouse("All Warehouses");
+    setCategory("All Categories");
+    setSegment("All Customer Segments");
+  };
 
-    fetch(`${API_BASE}/api/control-tower/customer?${params}`)
-      .then(res => res.json())
-      .then(data => setCustomerData(data))
-      .catch(() => {});
+  // Fetch filtered data whenever slicers change
+  useEffect(() => {
+    setIsLoading(true);
+    const queryStr = buildQueryParams();
 
-    fetch(`${API_BASE}/api/control-tower/demand?${params}`)
-      .then(res => res.json())
-      .then(data => setDemandData(data))
-      .catch(() => {});
-
-    fetch(`${API_BASE}/api/control-tower/inventory?${params}`)
-      .then(res => res.json())
-      .then(data => setInventoryData(data))
-      .catch(() => {});
-
-    fetch(`${API_BASE}/api/control-tower/operations`)
-      .then(res => res.json())
-      .then(data => setOperationsData(data))
-      .catch(() => {});
-
-    fetch(`${API_BASE}/api/control-tower/mlops`)
-      .then(res => res.json())
-      .then(data => setMlopsData(data))
-      .catch(() => {});
-
-    fetch(`${API_BASE}/api/control-tower/decisions`)
-      .then(res => res.json())
-      .then(data => setDecisionsData(data))
-      .catch(() => {});
+    Promise.all([
+      fetch(`${API_BASE}/api/control-tower/summary?${queryStr}`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/customer?${queryStr}`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/demand?${queryStr}`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/inventory?${queryStr}`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/operations`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/mlops`).then(r => r.json()),
+      fetch(`${API_BASE}/api/control-tower/decisions`).then(r => r.json()),
+    ])
+      .then(([summary, customer, demand, inventory, ops, mlops, decisions]) => {
+        setSummaryData(summary);
+        setCustomerData(customer);
+        setDemandData(demand);
+        setInventoryData(inventory);
+        setOperationsData(ops);
+        setMlopsData(mlops);
+        setDecisionsData(decisions);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, [dateRange, region, warehouse, category, segment]);
 
+  // Derived KPI calculations from active summary API
   const kpis = summaryData?.executive_kpis || {
     total_revenue_gbp: 77237960.93,
     total_orders: 10000,
@@ -83,26 +113,32 @@ export default function App() {
     machine_risk_count: 3
   };
 
-  const monthlyRunRate = summaryData?.monthly_run_rate || [
-    { month: "Jan", revenue: 5200000, orders: 680 },
-    { month: "Feb", revenue: 6100000, orders: 790 },
-    { month: "Mar", revenue: 6800000, orders: 880 },
-    { month: "Apr", revenue: 8400000, orders: 1090 },
-    { month: "May", revenue: 7900000, orders: 1020 },
-    { month: "Jun", revenue: 9200000, orders: 1180 },
-    { month: "Jul", revenue: 9800000, orders: 1260 },
-    { month: "Aug", revenue: 9500000, orders: 1220 },
-    { month: "Sep", revenue: 10100000, orders: 1310 },
-    { month: "Oct", revenue: 14237960.93, orders: 1490 }
-  ];
+  const monthlyRunRate = summaryData?.monthly_run_rate || [];
+  const categoryRev = summaryData?.category_revenue || [];
+  const maxMonthlyRev = monthlyRunRate.length > 0 ? Math.max(...monthlyRunRate.map(m => m.revenue)) : 1;
 
-  const categoryRev = summaryData?.category_revenue || [
-    { category: "Industrial Equipment", revenue: 32440000, share: "42%" },
-    { category: "Electronics & Sensors", revenue: 27030000, share: "35%" },
-    { category: "Spare Components", revenue: 17767960.93, share: "23%" }
-  ];
+  // Table sorting logic
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortAsc(!sortAsc);
+    } else {
+      setSortField(field);
+      setSortAsc(true);
+    }
+  };
 
-  const maxMonthlyRev = Math.max(...monthlyRunRate.map(m => m.revenue));
+  const sortRecords = (records) => {
+    if (!sortField || !records) return records || [];
+    return [...records].sort((a, b) => {
+      let valA = a[sortField];
+      let valB = b[sortField];
+      if (typeof valA === 'string') valA = valA.toLowerCase();
+      if (typeof valB === 'string') valB = valB.toLowerCase();
+      if (valA < valB) return sortAsc ? -1 : 1;
+      if (valA > valB) return sortAsc ? 1 : -1;
+      return 0;
+    });
+  };
 
   return (
     <div className="pbi-app">
@@ -113,14 +149,15 @@ export default function App() {
           <div>
             <div className="pbi-title">NexaCore Enterprise Intelligence Control Tower</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Data-Driven Power BI Architecture • Filtered Dynamic REST APIs
+              Data-Driven Power BI Architecture • Parameterized PostgreSQL Aggregations
             </div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          {isLoading && <span className="pbi-badge badge-conditions">🔄 RECALCULATING SQL AGGREGATIONS...</span>}
           <span className="pbi-badge badge-healthy">● LIVE PIPELINE: OPERATIONAL</span>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Refreshed: {new Date().toLocaleDateString()}
+            Refreshed: {new Date().toLocaleTimeString()}
           </span>
         </div>
       </header>
@@ -130,52 +167,53 @@ export default function App() {
         <div className="slicer-group">
           <span>Date Period:</span>
           <select value={dateRange} onChange={e => setDateRange(e.target.value)} className="slicer-select">
-            <option>YTD 2026</option>
-            <option>Q3 2026</option>
-            <option>Q2 2026</option>
-            <option>Q1 2026</option>
+            {filterOptions.date_periods.map((op, i) => <option key={i} value={op}>{op}</option>)}
           </select>
         </div>
 
         <div className="slicer-group">
           <span>Region:</span>
           <select value={region} onChange={e => setRegion(e.target.value)} className="slicer-select">
-            <option>All Regions</option>
-            <option>UK North</option>
-            <option>UK South</option>
-            <option>EMEA</option>
+            {filterOptions.regions.map((op, i) => <option key={i} value={op}>{op}</option>)}
           </select>
         </div>
 
         <div className="slicer-group">
           <span>Warehouse:</span>
           <select value={warehouse} onChange={e => setWarehouse(e.target.value)} className="slicer-select">
-            <option>All Warehouses</option>
-            <option>WH-001 (London Central)</option>
-            <option>WH-002 (Manchester)</option>
-            <option>WH-003 (Birmingham)</option>
+            {filterOptions.warehouses.map((op, i) => <option key={i} value={op}>{op}</option>)}
           </select>
         </div>
 
         <div className="slicer-group">
           <span>Category:</span>
           <select value={category} onChange={e => setCategory(e.target.value)} className="slicer-select">
-            <option>All Categories</option>
-            <option>Industrial Equipment</option>
-            <option>Electronics</option>
-            <option>Components</option>
+            {filterOptions.categories.map((op, i) => <option key={i} value={op}>{op}</option>)}
           </select>
         </div>
 
         <div className="slicer-group">
           <span>Customer Segment:</span>
           <select value={segment} onChange={e => setSegment(e.target.value)} className="slicer-select">
-            <option>All Customer Segments</option>
-            <option>Enterprise VIP</option>
-            <option>Mid-Market</option>
-            <option>SMB</option>
+            {filterOptions.customer_segments.map((op, i) => <option key={i} value={op}>{op}</option>)}
           </select>
         </div>
+
+        <button 
+          onClick={handleResetFilters}
+          style={{
+            background: 'rgba(239, 68, 68, 0.15)',
+            border: '1px solid rgba(239, 68, 68, 0.4)',
+            color: 'var(--pbi-accent-red)',
+            padding: '0.4rem 0.8rem',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '0.75rem',
+            fontWeight: '700'
+          }}
+        >
+          RESET ALL FILTERS
+        </button>
       </div>
 
       {/* 7 Page Tabs Header Bar */}
@@ -214,7 +252,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
                   £{(kpis.total_revenue_gbp / 1e6).toFixed(2)}M
                 </div>
-                <div className="kpi-sub">analytics.fact_orders</div>
+                <div className="kpi-sub">Source: analytics.fact_orders</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -222,7 +260,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
                   {kpis.total_orders.toLocaleString()}
                 </div>
-                <div className="kpi-sub">analytics.fact_orders</div>
+                <div className="kpi-sub">Source: analytics.fact_orders</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -230,7 +268,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>
                   {kpis.total_customers.toLocaleString()}
                 </div>
-                <div className="kpi-sub">analytics.dim_customer</div>
+                <div className="kpi-sub">Source: analytics.dim_customer</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -238,7 +276,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>
                   {kpis.units_sold.toLocaleString()}
                 </div>
-                <div className="kpi-sub">analytics.fact_order_items</div>
+                <div className="kpi-sub">Source: analytics.fact_order_items</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -246,7 +284,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
                   £{kpis.average_order_value_gbp.toLocaleString()}
                 </div>
-                <div className="kpi-sub">Calculated: Rev / Orders</div>
+                <div className="kpi-sub">Formula: Revenue / Orders</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -254,7 +292,7 @@ export default function App() {
                 <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
                   {kpis.total_agent_decisions.toLocaleString()}
                 </div>
-                <div className="kpi-sub">analytics.agent_decisions</div>
+                <div className="kpi-sub">Source: analytics.agent_decisions</div>
               </div>
 
               <div className="pbi-kpi-card">
@@ -288,10 +326,10 @@ export default function App() {
                   </div>
                   <div style={{ height: '160px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', border: '1px solid var(--pbi-border)', display: 'flex', alignItems: 'flex-end', padding: '10px', gap: '8px' }}>
                     {monthlyRunRate.map((m, i) => {
-                      const pct = (m.revenue / maxMonthlyRev) * 100;
+                      const pct = maxMonthlyRev > 0 ? (m.revenue / maxMonthlyRev) * 100 : 0;
                       return (
                         <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end' }}>
-                          <div style={{ height: `${pct}%`, width: '100%', background: 'var(--pbi-accent-green)', borderRadius: '2px 2px 0 0', opacity: 0.9 }} />
+                          <div style={{ height: `${pct}%`, width: '100%', background: 'var(--pbi-accent-green)', borderRadius: '2px 2px 0 0', opacity: 0.9 }} title={`£${m.revenue.toLocaleString()}`} />
                           <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: '4px' }}>{m.month}</span>
                         </div>
                       );
@@ -362,7 +400,7 @@ export default function App() {
                   </tbody>
                 </table>
                 <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)', borderTop: '1px solid var(--pbi-border)', paddingTop: '0.5rem' }}>
-                  Data Provenance: analytics.fact_orders • analytics.dim_customer • analytics.agent_decisions • Updated: {new Date().toLocaleTimeString()}
+                  Data Provenance: analytics.fact_orders • analytics.dim_customer • analytics.agent_decisions • Filter Query: {buildQueryParams()}
                 </div>
               </div>
             </div>
@@ -422,8 +460,8 @@ export default function App() {
                 <table className="pbi-table">
                   <thead>
                     <tr>
-                      <th>Product ID</th>
-                      <th>Predicted Demand</th>
+                      <th onClick={() => handleSort('product_id')} style={{ cursor: 'pointer' }}>Product ID ↕</th>
+                      <th onClick={() => handleSort('predicted_demand_units')} style={{ cursor: 'pointer' }}>Predicted Demand ↕</th>
                       <th>95% Lower Bound</th>
                       <th>95% Upper Bound</th>
                       <th>7-Day Rolling Avg</th>
@@ -431,7 +469,7 @@ export default function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    {(demandData?.demand_forecasts || []).map((row, i) => (
+                    {sortRecords(demandData?.demand_forecasts || []).map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.product_id}</td>
                         <td style={{ fontWeight: '700', color: 'var(--pbi-accent-green)' }}>{row.predicted_demand_units} units</td>
@@ -550,17 +588,17 @@ export default function App() {
                 <table className="pbi-table">
                   <thead>
                     <tr>
-                      <th>Customer ID</th>
-                      <th>Churn Probability</th>
+                      <th onClick={() => handleSort('customer_id')} style={{ cursor: 'pointer' }}>Customer ID ↕</th>
+                      <th onClick={() => handleSort('churn_probability')} style={{ cursor: 'pointer' }}>Churn Probability ↕</th>
                       <th>Risk Tier</th>
-                      <th>Total Spend</th>
+                      <th onClick={() => handleSort('total_revenue')} style={{ cursor: 'pointer' }}>Total Spend ↕</th>
                       <th>Days Inactive</th>
                       <th>CSAT Score</th>
                       <th>Recommended Retention Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {(customerData?.top_at_risk_customers || []).map((row, i) => (
+                    {sortRecords(customerData?.top_at_risk_customers || []).map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.customer_id}</td>
                         <td style={{ fontWeight: '800', color: row.churn_probability > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
@@ -664,8 +702,8 @@ export default function App() {
                 <table className="pbi-table">
                   <thead>
                     <tr>
-                      <th>Item ID</th>
-                      <th>7-Day Stockout Risk</th>
+                      <th onClick={() => handleSort('item_id')} style={{ cursor: 'pointer' }}>Item ID ↕</th>
+                      <th onClick={() => handleSort('stockout_risk_prob_7d')} style={{ cursor: 'pointer' }}>7-Day Stockout Risk ↕</th>
                       <th>Risk Severity</th>
                       <th>Current Stock</th>
                       <th>Reorder Point</th>
@@ -674,7 +712,7 @@ export default function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    {(inventoryData?.stockout_alerts || []).map((row, i) => (
+                    {sortRecords(inventoryData?.stockout_alerts || []).map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.item_id}</td>
                         <td style={{ fontWeight: '800', color: row.stockout_risk_prob_7d > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
@@ -780,16 +818,16 @@ export default function App() {
                 <table className="pbi-table">
                   <thead>
                     <tr>
-                      <th>Machine ID</th>
-                      <th>Anomaly Score</th>
-                      <th>24h Failure Probability</th>
+                      <th onClick={() => handleSort('machine_id')} style={{ cursor: 'pointer' }}>Machine ID ↕</th>
+                      <th onClick={() => handleSort('anomaly_score')} style={{ cursor: 'pointer' }}>Anomaly Score ↕</th>
+                      <th onClick={() => handleSort('failure_prob_24h')} style={{ cursor: 'pointer' }}>24h Failure Probability ↕</th>
                       <th>Lead Time Alert</th>
                       <th>Health Status</th>
                       <th>Maintenance Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {(operationsData?.machine_health || []).map((row, i) => (
+                    {sortRecords(operationsData?.machine_health || []).map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.machine_id}</td>
                         <td style={{ fontFamily: 'var(--font-mono)' }}>{row.anomaly_score}</td>
@@ -943,18 +981,18 @@ export default function App() {
                 <table className="pbi-table">
                   <thead>
                     <tr>
-                      <th>Decision ID</th>
+                      <th onClick={() => handleSort('decision_id')} style={{ cursor: 'pointer' }}>Decision ID ↕</th>
                       <th>Domain</th>
                       <th>Entity ID</th>
                       <th>Proposed Action</th>
-                      <th>Exposure (£)</th>
+                      <th onClick={() => handleSort('financial_exposure_gbp')} style={{ cursor: 'pointer' }}>Exposure (£) ↕</th>
                       <th>Risk Level</th>
                       <th>Final Verdict</th>
                       <th>Reasoning Chain</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {(decisionsData?.decisions || []).map((row, i) => (
+                    {sortRecords(decisionsData?.decisions || []).map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.decision_id}</td>
                         <td style={{ textTransform: 'capitalize' }}>{row.domain}</td>

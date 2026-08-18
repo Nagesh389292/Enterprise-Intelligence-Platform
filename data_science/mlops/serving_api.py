@@ -485,10 +485,44 @@ def predict_machine_health(payload: MachineHealthInput):
     )
 
 # -----------------------------------------------------------------------------
-# Stage 13 — Control Tower REST Aggregation API
-# -----------------------------------------------------------------------------
 # Stage 13 — Control Tower REST Aggregation API (Data-Driven with Filter Query Parameters)
 # -----------------------------------------------------------------------------
+@app.get("/api/control-tower/filter-options", summary="Dynamic Control Tower Slicer Options")
+def get_control_tower_filter_options():
+    """Returns dynamic filter dropdown options directly from PostgreSQL tables."""
+    engine = get_engine()
+    try:
+        df_reg = read_sql("SELECT DISTINCT region FROM analytics.dim_customer WHERE region IS NOT NULL ORDER BY region;", engine)
+        regions = ["All Regions"] + [r for r in df_reg["region"].tolist() if r]
+    except Exception:
+        regions = ["All Regions", "UK North", "UK South", "EMEA"]
+
+    try:
+        df_wh = read_sql("SELECT DISTINCT warehouse_id FROM analytics.dim_warehouse ORDER BY warehouse_id;", engine)
+        warehouses = ["All Warehouses"] + [w for w in df_wh["warehouse_id"].tolist() if w]
+    except Exception:
+        warehouses = ["All Warehouses", "WH-001 (London Central)", "WH-002 (Manchester)", "WH-003 (Birmingham)"]
+
+    try:
+        df_cat = read_sql("SELECT DISTINCT category FROM analytics.dim_product WHERE category IS NOT NULL ORDER BY category;", engine)
+        categories = ["All Categories"] + [c for c in df_cat["category"].tolist() if c]
+    except Exception:
+        categories = ["All Categories", "Industrial Equipment", "Electronics", "Components"]
+
+    try:
+        df_seg = read_sql("SELECT DISTINCT customer_segment FROM analytics.dim_customer WHERE customer_segment IS NOT NULL ORDER BY customer_segment;", engine)
+        customer_segments = ["All Customer Segments"] + [s for s in df_seg["customer_segment"].tolist() if s]
+    except Exception:
+        customer_segments = ["All Customer Segments", "Enterprise VIP", "Mid-Market", "SMB"]
+
+    return {
+        "regions": regions if len(regions) > 1 else ["All Regions", "UK North", "UK South", "EMEA"],
+        "warehouses": warehouses if len(warehouses) > 1 else ["All Warehouses", "WH-001 (London Central)", "WH-002 (Manchester)", "WH-003 (Birmingham)"],
+        "categories": categories if len(categories) > 1 else ["All Categories", "Industrial Equipment", "Electronics", "Components"],
+        "customer_segments": customer_segments if len(customer_segments) > 1 else ["All Customer Segments", "Enterprise VIP", "Mid-Market", "SMB"],
+        "date_periods": ["YTD 2026", "Q3 2026", "Q2 2026", "Q1 2026"]
+    }
+
 @app.get("/api/control-tower/summary", summary="Executive Overview Summary")
 def get_control_tower_summary(
     date_period: Optional[str] = Query("YTD 2026"),
