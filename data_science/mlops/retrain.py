@@ -172,7 +172,7 @@ class DomainRetrainer:
         trainer = InventoryStockoutMLPipeline(random_state=42)
         df_clean = trainer.load_data()
 
-        champion_name = "XGBoost_7d_Forecast"
+        champion_name = "XGBoost_Stockout_Classifier"
         pipeline, _ = trainer.train_champion_model(df_clean, target_col=trainer.target_col_b, model_name=champion_name)
 
         candidate_dir = self.output_dir / "inventory"
