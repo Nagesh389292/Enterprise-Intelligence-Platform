@@ -47,12 +47,23 @@ PROD_MODELS_PATH = {
     "telemetry_fail":"models/telemetry/champion_failure_model.pkl",
 }
 
+from fastapi.middleware.cors import CORSMiddleware
+
 # Initialize FastAPI App
 app = FastAPI(
     title="Enterprise ML Serving API",
     description="Production REST microservice serving 8A-8D champion models with hardened security & observability.",
     version="1.1.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # -----------------------------------------------------------------------------
 # Middleware: Request Logging & Prometheus Metrics
