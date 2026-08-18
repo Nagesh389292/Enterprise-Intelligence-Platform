@@ -261,9 +261,9 @@ def health():
     }
 
 
-
 @app.get("/ready", summary="Readiness Probe")
 def ready():
+
     """Kubernetes / ECS Readiness Probe verifying DB and Model Cache."""
     db_ok = False
     try:
@@ -352,10 +352,10 @@ def predict_churn(payload: ChurnInput):
     flag = int(prob >= threshold)
     tier = "High" if prob >= 0.50 else ("Medium" if prob >= 0.15 else "Low")
 
-
     MODEL_PREDICTIONS_TOTAL.labels(domain="churn", model_version="v1.0.0_XGBoost").inc()
 
     return ChurnOutput(
+
         customer_id=payload.customer_id,
         churn_probability=prob,
         predicted_churn_flag=flag,
