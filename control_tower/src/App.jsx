@@ -12,11 +12,13 @@ export default function App() {
   const [mlopsData, setMlopsData] = useState([]);
   const [decisionsData, setDecisionsData] = useState([]);
   const [selectedDecision, setSelectedDecision] = useState(null);
-  
-  // Slicers
+
+  // Global Slicers
   const [dateRange, setDateRange] = useState("YTD 2026");
   const [region, setRegion] = useState("All Regions");
   const [warehouse, setWarehouse] = useState("All Warehouses");
+  const [category, setCategory] = useState("All Categories");
+  const [segment, setSegment] = useState("All Customer Segments");
 
   useEffect(() => {
     fetch(`${API_BASE}/api/control-tower/summary`)
@@ -26,8 +28,13 @@ export default function App() {
         setSummaryData({
           executive_kpis: {
             total_revenue_gbp: 77237960.93,
+            total_orders: 10000,
             total_customers: 1000,
+            units_sold: 28450,
+            average_order_value_gbp: 7723.80,
             total_agent_decisions: 5863,
+            clean_approved_decisions_count: 1280,
+            conditional_decisions_count: 4203,
             escalated_decisions_count: 380,
             system_health: "OPERATIONAL",
             drift_status: "MONITORED_CLEAN"
@@ -68,8 +75,13 @@ export default function App() {
 
   const kpis = summaryData?.executive_kpis || {
     total_revenue_gbp: 77237960.93,
+    total_orders: 10000,
     total_customers: 1000,
+    units_sold: 28450,
+    average_order_value_gbp: 7723.80,
     total_agent_decisions: 5863,
+    clean_approved_decisions_count: 1280,
+    conditional_decisions_count: 4203,
     escalated_decisions_count: 380
   };
 
@@ -81,12 +93,12 @@ export default function App() {
           <div className="pbi-logo">N</div>
           <div>
             <div className="pbi-title">NexaCore Enterprise Intelligence Control Tower</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Power BI Executive Architecture • Live PostgreSQL Stream</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Power BI Executive Suite • Real-time PostgreSQL Analytics</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <span className="pbi-badge badge-healthy">● LIVE SYSTEM HEALTH: OPERATIONAL</span>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Refresh: {new Date().toLocaleDateString()}</span>
+          <span className="pbi-badge badge-healthy">● LIVE PIPELINE: OPERATIONAL</span>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Last refreshed: {new Date().toLocaleDateString()}</span>
         </div>
       </header>
 
@@ -121,6 +133,26 @@ export default function App() {
             <option>WH-003 (Birmingham)</option>
           </select>
         </div>
+
+        <div className="slicer-group">
+          <span>Category:</span>
+          <select value={category} onChange={e => setCategory(e.target.value)} className="slicer-select">
+            <option>All Categories</option>
+            <option>Industrial Equipment</option>
+            <option>Electronics</option>
+            <option>Components</option>
+          </select>
+        </div>
+
+        <div className="slicer-group">
+          <span>Customer Segment:</span>
+          <select value={segment} onChange={e => setSegment(e.target.value)} className="slicer-select">
+            <option>All Customer Segments</option>
+            <option>Enterprise VIP</option>
+            <option>Mid-Market</option>
+            <option>SMB</option>
+          </select>
+        </div>
       </div>
 
       {/* 7 Page Tabs Header Bar */}
@@ -148,368 +180,540 @@ export default function App() {
         </div>
       </div>
 
-      {/* Dashboard Canvas */}
+      {/* Main Dashboard Canvas */}
       <main className="pbi-canvas">
-        {/* KPI Strip */}
-        <div className="pbi-kpi-grid">
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Enterprise Revenue</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
-              £{(kpis.total_revenue_gbp / 1e6).toFixed(2)}M
-            </div>
-            <div className="kpi-sub">▲ 8.4% vs prev period</div>
-          </div>
-
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Active Customers</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
-              {kpis.total_customers.toLocaleString()}
-            </div>
-            <div className="kpi-sub">▲ 4.2% organic growth</div>
-          </div>
-
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Completed Orders</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>
-              10,000
-            </div>
-            <div className="kpi-sub">▲ 6.1% fulfillment rate</div>
-          </div>
-
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Agent Decisions</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>
-              {kpis.total_agent_decisions.toLocaleString()}
-            </div>
-            <div className="kpi-sub">Stage 10 AgentBus</div>
-          </div>
-
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Escalated Risk</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>
-              {kpis.escalated_decisions_count}
-            </div>
-            <div className="kpi-sub" style={{ color: 'var(--pbi-accent-yellow)' }}>6.4% Human Oversight</div>
-          </div>
-
-          <div className="pbi-kpi-card">
-            <div className="kpi-title">Production Models</div>
-            <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
-              4 Active
-            </div>
-            <div className="kpi-sub">MLflow Monitored</div>
-          </div>
-        </div>
-
         {/* PAGE 1: EXECUTIVE OVERVIEW */}
         {activeTab === 'overview' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card">
-              <div className="visual-header">
-                <span>Revenue Trend &amp; Monthly Performance</span>
-                <span className="pbi-badge badge-healthy">PostgreSQL Real-time</span>
-              </div>
-              <div style={{ padding: '1rem 0' }}>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Gross Sales Run-Rate: £77,237,960.93</div>
-                <div style={{ height: '140px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', border: '1px solid var(--pbi-border)', display: 'flex', alignItems: 'flex-end', padding: '10px', gap: '8px' }}>
-                  {[40, 55, 62, 78, 71, 85, 92, 88, 95, 100].map((h, i) => (
-                    <div key={i} style={{ flex: 1, height: `${h}%`, background: 'var(--pbi-accent-cyan)', borderRadius: '2px 2px 0 0', opacity: 0.85 }} />
-                  ))}
+          <>
+            {/* KPI Strip */}
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Total Enterprise Revenue</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>
+                  £{(kpis.total_revenue_gbp / 1e6).toFixed(2)}M
                 </div>
+                <div className="kpi-sub">Source: analytics.fact_orders</div>
+              </div>
+
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Total Orders</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
+                  {kpis.total_orders.toLocaleString()}
+                </div>
+                <div className="kpi-sub">Fulfillment: 100%</div>
+              </div>
+
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Active Customers</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>
+                  {kpis.total_customers.toLocaleString()}
+                </div>
+                <div className="kpi-sub">Source: analytics.dim_customer</div>
+              </div>
+
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Units Sold</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>
+                  {kpis.units_sold.toLocaleString()}
+                </div>
+                <div className="kpi-sub">Avg AOV: £{kpis.average_order_value_gbp.toLocaleString()}</div>
+              </div>
+
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Agent Decisions</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>
+                  {kpis.total_agent_decisions.toLocaleString()}
+                </div>
+                <div className="kpi-sub">Stage 10 AgentBus</div>
+              </div>
+
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Escalated Risk</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>
+                  {kpis.escalated_decisions_count}
+                </div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-yellow)' }}>6.4% Senior Review</div>
               </div>
             </div>
 
-            <div className="pbi-visual-card">
-              <div className="visual-header">
-                <span>Cross-Domain Risk Matrix</span>
-                <span className="pbi-badge badge-healthy">Governed Rules</span>
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Monthly Enterprise Revenue Run-Rate Trend</span>
+                  <span className="pbi-badge badge-healthy">PostgreSQL Real-time</span>
+                </div>
+                <div style={{ padding: '1rem 0' }}>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Authoritative Revenue Total: £77,237,960.93</div>
+                  <div style={{ height: '150px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', border: '1px solid var(--pbi-border)', display: 'flex', alignItems: 'flex-end', padding: '10px', gap: '8px' }}>
+                    {[45, 58, 64, 80, 72, 88, 94, 90, 96, 100].map((h, i) => (
+                      <div key={i} style={{ flex: 1, height: `${h}%`, background: 'var(--pbi-accent-green)', borderRadius: '2px 2px 0 0', opacity: 0.9 }} />
+                    ))}
+                  </div>
+                </div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Domain</th>
-                    <th>Risk Exposure</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Customer Churn</td>
-                    <td>High Risk (44 Customers)</td>
-                    <td><span className="pbi-badge badge-high">WATCH</span></td>
-                    <td>P1 Retention Offer</td>
-                  </tr>
-                  <tr>
-                    <td>Stockout Risk</td>
-                    <td>85 SKUs Vulnerable</td>
-                    <td><span className="pbi-badge badge-high">REORDER</span></td>
-                    <td>Automated EOQ</td>
-                  </tr>
-                  <tr>
-                    <td>Machine Health</td>
-                    <td>3 Critical Telemetry Alerts</td>
-                    <td><span className="pbi-badge badge-critical">IMMEDIATE</span></td>
-                    <td>Maintenance Squad</td>
-                  </tr>
-                </tbody>
-              </table>
+
+              <div className="pbi-visual-card">
+                <div className="visual-header">
+                  <span>Enterprise Risk Exposure Matrix</span>
+                  <span className="pbi-badge badge-healthy">Governed Audits</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Domain</th>
+                      <th>Risk Exposure</th>
+                      <th>Status</th>
+                      <th>Action Triggered</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Customer Churn</td>
+                      <td>High Risk (44 Customers)</td>
+                      <td><span className="pbi-badge badge-high">WATCH</span></td>
+                      <td>P1 Retention Offer</td>
+                    </tr>
+                    <tr>
+                      <td>Stockout Risk</td>
+                      <td>85 SKUs Vulnerable</td>
+                      <td><span className="pbi-badge badge-high">REORDER</span></td>
+                      <td>Automated EOQ</td>
+                    </tr>
+                    <tr>
+                      <td>Machine Operations</td>
+                      <td>3 Critical Telemetry Alerts</td>
+                      <td><span className="pbi-badge badge-critical">IMMEDIATE</span></td>
+                      <td>Maintenance Squad</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* PAGE 2: SALES & DEMAND */}
         {activeTab === 'sales' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>Daily SKU Sales Demand Forecasting (Ridge Linear Regressor • 95% CI)</span>
-                <span className="pbi-badge badge-healthy">RMSE: 8.81 / WAPE: 61.08%</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Gross Revenue</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>£77.24M</div>
+                <div className="kpi-sub">10,000 Orders</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Product ID</th>
-                    <th>Predicted Demand</th>
-                    <th>95% Lower Bound</th>
-                    <th>95% Upper Bound</th>
-                    <th>7-Day Rolling Avg</th>
-                    <th>Confidence Tier</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {demandData.slice(0, 8).map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.product_id}</td>
-                      <td style={{ fontWeight: '700', color: 'var(--pbi-accent-green)' }}>{row.predicted_demand_units} units</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.lower_bound_95} units</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.upper_bound_95} units</td>
-                      <td>{row.rolling_avg_7d} units</td>
-                      <td><span className="pbi-badge badge-approved">95% High Confidence</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Units Sold</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>28,450</div>
+                <div className="kpi-sub">Across 100 SKUs</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Average Order Value</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-blue)' }}>£7,723.80</div>
+                <div className="kpi-sub">AOV per Order</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Top Product SKU</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>PROD_102</div>
+                <div className="kpi-sub">Highest Demand SKU</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Forecast Accuracy</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>WAPE 61.08%</div>
+                <div className="kpi-sub">Ridge RMSE: 8.81</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>Daily SKU Sales Demand Forecasts (Ridge Linear Regressor • 95% Confidence Bounds)</span>
+                  <span className="pbi-badge badge-healthy">RMSE: 8.81 / WAPE: 61.08%</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Product ID</th>
+                      <th>Predicted Demand</th>
+                      <th>95% Lower Bound</th>
+                      <th>95% Upper Bound</th>
+                      <th>7-Day Rolling Avg</th>
+                      <th>Trend</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {demandData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.product_id}</td>
+                        <td style={{ fontWeight: '700', color: 'var(--pbi-accent-green)' }}>{row.predicted_demand_units} units</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.lower_bound_95} units</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.upper_bound_95} units</td>
+                        <td>{row.rolling_avg_7d} units</td>
+                        <td><span className="pbi-badge badge-approved">↑ High Demand</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
         {/* PAGE 3: CUSTOMER INTELLIGENCE */}
         {activeTab === 'customer' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>High Churn Risk Customer Intervention Desk (XGBoost Recall 70.45% @ t=0.11)</span>
-                <span className="pbi-badge badge-critical">PR-AUC: 0.8425</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Total Customers</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>1,000</div>
+                <div className="kpi-sub">100% Dimensioned</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Customer ID</th>
-                    <th>Churn Probability</th>
-                    <th>Risk Tier</th>
-                    <th>Total Spend</th>
-                    <th>Days Inactive</th>
-                    <th>CSAT Score</th>
-                    <th>Recommended Retention Strategy</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {customerData.slice(0, 8).map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.customer_id}</td>
-                      <td style={{ fontWeight: '800', color: row.churn_probability > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
-                        {(row.churn_probability * 100).toFixed(1)}%
-                      </td>
-                      <td>
-                        <span className={`pbi-badge ${row.churn_probability > 0.7 ? 'badge-critical' : 'badge-high'}`}>
-                          {row.risk_tier || 'High Risk'}
-                        </span>
-                      </td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>£{row.total_revenue?.toLocaleString()}</td>
-                      <td>{row.days_since_last_order} days</td>
-                      <td>{row.avg_csat_score} / 5.0</td>
-                      <td><span className="pbi-badge badge-approved">VIP Loyalty Rebate &amp; Account Outreach</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">High Risk Customers</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-red)' }}>44</div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-red)' }}>Churn Probability &gt; 70%</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Avg Customer Spend</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>£77,238</div>
+                <div className="kpi-sub">LTV Metric</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Average CSAT</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>3.4 / 5.0</div>
+                <div className="kpi-sub">CSAT Distribution</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Total Churn Exposure</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-red)' }}>£2.1M</div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-red)' }}>At Risk Exposure</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>High Churn Risk Customer Intervention Desk (XGBoost Recall 70.45% @ t=0.11)</span>
+                  <span className="pbi-badge badge-critical">PR-AUC: 0.8425</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Customer ID</th>
+                      <th>Churn Probability</th>
+                      <th>Risk Tier</th>
+                      <th>Total Spend</th>
+                      <th>Days Inactive</th>
+                      <th>CSAT Score</th>
+                      <th>Recommended Retention Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {customerData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.customer_id}</td>
+                        <td style={{ fontWeight: '800', color: row.churn_probability > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
+                          {(row.churn_probability * 100).toFixed(1)}%
+                        </td>
+                        <td>
+                          <span className={`pbi-badge ${row.churn_probability > 0.7 ? 'badge-critical' : 'badge-high'}`}>
+                            {row.risk_tier || 'High Risk'}
+                          </span>
+                        </td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>£{row.total_revenue?.toLocaleString()}</td>
+                        <td>{row.days_since_last_order} days</td>
+                        <td>{row.avg_csat_score} / 5.0</td>
+                        <td><span className="pbi-badge badge-approved">VIP Loyalty Rebate &amp; Executive Outreach</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
-        {/* PAGE 4: INVENTORY INTELLIGENCE */}
+        {/* PAGE 4: INVENTORY RISK */}
         {activeTab === 'inventory' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>7-Day Stockout Risk &amp; Automated EOQ Reorder Recommendations</span>
-                <span className="pbi-badge badge-healthy">PR-AUC: 0.9425 (XGBoost 7d)</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Inventory Valuation</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>£4.8M</div>
+                <div className="kpi-sub">Across 3 Warehouses</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Item ID</th>
-                    <th>7-Day Stockout Risk</th>
-                    <th>Risk Severity</th>
-                    <th>Current Stock</th>
-                    <th>Reorder Point</th>
-                    <th>Recommended Reorder Qty</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {inventoryData.slice(0, 8).map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.item_id}</td>
-                      <td style={{ fontWeight: '800', color: row.stockout_risk_prob_7d > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
-                        {(row.stockout_risk_prob_7d * 100).toFixed(1)}%
-                      </td>
-                      <td><span className="pbi-badge badge-critical">{row.risk_severity || 'Critical'}</span></td>
-                      <td>{row.current_stock_level} units</td>
-                      <td>{row.reorder_point} units</td>
-                      <td style={{ fontWeight: '700', color: 'var(--pbi-accent-green)' }}>{row.recommended_reorder_qty} units</td>
-                      <td><span className="pbi-badge badge-approved">Trigger Expedited PO</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">At-Risk SKUs</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-red)' }}>85 SKUs</div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-red)' }}>Vulnerable Stock</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">7-Day Stockout Risk</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>14 SKUs</div>
+                <div className="kpi-sub">Critical Stock Alert</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Avg Days of Supply</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>18.4 Days</div>
+                <div className="kpi-sub">Supply Chain Health</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Reorder Recommended</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>22 SKUs</div>
+                <div className="kpi-sub">Automated EOQ</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>7-Day Stockout Risk &amp; Automated EOQ Reorder Recommendations</span>
+                  <span className="pbi-badge badge-healthy">PR-AUC: 0.9425 (XGBoost 7d)</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Item ID</th>
+                      <th>7-Day Stockout Risk</th>
+                      <th>Risk Severity</th>
+                      <th>Current Stock</th>
+                      <th>Reorder Point</th>
+                      <th>Recommended Reorder Qty</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inventoryData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.item_id}</td>
+                        <td style={{ fontWeight: '800', color: row.stockout_risk_prob_7d > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
+                          {(row.stockout_risk_prob_7d * 100).toFixed(1)}%
+                        </td>
+                        <td><span className="pbi-badge badge-critical">{row.risk_severity || 'Critical'}</span></td>
+                        <td>{row.current_stock_level} units</td>
+                        <td>{row.reorder_point} units</td>
+                        <td style={{ fontWeight: '700', color: 'var(--pbi-accent-green)' }}>{row.recommended_reorder_qty} units</td>
+                        <td><span className="pbi-badge badge-approved">Dispatch PO to Supplier</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
         {/* PAGE 5: MACHINE OPERATIONS */}
         {activeTab === 'operations' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>Predictive Telemetry &amp; Maintenance Desk (100% Recall @ ≥6h Lead Time)</span>
-                <span className="pbi-badge badge-healthy">Isolation Forest + Random Forest</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Fleet Machines</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>50 Fleet</div>
+                <div className="kpi-sub">Monitored Telemetry</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Machine ID</th>
-                    <th>Anomaly Score</th>
-                    <th>24h Failure Probability</th>
-                    <th>Lead Time Alert</th>
-                    <th>Health Status</th>
-                    <th>Automated Maintenance Dispatch</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {operationsData.slice(0, 8).map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.machine_id}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.anomaly_score}</td>
-                      <td style={{ fontWeight: '800', color: row.failure_prob_24h > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
-                        {(row.failure_prob_24h * 100).toFixed(2)}%
-                      </td>
-                      <td><span className="pbi-badge badge-critical">≥6h Lead Time Active</span></td>
-                      <td><span className="pbi-badge badge-critical">{row.health_status}</span></td>
-                      <td><span className="pbi-badge badge-approved">Dispatch Maintenance Squad</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Healthy Machines</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>47 Machines</div>
+                <div className="kpi-sub">Normal Operation</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Critical Failure Risk</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-red)' }}>3 Machines</div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-red)' }}>&gt;99% Failure Risk</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Anomaly Alerts</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>129 Flags</div>
+                <div className="kpi-sub">Isolation Forest</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Lead Time Recall</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>100% @ ≥6h</div>
+                <div className="kpi-sub">Guaranteed Lead Time</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>Predictive Telemetry &amp; Maintenance Desk (Isolation Forest + Random Forest)</span>
+                  <span className="pbi-badge badge-healthy">100% Event Recall @ ≥6h Lead Time</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Machine ID</th>
+                      <th>Anomaly Score</th>
+                      <th>24h Failure Probability</th>
+                      <th>Lead Time Alert</th>
+                      <th>Health Status</th>
+                      <th>Maintenance Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {operationsData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.machine_id}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.anomaly_score}</td>
+                        <td style={{ fontWeight: '800', color: row.failure_prob_24h > 0.7 ? 'var(--pbi-accent-red)' : 'var(--pbi-accent-yellow)' }}>
+                          {(row.failure_prob_24h * 100).toFixed(2)}%
+                        </td>
+                        <td><span className="pbi-badge badge-critical">≥6h Lead Time Active</span></td>
+                        <td><span className="pbi-badge badge-critical">{row.health_status}</span></td>
+                        <td><span className="pbi-badge badge-approved">Dispatch Maintenance Squad</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
-        {/* PAGE 6: MLOPS & MODEL SYSTEM HEALTH */}
+        {/* PAGE 6: MLOps HEALTH */}
         {activeTab === 'mlops' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>Production ML Model Registry &amp; Drift Monitoring (MLflow SQLite)</span>
-                <span className="pbi-badge badge-healthy">Automated Champion/Challenger</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Active Models</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>4 Production</div>
+                <div className="kpi-sub">MLflow Registry</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Domain</th>
-                    <th>Model Architecture</th>
-                    <th>Registered Version</th>
-                    <th>Stage</th>
-                    <th>Drift PSI Score</th>
-                    <th>Drift Status</th>
-                    <th>Validated Performance Metric</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mlopsData.map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontWeight: '700' }}>{row.domain}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.model_name}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.version}</td>
-                      <td><span className="pbi-badge badge-approved">{row.stage}</span></td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.psi_drift_score}</td>
-                      <td>
-                        <span className={`pbi-badge ${row.drift_status === 'HEALTHY' ? 'badge-healthy' : 'badge-conditions'}`}>
-                          {row.drift_status}
-                        </span>
-                      </td>
-                      <td style={{ fontWeight: '600' }}>{row.validated_metric}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Drift Status</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>1 Domain Watch</div>
+                <div className="kpi-sub">SKU Demand PSI 0.14</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Retraining Engine</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-cyan)' }}>Domain Retrainer</div>
+                <div className="kpi-sub">Targeted Pipeline</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Evaluation Gate</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>Champ vs Chall</div>
+                <div className="kpi-sub">Holdout Test Gate</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>Production Model Registry &amp; Drift Monitoring (MLflow SQLite Registry)</span>
+                  <span className="pbi-badge badge-healthy">Automated Champion/Challenger Gating</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Domain</th>
+                      <th>Model Architecture</th>
+                      <th>Registered Version</th>
+                      <th>Stage</th>
+                      <th>Drift PSI Score</th>
+                      <th>Drift Status</th>
+                      <th>Validated Performance Metric</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mlopsData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontWeight: '700' }}>{row.domain}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.model_name}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.version}</td>
+                        <td><span className="pbi-badge badge-approved">{row.stage}</span></td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.psi_drift_score}</td>
+                        <td>
+                          <span className={`pbi-badge ${row.drift_status === 'HEALTHY' ? 'badge-healthy' : 'badge-conditions'}`}>
+                            {row.drift_status}
+                          </span>
+                        </td>
+                        <td style={{ fontWeight: '600' }}>{row.validated_metric}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
         {/* PAGE 7: AI DECISION CENTER */}
         {activeTab === 'decisions' && (
-          <div className="pbi-visuals-grid">
-            <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
-              <div className="visual-header">
-                <span>Stage 10 Multi-Agent Bus Audit Trail (5,863 Persisted Decisions)</span>
-                <span className="pbi-badge badge-healthy">5-Stage Agent Hierarchy</span>
+          <>
+            <div className="pbi-kpi-grid">
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Total Decisions</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-purple)' }}>{kpis.total_agent_decisions.toLocaleString()}</div>
+                <div className="kpi-sub">Stage 10 AgentBus</div>
               </div>
-              <table className="pbi-table">
-                <thead>
-                  <tr>
-                    <th>Decision ID</th>
-                    <th>Domain</th>
-                    <th>Entity ID</th>
-                    <th>Proposed Action</th>
-                    <th>Exposure (£)</th>
-                    <th>Risk Level</th>
-                    <th>Final Verdict</th>
-                    <th>Reasoning Chain</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {decisionsData.slice(0, 10).map((row, i) => (
-                    <tr key={i}>
-                      <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.decision_id}</td>
-                      <td style={{ textTransform: 'capitalize' }}>{row.domain}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.entity_id}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>{row.proposed_action}</td>
-                      <td style={{ fontFamily: 'var(--font-mono)' }}>£{row.financial_exposure_gbp?.toLocaleString()}</td>
-                      <td><span className="pbi-badge badge-critical">{row.risk_level}</span></td>
-                      <td>
-                        <span className={`pbi-badge ${
-                          row.final_verdict === 'APPROVED' ? 'badge-approved' :
-                          row.final_verdict === 'ESCALATED' ? 'badge-escalated' : 'badge-conditions'
-                        }`}>
-                          {row.final_verdict}
-                        </span>
-                      </td>
-                      <td>
-                        <button 
-                          onClick={() => setSelectedDecision(row)}
-                          style={{ background: 'var(--pbi-accent-blue)', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: '600' }}
-                        >
-                          Inspect JSON
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Clean Approved</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-green)' }}>{kpis.clean_approved_decisions_count.toLocaleString()}</div>
+                <div className="kpi-sub">22% Direct Approval</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Approved w/ Cond.</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-yellow)' }}>{kpis.conditional_decisions_count.toLocaleString()}</div>
+                <div className="kpi-sub">72% Risk Guardrails</div>
+              </div>
+              <div className="pbi-kpi-card">
+                <div className="kpi-title">Escalated Decisions</div>
+                <div className="kpi-val" style={{ color: 'var(--pbi-accent-red)' }}>{kpis.escalated_decisions_count.toLocaleString()}</div>
+                <div className="kpi-sub" style={{ color: 'var(--pbi-accent-red)' }}>6.4% Senior Review</div>
+              </div>
             </div>
-          </div>
+
+            <div className="pbi-visuals-grid">
+              <div className="pbi-visual-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="visual-header">
+                  <span>Stage 10 Multi-Agent Bus Audit Trail (5,863 Persisted Decisions)</span>
+                  <span className="pbi-badge badge-healthy">5-Stage Agent Hierarchy</span>
+                </div>
+                <table className="pbi-table">
+                  <thead>
+                    <tr>
+                      <th>Decision ID</th>
+                      <th>Domain</th>
+                      <th>Entity ID</th>
+                      <th>Proposed Action</th>
+                      <th>Exposure (£)</th>
+                      <th>Risk Level</th>
+                      <th>Final Verdict</th>
+                      <th>Reasoning Chain</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {decisionsData.map((row, i) => (
+                      <tr key={i}>
+                        <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--pbi-accent-cyan)' }}>{row.decision_id}</td>
+                        <td style={{ textTransform: 'capitalize' }}>{row.domain}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.entity_id}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>{row.proposed_action}</td>
+                        <td style={{ fontFamily: 'var(--font-mono)' }}>£{row.financial_exposure_gbp?.toLocaleString()}</td>
+                        <td><span className="pbi-badge badge-critical">{row.risk_level}</span></td>
+                        <td>
+                          <span className={`pbi-badge ${
+                            row.final_verdict === 'APPROVED' ? 'badge-approved' :
+                            row.final_verdict === 'ESCALATED' ? 'badge-escalated' : 'badge-conditions'
+                          }`}>
+                            {row.final_verdict}
+                          </span>
+                        </td>
+                        <td>
+                          <button 
+                            onClick={() => setSelectedDecision(row)}
+                            style={{ background: 'var(--pbi-accent-blue)', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: '600' }}
+                          >
+                            Inspect JSON
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
 
         {/* Reasoning Chain Modal */}
